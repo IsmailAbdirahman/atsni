@@ -38,6 +38,7 @@ dependencies:
 
   flutter_riverpod: ^2.0.2
   riverpod_annotation: ^1.0.4
+  shared_preferences: ^2.0.15
 
 
 

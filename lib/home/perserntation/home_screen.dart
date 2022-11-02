@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: const Text('he'),
+      body: const Text('Wlcome Home Page'),
     );
   }
 }

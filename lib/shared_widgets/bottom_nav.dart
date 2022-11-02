@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oldinsa/login/persentation/login_screen.dart';
+import 'package:oldinsa/profile/persentation/profile_screen.dart';
 import 'package:oldinsa/register/persentation/register_screen.dart';
 import 'package:oldinsa/shared_widgets/custom_bottom_nav.dart';
 
@@ -17,20 +18,17 @@ class _BottomNavState extends State<BottomNav> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    RegisterScreen(),
-    LoginScreen(),
+    const Text('Home'),
     const Text(
-      'Index 2: School',
+      'Explore',
       style: optionStyle,
     ),
     const Text(
-      'Index 1: Business',
+      'Camera',
       style: optionStyle,
     ),
-    const Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    const Text('Notifications'),
+     ProfileScreen()
   ];
 
   void _onItemTapped(int index) {

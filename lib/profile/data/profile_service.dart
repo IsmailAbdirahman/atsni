@@ -1,29 +1,28 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:oldinsa/login/domain/login_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:oldinsa/shared_widgets/endpoints.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:oldinsa/login/controller/login_controller.dart';
 
 import '../../home/domain/posts.dart';
+import '../../shared_widgets/endpoints.dart';
+import '../domain/profileModel.dart';
 
-class LoginHttp {
-  Future<String> login(String email, String password) async {
-    final data = {'email': email, 'password': password};
+final futureprofileServiceProvider = FutureProvider((ref) async {
+  final res = await ref.watch(profileServiceProvider).myProfile();
+  return res;
+});
 
-    final response = await http.post(Uri.parse('$baseUrl/users/login'),
-        headers: headers, body: jsonEncode(data));
+final profileServiceProvider = Provider(ProfileService.new);
 
-    try {
-      token = jsonDecode(response.body)['token'];
-      return jsonDecode(response.body)['token'];
-    } catch (e) {
-      throw (e.toString());
-    }
-  }
+class ProfileService {
+  final Ref ref;
 
-  Future<LoginModel> myProfile() async {
+  ProfileService(this.ref);
+
+  Future<ProfileModel> myProfile() async {
+    String? token = await ref.read(futureTokenProvider.future);
     final heade = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -35,16 +34,14 @@ class LoginHttp {
     debugPrint(response.body.toString());
     try {
       debugPrint(jsonDecode(response.body)['']);
-      return LoginModel.fromJson(jsonDecode(response.body));
+      return ProfileModel.fromJson(jsonDecode(response.body));
     } catch (e) {
       throw (e.toString());
     }
   }
 
-
-
   Future<PostsModel> likePost(String id) async {
-    debugPrint(token);
+    String? token = await ref.read(futureTokenProvider.future);
 
     final heade = {
       'Content-Type': 'application/json',
