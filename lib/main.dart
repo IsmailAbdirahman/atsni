@@ -2,14 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oldinsa/home/perserntation/home_screen.dart';
-import 'package:oldinsa/login/persentation/login_screen.dart';
-import 'package:oldinsa/profile/persentation/profile_screen.dart';
+import 'package:oldinsa/features/login/persentation/login_screen.dart';
 import 'package:oldinsa/shared_widgets/bottom_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'login/controller/login_controller.dart';
-import 'login/service/shared_pref.dart';
+import 'features/login/controller/login_controller.dart';
+import 'features/login/service/shared_pref.dart';
+import 'features/profile/persentation/profile_screen.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -23,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -54,8 +54,7 @@ class Wrapper extends ConsumerWidget {
           children: [
             Expanded(
                 child: tokenProvider.when(
-                    data: (data) =>
-                        data != null ?  ProfileScreen() : LoginScreen(),
+                    data: (data) => data != null ? BottomNav() : LoginScreen(),
                     error: (e, ee) => const Text('something went wrong'),
                     loading: () => const CircularProgressIndicator()))
           ],

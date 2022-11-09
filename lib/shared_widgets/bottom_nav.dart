@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:oldinsa/login/persentation/login_screen.dart';
-import 'package:oldinsa/profile/persentation/profile_screen.dart';
-import 'package:oldinsa/register/persentation/register_screen.dart';
+import 'package:oldinsa/features/login/persentation/login_screen.dart';
 import 'package:oldinsa/shared_widgets/custom_bottom_nav.dart';
 
-import '../home/perserntation/home_screen.dart';
+import '../features/home/perserntation/home_screen.dart';
+import '../features/new_post/persentation/new_post_screen.dart';
+import '../features/profile/persentation/profile_screen.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -18,17 +18,14 @@ class _BottomNavState extends State<BottomNav> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    const Text('Home'),
+    HomeScreen(),
     const Text(
       'Explore',
       style: optionStyle,
     ),
-    const Text(
-      'Camera',
-      style: optionStyle,
-    ),
+    const NewPostScreen(),
     const Text('Notifications'),
-     ProfileScreen()
+    const ProfileScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -40,12 +37,11 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xff1e2225),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(

@@ -598,7 +598,7 @@ class _Tile extends StatelessWidget {
       width: 100,
       child: Card(
         elevation: 0.0,
-        color: Colors.cyan[900],
+        color: const Color(0xFF1e2225),
         margin: const EdgeInsets.all(1.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
