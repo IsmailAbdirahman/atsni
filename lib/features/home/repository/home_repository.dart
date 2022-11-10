@@ -21,15 +21,15 @@ class HomeRepository {
     return List<PostsModel>.from(response.map((e) => PostsModel.fromJson(e)));
   }
 
+  ///TODO: Fix like and unlike post
+  ///TODO: Show my Posts on Home Page
+  ///TODO: Add Profile Screen
   Future<bool> likePost(String postId,
       {String? endPoint, Map<String, String>? header}) async {
-    final response = await httpService.get(endPoint!, header!);
+    final likedUsers = await getPosts('getMyFollowingsPosts', header!);
+    final response = await httpService.get(endPoint!, header);
     var data = PostsModel.fromJson(response);
 
-    if (data.likes.contains(postId)) {
-      return false;
-    }
-
-    return true;
+    return false;
   }
 }

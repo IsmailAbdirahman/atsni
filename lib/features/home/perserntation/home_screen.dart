@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/domain/posts.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../profile/controller/profile_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../controller/home_controller.dart';
 import '../service/home_service.dart';
@@ -26,7 +30,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeRef = ref.watch(futureHomeControllerProvider);
+    final homeRef = ref.watch(homeControllerProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -71,6 +75,8 @@ class PostTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final myProfileRef = ref.watch(profileControllerProvider.notifier).myProfile();
+
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Card(
@@ -109,11 +115,17 @@ class PostTile extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 8, left: 0.0),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.favorite,
-                    size: 16,
-                    color: Colors.grey,
-                  ),
+                  postMo.likes.contains(myProfileRef) == true
+                      ? const Icon(
+                          Icons.favorite,
+                          size: 16,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite,
+                          size: 16,
+                          color: Colors.grey,
+                        ),
                   Padding(
                     padding: const EdgeInsets.only(left: 4.0),
                     child: Text(

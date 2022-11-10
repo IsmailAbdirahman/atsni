@@ -9,9 +9,6 @@ class ProfileModel {
 
   String username;
   String email;
-  // List<String> following;
-  // List<String> follower;
-  // List<String> likedPosts;
 
   ProfileModel({
     required this.id,

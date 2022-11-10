@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/repository/home_repository.dart';
 
 import '../../login/controller/login_controller.dart';
+import '../../profile/controller/profile_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../domain/posts.dart';
 
@@ -15,13 +16,14 @@ class HomeEntity {
   }
 }
 
-final futureHomeControllerProvider = FutureProvider((ref) async {
-  final homeController =
-      await ref.watch(homeControllerProvider.notifier).getPosts();
-  return homeController;
-});
+// final futureHomeControllerProvider = FutureProvider((ref) async {
+//   final homeController =
+//       await ref.watch(homeControllerProvider.notifier).getPosts();
+//   return homeController;
+// });
 
-final homeControllerProvider = StateNotifierProvider((ref) {
+final homeControllerProvider =
+    StateNotifierProvider<HomeController, AsyncValue<List<PostsModel>>>((ref) {
   final profileService = ref.watch(profileServiceProvider);
   final homeRepository = ref.watch(homeRepositoryProvider);
   final reff = ref;
@@ -40,7 +42,9 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
       {required this.profileService,
       required this.homeRepository,
       required this.ref})
-      : super(const AsyncValue.loading());
+      : super(const AsyncValue.loading()) {
+    getPosts();
+  }
 
   String endPoint = 'getMyFollowingsPosts';
 
@@ -52,6 +56,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
       'Authorization': 'Bearer $token',
     };
     final data = await homeRepository.getPosts('getMyFollowingsPosts', header);
+    state = AsyncValue.data(data);
     return data;
   }
 
@@ -64,7 +69,16 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
     };
     final data = await homeRepository.likePost(postId,
         endPoint: 'likedPost/$postId', header: header);
-    print(data);
+    final d = await getPosts();
+    for (var user in d) {
+      final myID =
+          await ref.read(profileControllerProvider.notifier).myProfile();
+      var myFeedPostLikes = user.likes;
+      print('MY ID: ${myID.id}');
+      print('MY FeedPost Likes: $myFeedPostLikes');
+    }
+
+    state = AsyncValue.data(d);
     return true;
   }
 }
