@@ -6,21 +6,22 @@ part 'posts.g.dart';
 
 @JsonSerializable()
 class PostsModel {
-
   @JsonKey(name: '_id')
   String id;
 
   String caption;
   int countLikes;
   List<String> likes;
- ProfileModel author;
+  ProfileModel author;
+  bool isLiked;
 
   PostsModel(
       {required this.id,
       required this.caption,
       required this.countLikes,
-      required this.likes, required this.author
-    });
+      required this.likes,
+      required this.author,
+      this.isLiked = false});
 
   factory PostsModel.fromJson(Map<String, dynamic> data) =>
       _$PostsModelFromJson(data);

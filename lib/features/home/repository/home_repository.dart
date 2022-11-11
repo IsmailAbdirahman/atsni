@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/domain/posts.dart';
 import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
@@ -21,9 +20,6 @@ class HomeRepository {
     return List<PostsModel>.from(response.map((e) => PostsModel.fromJson(e)));
   }
 
-  ///TODO: Fix like and unlike post
-  ///TODO: Show my Posts on Home Page
-  ///TODO: Add Profile Screen
   Future<bool> likePost(String postId,
       {String? endPoint, Map<String, String>? header}) async {
     final likedUsers = await getPosts('getMyFollowingsPosts', header!);

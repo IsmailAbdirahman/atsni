@@ -69,14 +69,13 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class PostTile extends ConsumerWidget {
-  const PostTile({super.key, required this.postMo});
+  PostTile({super.key, required this.postMo});
 
   final PostsModel postMo;
+  late bool isLiked;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myProfileRef = ref.watch(profileControllerProvider.notifier).myProfile();
-
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Card(
@@ -115,15 +114,15 @@ class PostTile extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 8, left: 0.0),
               child: Row(
                 children: [
-                  postMo.likes.contains(myProfileRef) == true
+                  postMo.isLiked == true
                       ? const Icon(
                           Icons.favorite,
-                          size: 16,
+                          size: 18,
                           color: Colors.red,
                         )
                       : const Icon(
                           Icons.favorite,
-                          size: 16,
+                          size: 18,
                           color: Colors.grey,
                         ),
                   Padding(

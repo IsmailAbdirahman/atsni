@@ -16,12 +16,6 @@ class HomeEntity {
   }
 }
 
-// final futureHomeControllerProvider = FutureProvider((ref) async {
-//   final homeController =
-//       await ref.watch(homeControllerProvider.notifier).getPosts();
-//   return homeController;
-// });
-
 final homeControllerProvider =
     StateNotifierProvider<HomeController, AsyncValue<List<PostsModel>>>((ref) {
   final profileService = ref.watch(profileServiceProvider);
@@ -46,8 +40,6 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
     getPosts();
   }
 
-  String endPoint = 'getMyFollowingsPosts';
-
   Future<List<PostsModel>> getPosts() async {
     String? token = await ref.read(futureTokenProvider.future);
     final header = {
@@ -56,7 +48,18 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
       'Authorization': 'Bearer $token',
     };
     final data = await homeRepository.getPosts('getMyFollowingsPosts', header);
-    state = AsyncValue.data(data);
+    final profile =
+        await ref.read(profileControllerProvider.notifier).myProfile();
+    final ddd = data.map((post) {
+      return PostsModel(
+          id: post.id,
+          caption: post.caption,
+          countLikes: post.countLikes,
+          likes: post.likes,
+          author: post.author,
+          isLiked: post.likes.contains(profile.id));
+    }).toList();
+    state = AsyncValue.data(ddd);
     return data;
   }
 
@@ -67,18 +70,9 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    final data = await homeRepository.likePost(postId,
+    await homeRepository.likePost(postId,
         endPoint: 'likedPost/$postId', header: header);
-    final d = await getPosts();
-    for (var user in d) {
-      final myID =
-          await ref.read(profileControllerProvider.notifier).myProfile();
-      var myFeedPostLikes = user.likes;
-      print('MY ID: ${myID.id}');
-      print('MY FeedPost Likes: $myFeedPostLikes');
-    }
-
-    state = AsyncValue.data(d);
+    await getPosts();
     return true;
   }
 }

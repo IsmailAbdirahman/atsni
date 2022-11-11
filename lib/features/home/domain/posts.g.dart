@@ -12,6 +12,7 @@ PostsModel _$PostsModelFromJson(Map<String, dynamic> json) => PostsModel(
       countLikes: json['countLikes'] as int,
       likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
       author: ProfileModel.fromJson(json['author'] as Map<String, dynamic>),
+      isLiked: json['isLiked'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$PostsModelToJson(PostsModel instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$PostsModelToJson(PostsModel instance) =>
       'countLikes': instance.countLikes,
       'likes': instance.likes,
       'author': instance.author,
+      'isLiked': instance.isLiked,
     };
