@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/profile/controller/followingAndFollowers_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
 import '../../home/controller/home_controller.dart';
@@ -83,7 +84,14 @@ class ProfileScreen extends ConsumerWidget {
                                                     ),
                                                   ),
                                                   GestureDetector(
-                                                    onTap: () {},
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const FollowingAndFollowersListScreen()),
+                                                      );
+                                                    },
                                                     child: ShowFollowNumbers(
                                                         data: data.profile
                                                             .following.length
@@ -195,17 +203,20 @@ class ShowFollowNumbers extends StatelessWidget {
 }
 
 class FollowingAndFollowersListScreen extends ConsumerWidget {
-  final ProfileModel data;
-
-  const FollowingAndFollowersListScreen({Key? key, required this.data})
-      : super(key: key);
+  const FollowingAndFollowersListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final followRef = ref.watch(followControllerProvider);
     return Scaffold(
-      body: Column(
-        children: [Text(data.username)],
-      ),
-    );
+        body: followRef.when(
+            data: (data) => ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Text(data[index].username);
+                  },
+                ),
+            error: (error, r) => const Text('error'),
+            loading: () => const CircularProgressIndicator()));
   }
 }
