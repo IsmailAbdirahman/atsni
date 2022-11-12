@@ -32,4 +32,18 @@ class ProfileController extends StateNotifier<AsyncValue<MyProfile>> {
     state = AsyncValue.data(result);
     return result;
   }
+
+  // Future<List<ProfileModel>> getAllMyFollowing() async {
+  //   String? token = await ref.read(futureTokenProvider.future);
+  //   final header = {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json',
+  //     'Authorization': 'Bearer $token',
+  //   };
+  //   final data = await profileRepository.getAllMyFollowing(
+  //       'getMyFollowingsPosts', header);
+  //  // print(data);
+  //
+  //   return data;
+  // }
 }

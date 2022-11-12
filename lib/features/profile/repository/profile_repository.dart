@@ -19,7 +19,13 @@ class ProfileRepository {
     final response = await profileService.get(endPoint, header);
     print(response);
     var data = MyProfile.fromJson(response);
-
     return data;
   }
+
+  // Future<List<ProfileModel>> getAllMyFollowing(
+  //     String endPoint, Map<String, String> header) async {
+  //   final response = await profileService.get(endPoint, header);
+  //   return List<ProfileModel>.from(
+  //       response.map((user) => ProfileModel.fromJson(user)));
+  // }
 }
