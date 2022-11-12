@@ -5,13 +5,13 @@ import '../../login/controller/login_controller.dart';
 import '../repository/profile_repository.dart';
 
 final profileControllerProvider =
-    StateNotifierProvider<ProfileController, AsyncValue<ProfileModel>>((ref) {
+    StateNotifierProvider<ProfileController, AsyncValue<MyProfile>>((ref) {
   final profileRepository = ref.watch(profileRepositoryProvider);
   final reff = ref;
   return ProfileController(profileRepository: profileRepository, ref: reff);
 });
 
-class ProfileController extends StateNotifier<AsyncValue<ProfileModel>> {
+class ProfileController extends StateNotifier<AsyncValue<MyProfile>> {
   final ProfileRepository profileRepository;
   final Ref ref;
 
@@ -20,7 +20,7 @@ class ProfileController extends StateNotifier<AsyncValue<ProfileModel>> {
     myProfile();
   }
 
-  Future<ProfileModel> myProfile() async {
+  Future<MyProfile> myProfile() async {
     state = const AsyncValue.loading();
     String? token = await ref.read(futureTokenProvider.future);
     final header = {

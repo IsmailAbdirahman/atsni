@@ -57,7 +57,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
           countLikes: post.countLikes,
           likes: post.likes,
           author: post.author,
-          isLiked: post.likes.contains(profile.id));
+          isLiked: post.likes.contains(profile.profile.id));
     }).toList();
     state = AsyncValue.data(ddd);
     return data;

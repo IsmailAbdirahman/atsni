@@ -13,7 +13,7 @@ class ProfileService extends HttpService {
     try {
       final response = await http.get(Uri.parse('$baseUrl/users/$endPoint'),
           headers: header);
-      final data = jsonDecode(response.body)['profile'];
+      final data = jsonDecode(response.body);
 
       return data;
     } catch (e) {

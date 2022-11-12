@@ -14,9 +14,12 @@ class ProfileRepository {
 
   ProfileRepository(this.profileService);
 
-  Future<ProfileModel> myProfile(
+  Future<MyProfile> myProfile(
       String endPoint, Map<String, String> header) async {
     final response = await profileService.get(endPoint, header);
-    return ProfileModel.fromJson(response);
+    print(response);
+    var data = MyProfile.fromJson(response);
+
+    return data;
   }
 }
