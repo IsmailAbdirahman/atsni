@@ -40,6 +40,7 @@ class ProfileScreen extends ConsumerWidget {
                             child: SizedBox(
                               height: 210,
                               child: Card(
+                                elevation: 3,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(7)),
                                 color: const Color(0xFFf2f2f2),
@@ -48,24 +49,9 @@ class ProfileScreen extends ConsumerWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        const Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                            height: 90,
-                                            width: 90,
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/s1.jpg'),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
+                                        const ProfilePhoto(),
+                                        const CustomVerticalDivider(
                                           height: 131,
-                                          child: VerticalDivider(
-                                            thickness: 0.5,
-                                            color: dividerColor,
-                                          ),
                                         ),
                                         Expanded(
                                           child: Column(
@@ -76,12 +62,8 @@ class ProfileScreen extends ConsumerWidget {
                                                       data: data.myPosts.length
                                                           .toString(),
                                                       name: "Posts"),
-                                                  SizedBox(
+                                                  const CustomVerticalDivider(
                                                     height: 90,
-                                                    child: VerticalDivider(
-                                                      thickness: 0.5,
-                                                      color: dividerColor,
-                                                    ),
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
@@ -98,12 +80,8 @@ class ProfileScreen extends ConsumerWidget {
                                                             .toString(),
                                                         name: "Following"),
                                                   ),
-                                                  SizedBox(
+                                                  const CustomVerticalDivider(
                                                     height: 90,
-                                                    child: VerticalDivider(
-                                                      thickness: 0.5,
-                                                      color: dividerColor,
-                                                    ),
                                                   ),
                                                   ShowFollowNumbers(
                                                       data: data.profile
@@ -116,24 +94,7 @@ class ProfileScreen extends ConsumerWidget {
                                                 thickness: 0.5,
                                                 color: dividerColor,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: const [
-                                                  Text(
-                                                    'Edit Your Profile',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 19),
-                                                  ),
-                                                  Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Colors.grey,
-                                                  )
-                                                ],
-                                              ),
+                                              const EditProfile()
                                             ],
                                           ),
                                         )
@@ -168,6 +129,11 @@ class ProfileScreen extends ConsumerWidget {
                         },
                         error: (e, r) => Text(r.toString()),
                         loading: () => const CircularProgressIndicator()),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: ViewProfile(),
+                    ),
+                    ViewUserPosts()
                   ],
                 ),
               ),
@@ -218,5 +184,168 @@ class FollowingAndFollowersListScreen extends ConsumerWidget {
                 ),
             error: (error, r) => const Text('error'),
             loading: () => const CircularProgressIndicator()));
+  }
+}
+
+class ViewProfile extends StatelessWidget {
+  const ViewProfile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 77,
+      child: Card(
+        color: const Color(0xFFf2f2f2),
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 12.0, left: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              ProfileIcon(
+                iconData: Icons.person,
+              ),
+              Flexible(
+                  child: VerticalDivider(
+                thickness: 2,
+              )),
+              ProfileIcon(
+                iconData: Icons.person,
+              ),
+              Flexible(
+                  child: VerticalDivider(
+                thickness: 2,
+              )),
+              ProfileIcon(
+                iconData: Icons.person,
+              ),
+              Flexible(
+                  child: VerticalDivider(
+                thickness: 2,
+              )),
+              ProfileIcon(
+                iconData: Icons.person,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileIcon extends StatelessWidget {
+  final IconData iconData;
+
+  const ProfileIcon({Key? key, required this.iconData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      iconData,
+      color: Colors.blue,
+    );
+  }
+}
+
+class ViewUserPosts extends StatelessWidget {
+  ViewUserPosts({Key? key}) : super(key: key);
+
+  final List<String> userPosts = [
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+    'assets/images/s1.jpg',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+            ),
+            itemCount: userPosts.length,
+            itemBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                height: 90,
+                width: 90,
+                child: Card(
+                  elevation: 2,
+                  child: Image(
+                    image: AssetImage(userPosts[index]),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              );
+            }),
+      ),
+    );
+  }
+}
+
+class ProfilePhoto extends StatelessWidget {
+  const ProfilePhoto({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: 90,
+        width: 90,
+        child: Image(
+          image: AssetImage('assets/images/s1.jpg'),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+}
+
+class CustomVerticalDivider extends StatelessWidget {
+  const CustomVerticalDivider({Key? key, required this.height})
+      : super(key: key);
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: const VerticalDivider(
+        thickness: 0.5,
+        color: Colors.grey,
+      ),
+    );
+  }
+}
+
+class EditProfile extends StatelessWidget {
+  const EditProfile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: const [
+        Text(
+          'Edit Your Profile',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 19),
+        ),
+        Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.grey,
+        )
+      ],
+    );
   }
 }
