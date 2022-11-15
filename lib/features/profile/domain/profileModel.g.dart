@@ -7,15 +7,17 @@ part of 'profileModel.dart';
 // **************************************************************************
 
 MyProfile _$MyProfileFromJson(Map<String, dynamic> json) => MyProfile(
-      myPosts: (json['myPosts'] as List<dynamic>)
+      posts: (json['posts'] as List<dynamic>)
           .map((e) => MyPosts.fromJson(e as Map<String, dynamic>))
           .toList(),
       profile: ProfileModel.fromJson(json['profile'] as Map<String, dynamic>),
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$MyProfileToJson(MyProfile instance) => <String, dynamic>{
-      'myPosts': instance.myPosts,
+      'posts': instance.posts,
       'profile': instance.profile,
+      'status': instance.status,
     };
 
 ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
@@ -26,6 +28,7 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       id: json['_id'] as String,
       username: json['username'] as String,
       email: json['email'] as String,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
@@ -35,6 +38,7 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'email': instance.email,
       'following': instance.following,
       'follower': instance.follower,
+      'status': instance.status,
     };
 
 MyPosts _$MyPostsFromJson(Map<String, dynamic> json) => MyPosts(

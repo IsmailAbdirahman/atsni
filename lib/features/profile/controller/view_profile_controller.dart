@@ -3,15 +3,16 @@ import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
 import '../../login/controller/login_controller.dart';
 import '../repository/profile_repository.dart';
-///TODO: Call ['/users/viewProfile/:id'] API
-///TODO: Fix the code of this class to view Profile
-///TODO: Add status to ProfileModel class or create new one
-///TODO: Show User Profile Info,
-///TODO: Add Follow and and Follow feature
 
+///TODO: Call ['/users/viewProfile/:id'] API  -----------
+///TODO: Fix the code of this class to view Profile ---------
+///TODO: Add status to ProfileModel class or create new one  -------
+///TODO: Show User Profile Info,------
+///TODO: Add Follow and and Follow feature
+///TODO: Refactor Profile screen
 
 final viewControllerProvider =
-StateNotifierProvider<ViewProfileController, AsyncValue<MyProfile>>((ref) {
+    StateNotifierProvider<ViewProfileController, AsyncValue<MyProfile>>((ref) {
   final profileRepository = ref.watch(profileRepositoryProvider);
   final reff = ref;
   return ViewProfileController(profileRepository: profileRepository, ref: reff);
@@ -23,11 +24,10 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
 
   ViewProfileController({required this.profileRepository, required this.ref})
       : super(const AsyncValue.loading()) {
-    myProfile();
     getAllMyFollowing();
   }
 
-  Future<MyProfile> myProfile() async {
+  Future<MyProfile> viewUserProfile(String id) async {
     state = const AsyncValue.loading();
     String? token = await ref.read(futureTokenProvider.future);
     final header = {
@@ -35,7 +35,8 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    final result = await profileRepository.myProfile('myProfile', header);
+    final result =
+        await profileRepository.viewUserProfile(id, 'viewProfile/$id', header);
     state = AsyncValue.data(result);
     return result;
   }

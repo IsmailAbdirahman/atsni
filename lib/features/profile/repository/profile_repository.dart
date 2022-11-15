@@ -28,4 +28,10 @@ class ProfileRepository {
     return List<ProfileModel>.from(
         response.map((user) => ProfileModel.fromJson(user)));
   }
+
+  Future<MyProfile> viewUserProfile(
+      String id, String endPoint, Map<String, String> header) async {
+    final response = await profileService.get(endPoint, header);
+    return MyProfile.fromJson(response);
+  }
 }

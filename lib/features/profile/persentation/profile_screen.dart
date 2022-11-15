@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/profile/controller/followingAndFollowers_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
 import '../../home/controller/home_controller.dart';
 import '../controller/profile_controller.dart';
+import '../controller/view_profile_controller.dart';
 import '../data/profile_service.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -13,133 +15,137 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileRef = ref.watch(profileControllerProvider);
-    Color dividerColor = Colors.grey;
     return profileRef.when(
-        data: (data) => Scaffold(
-              backgroundColor: const Color(0xFFd7d8d9),
-              appBar: AppBar(
-                backgroundColor: const Color(0xff306088),
-                title: Text(data.profile.username),
-                centerTitle: true,
-                actions: const [
-                  Padding(
-                    padding: EdgeInsets.only(right: 8.0),
-                    child: Icon(Icons.settings),
-                  )
-                ],
-              ),
-              body: SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child: Column(
-                  children: [
-                    profileRef.when(
-                        data: (data) {
-                          return Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: SizedBox(
-                              height: 210,
-                              child: Card(
-                                elevation: 3,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7)),
-                                color: const Color(0xFFf2f2f2),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+        data: (data) => ViewMyProfile(data: data),
+        error: (e, r) => const Text('ss'),
+        loading: () => const CircularProgressIndicator());
+  }
+}
+
+class ViewMyProfile extends StatelessWidget {
+  final data;
+
+  const ViewMyProfile({Key? key, required this.data}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Color dividerColor = Colors.grey;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFd7d8d9),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff306088),
+        title: Text(data.profile.username),
+        centerTitle: true,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(Icons.settings),
+          )
+        ],
+      ),
+      body: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                height: 210,
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7)),
+                  color: const Color(0xFFf2f2f2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const ProfilePhoto(),
+                          const CustomVerticalDivider(
+                            height: 131,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        const ProfilePhoto(),
-                                        const CustomVerticalDivider(
-                                          height: 131,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  ShowFollowNumbers(
-                                                      data: data.myPosts.length
-                                                          .toString(),
-                                                      name: "Posts"),
-                                                  const CustomVerticalDivider(
-                                                    height: 90,
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const FollowingAndFollowersListScreen()),
-                                                      );
-                                                    },
-                                                    child: ShowFollowNumbers(
-                                                        data: data.profile
-                                                            .following.length
-                                                            .toString(),
-                                                        name: "Following"),
-                                                  ),
-                                                  const CustomVerticalDivider(
-                                                    height: 90,
-                                                  ),
-                                                  ShowFollowNumbers(
-                                                      data: data.profile
-                                                          .follower.length
-                                                          .toString(),
-                                                      name: "Follower"),
-                                                ],
-                                              ),
-                                              Divider(
-                                                thickness: 0.5,
-                                                color: dividerColor,
-                                              ),
-                                              const EditProfile()
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                    ShowFollowNumbers(
+                                        data: data.posts.length.toString(),
+                                        name: "Posts"),
+                                    const CustomVerticalDivider(
+                                      height: 90,
                                     ),
-                                    Divider(
-                                      thickness: 0.5,
-                                      color: dividerColor,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const FollowingAndFollowersListScreen()),
+                                        );
+                                      },
+                                      child: ShowFollowNumbers(
+                                          data: data.profile.following.length
+                                              .toString(),
+                                          name: "Following"),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        data.profile.username,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 19),
-                                      ),
+                                    const CustomVerticalDivider(
+                                      height: 90,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "Here's to the crazy once",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 15),
-                                      ),
-                                    ),
+                                    ShowFollowNumbers(
+                                        data: data.profile.follower.length
+                                            .toString(),
+                                        name: "Follower"),
                                   ],
                                 ),
-                              ),
+                                Divider(
+                                  thickness: 0.5,
+                                  color: dividerColor,
+                                ),
+                                EditProfile(
+                                  status: data.profile.status,
+                                )
+                              ],
                             ),
-                          );
-                        },
-                        error: (e, r) => Text(r.toString()),
-                        loading: () => const CircularProgressIndicator()),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: ViewProfile(),
-                    ),
-                    ViewUserPosts()
-                  ],
+                          )
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.5,
+                        color: dividerColor,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          data.profile.username,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 19),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          "Here's to the crazy once",
+                          style: TextStyle(color: Colors.grey, fontSize: 15),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-        error: (e, r) => const Text('ss'),
-        loading: () => const CircularProgressIndicator());
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ViewProfile(),
+            ),
+            ViewUserPosts()
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -179,7 +185,22 @@ class FollowingAndFollowersListScreen extends ConsumerWidget {
             data: (data) => ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Text(data[index].username);
+                    return GestureDetector(
+                        onTap: () {
+                        final result =   ref
+                              .read(viewControllerProvider.notifier)
+                              .viewUserProfile(data[index].id);
+                        print("RESULT IS::::: -0-0-0-0::: ${result}");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ViewUserProfile()),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(38.0),
+                          child: Text(data[index].username),
+                        ));
                   },
                 ),
             error: (error, r) => const Text('error'),
@@ -330,22 +351,167 @@ class CustomVerticalDivider extends StatelessWidget {
 }
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+  const EditProfile({Key? key, this.status}) : super(key: key);
+  final String? status;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
-        Text(
-          'Edit Your Profile',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 19),
-        ),
-        Icon(
+      children: [
+        status == null
+            ? const Text(
+                'Edit Your Profile',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 19),
+              )
+            : ElevatedButton(onPressed: () {}, child: Text(status!)),
+        const Icon(
           Icons.arrow_forward_ios,
           color: Colors.grey,
         )
       ],
+    );
+  }
+}
+
+class ViewUserProfile extends ConsumerWidget {
+  const ViewUserProfile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewUserProfileRef = ref.watch(viewControllerProvider);
+    return Scaffold(
+      body: viewUserProfileRef.when(
+          data: (data) => ViewUserProfileTile(data: data),
+          error: (e, r) => const Text('Something Went Wrong'),
+          loading: () => const Center(child: CircularProgressIndicator())),
+    );
+  }
+}
+
+class ViewUserProfileTile extends StatelessWidget {
+  final MyProfile data;
+
+  const ViewUserProfileTile({Key? key, required this.data}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Color dividerColor = Colors.grey;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFd7d8d9),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff306088),
+        title: Text(data.profile.username),
+        centerTitle: true,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(Icons.settings),
+          )
+        ],
+      ),
+      body: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                height: 245,
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7)),
+                  color: const Color(0xFFf2f2f2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const ProfilePhoto(),
+                          const CustomVerticalDivider(
+                            height: 131,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    ShowFollowNumbers(
+                                        data: data.posts.length.toString(),
+                                        name: "Posts"),
+                                    const CustomVerticalDivider(
+                                      height: 90,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const FollowingAndFollowersListScreen()),
+                                        );
+                                      },
+                                      child: ShowFollowNumbers(
+                                          data: data.profile.following.length
+                                              .toString(),
+                                          name: "Following"),
+                                    ),
+                                    const CustomVerticalDivider(
+                                      height: 90,
+                                    ),
+                                    ShowFollowNumbers(
+                                        data: data.profile.follower.length
+                                            .toString(),
+                                        name: "Follower"),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 0.5,
+                                  color: dividerColor,
+                                ),
+                                EditProfile(
+                                  status: data.status,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.5,
+                        color: dividerColor,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          data.profile.username,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 19),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          "Here's to the crazy once",
+                          style: TextStyle(color: Colors.grey, fontSize: 15),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ViewProfile(),
+            ),
+            ViewUserPosts()
+          ],
+        ),
+      ),
     );
   }
 }

@@ -6,10 +6,11 @@ part 'profileModel.g.dart';
 
 @JsonSerializable()
 class MyProfile {
-  List<MyPosts> myPosts;
+  List<MyPosts> posts;
   ProfileModel profile;
+  String? status;
 
-  MyProfile({required this.myPosts, required this.profile});
+  MyProfile({required this.posts, required this.profile, this.status});
 
   factory MyProfile.fromJson(Map<String, dynamic> data) =>
       _$MyProfileFromJson(data);
@@ -26,13 +27,15 @@ class ProfileModel {
   String email;
   List<String> following;
   List<String> follower;
+  String? status;
 
   ProfileModel(
       {required this.following,
       required this.follower,
       required this.id,
       required this.username,
-      required this.email});
+      required this.email,
+      this.status});
 
   factory ProfileModel.fromJson(Map<String, dynamic> data) =>
       _$ProfileModelFromJson(data);
