@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
 import '../../../shared_widgets/endpoints.dart';
 
@@ -22,8 +23,18 @@ class ProfileService extends HttpService {
   }
 
   @override
-  Future post(String endPoint, String header) {
-    // TODO: implement post
-    throw UnimplementedError();
+  Future<dynamic> post(String endPoint, Map<String, String> header,
+      Map<String, String> data) async {
+    try {
+      var jsonData = json.encode(data);
+      var url = Uri.https('oldclonee.onrender.com', '/users/$endPoint');
+
+      final response = await http.post(url, headers: header, body: jsonData);
+      final dataa = jsonDecode(response.body);
+      print("---------------------------------------- ${dataa['posts']}");
+      return dataa;
+    } on Exception catch (e) {
+      throw (e.toString());
+    }
   }
 }

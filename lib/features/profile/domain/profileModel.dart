@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../home/domain/posts.dart';
@@ -5,12 +6,15 @@ import '../../home/domain/posts.dart';
 part 'profileModel.g.dart';
 
 @JsonSerializable()
-class MyProfile {
-  List<MyPosts> posts;
-  ProfileModel profile;
-  String? status;
+class MyProfile extends Equatable {
+  final List<MyPosts> posts;
+  final ProfileModel profile;
+  final String? status;
 
-  MyProfile({required this.posts, required this.profile, this.status});
+  const MyProfile({required this.posts, required this.profile, this.status});
+
+  @override
+  List<Object?> get props => [posts, profile, status];
 
   factory MyProfile.fromJson(Map<String, dynamic> data) =>
       _$MyProfileFromJson(data);
@@ -19,23 +23,26 @@ class MyProfile {
 }
 
 @JsonSerializable()
-class ProfileModel {
+class ProfileModel extends Equatable {
   @JsonKey(name: '_id')
-  String id;
+  final String id;
 
-  String username;
-  String email;
-  List<String> following;
-  List<String> follower;
-  String? status;
+  final String username;
+  final String email;
+  final List<String> following;
+  final List<String> follower;
+  final String? status;
 
-  ProfileModel(
+  const ProfileModel(
       {required this.following,
       required this.follower,
       required this.id,
       required this.username,
       required this.email,
       this.status});
+
+  @override
+  List<Object?> get props => [id, username, email, following, follower, status];
 
   factory ProfileModel.fromJson(Map<String, dynamic> data) =>
       _$ProfileModelFromJson(data);
@@ -44,17 +51,17 @@ class ProfileModel {
 }
 
 @JsonSerializable()
-class MyPosts {
+class MyPosts extends Equatable {
   @JsonKey(name: '_id')
-  String id;
+  final String id;
 
-  String caption;
-  int countLikes;
-  List<String> likes;
-  String author;
-  bool isLiked;
+  final String caption;
+  final int countLikes;
+  final List<String> likes;
+  final String author;
+  final bool isLiked;
 
-  MyPosts(
+  const MyPosts(
       {required this.id,
       required this.caption,
       required this.likes,
@@ -66,4 +73,7 @@ class MyPosts {
       _$MyPostsFromJson(data);
 
   Map<String, dynamic> toJson() => _$MyPostsToJson(this);
+
+  @override
+  List<Object?> get props => [id, caption, countLikes, likes, author, isLiked];
 }

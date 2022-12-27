@@ -2,19 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/repository/home_repository.dart';
 
 import '../../login/controller/login_controller.dart';
-import '../../profile/controller/profile_controller.dart';
+import '../../profile/controller/view_profile_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../domain/posts.dart';
 
-class HomeEntity {
-  AsyncValue<List<PostsModel>> data;
-
-  HomeEntity({required this.data});
-
-  HomeEntity copyWith({AsyncValue<List<PostsModel>>? data}) {
-    return HomeEntity(data: data ?? this.data);
-  }
-}
+//
 
 final homeControllerProvider =
     StateNotifierProvider<HomeController, AsyncValue<List<PostsModel>>>((ref) {
@@ -49,7 +41,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
     };
     final data = await homeRepository.getPosts('getMyFollowingsPosts', header);
     final profile =
-        await ref.read(profileControllerProvider.notifier).myProfile();
+        await ref.read(viewControllerProvider.notifier).myProfile();
     final ddd = data.map((post) {
       return PostsModel(
           id: post.id,
@@ -73,6 +65,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
     await homeRepository.likePost(postId,
         endPoint: 'likedPost/$postId', header: header);
     await getPosts();
+
     return true;
   }
 }

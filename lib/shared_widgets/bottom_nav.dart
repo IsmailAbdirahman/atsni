@@ -4,7 +4,7 @@ import 'package:oldinsa/shared_widgets/custom_bottom_nav.dart';
 
 import '../features/home/perserntation/home_screen.dart';
 import '../features/new_post/persentation/new_post_screen.dart';
-import '../features/profile/persentation/profile_screen.dart';
+import '../features/profile/persentation/view_profile.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -25,7 +25,7 @@ class _BottomNavState extends State<BottomNav> {
     ),
     const NewPostScreen(),
     const Text('Notifications'),
-    const ProfileScreen()
+    const ViewMyProfile()
   ];
 
   void _onItemTapped(int index) {

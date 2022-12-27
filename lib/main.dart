@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/login/controller/login_controller.dart';
 import 'features/login/service/shared_pref.dart';
-import 'features/profile/persentation/profile_screen.dart';
+import 'features/profile/persentation/view_profile.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();

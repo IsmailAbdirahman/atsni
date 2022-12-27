@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/domain/posts.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../profile/controller/profile_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../controller/home_controller.dart';
 import '../service/home_service.dart';
@@ -30,7 +29,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeRef = ref.watch(homeControllerProvider);
+    AsyncValue<List<PostsModel>> homeRef = ref.watch(homeControllerProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -63,7 +62,8 @@ class HomeScreen extends ConsumerWidget {
                         },
                       ),
                   error: (e, r) => Text(e.toString()),
-                  loading: () => const Text("Loading")))
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator())))
         ]));
   }
 }
