@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../data/profile_service.dart';
 import '../domain/profileModel.dart';
 
@@ -24,7 +22,6 @@ class EditProfileRepository {
       required Map<String, String> header}) async {
     var data = {'username': username, 'password': password};
     final response = await profileService.post(endPoint, header, data);
-    debugPrint('----------------editMyProfile-------------------- $response');
 
     return MyProfile.fromJson(response);
   }

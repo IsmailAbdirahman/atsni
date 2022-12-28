@@ -5,8 +5,10 @@ import 'package:oldinsa/features/profile/persentation/shared_widegts/profile_pho
 import 'package:oldinsa/features/profile/persentation/shared_widegts/show_follower_following_list_screen.dart';
 
 import '../../controller/edit_profile.dart';
+import '../../controller/follower_following_controller.dart';
 import '../../controller/view_profile_controller.dart';
 import '../../domain/profileModel.dart';
+import '../edit_profile.dart';
 import 'custom_vertical_divider.dart';
 
 class ViewProfileTile extends ConsumerWidget {
@@ -67,19 +69,15 @@ class ViewProfileTile extends ConsumerWidget {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        ref
-                                            .read(
-                                                viewControllerProvider.notifier)
-                                            .getAllFollowing(data.profile.id)
-                                            .then((value) {
-                                          if (!context.mounted) return;
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ShowAllFollowers(value)),
-                                          );
-                                        });
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ShowFollowing(
+                                                    userProfileID:
+                                                        data.profile.id,
+                                                  )),
+                                        );
                                       },
                                       child: ShowFollowNumbers(
                                           data: data.profile.following.length
@@ -269,171 +267,5 @@ class ViewUserPosts extends StatelessWidget {
             }),
       ),
     );
-  }
-}
-
-class EditProfile extends ConsumerWidget {
-  EditProfile({Key? key, required this.userID}) : super(key: key);
-  final String userID;
-  late TextEditingController usernameController;
-
-  late TextEditingController emailController;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final ddRef = ref.watch(viewControllerProvider);
-
-    return ddRef.when(
-        data: (data) {
-          if (data.status != null) {
-            return ElevatedButton(
-                onPressed: () {
-                  ref.read(viewControllerProvider.notifier).followUser(userID);
-                },
-                child: Text(data.status!));
-          } else {
-            return ElevatedButton(
-                onPressed: () {
-                  usernameController =
-                      TextEditingController(text: data.profile.username);
-                  emailController =
-                      TextEditingController(text: data.profile.email);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Center(child: Text('Update')),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            TextFormField(
-                              controller: usernameController,
-                              decoration: const InputDecoration(
-                                labelText: 'Username',
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a value';
-                                }
-                                return null;
-                              },
-                            ),
-                            TextFormField(
-                              controller: emailController,
-                              decoration: const InputDecoration(
-                                labelText: 'Password',
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a value';
-                                }
-                                return null;
-                              },
-                            ),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          ElevatedButton(
-                            child: const Text('Save'),
-                            onPressed: () {
-                              ref
-                                  .read(editProfileControllerProvider.notifier)
-                                  .editMyProfile(
-                                      username: usernameController.text,
-                                      password: emailController.text);
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: const Text("Edit Profile"));
-          }
-        },
-        error: (e, r) => const Text('er'),
-        loading: () => const CircularProgressIndicator());
-
-    // return ddRef.when(
-    //     data: (data) => ElevatedButton(
-    //         onPressed: () {
-    //           ref.read(viewControllerProvider.notifier).followUser(userID);
-    //         },
-    //         child: data.status != null
-    //             ? Text(data.status!)
-    //             : GestureDetector(
-    //                 onTap: () {
-    //                   usernameController =
-    //                       TextEditingController(text: data.profile.username);
-    //                   emailController =
-    //                       TextEditingController(text: data.profile.email);
-    //                   showDialog(
-    //                     context: context,
-    //                     builder: (BuildContext context) {
-    //                       return AlertDialog(
-    //                         title: const Text('Enter values'),
-    //                         content: Column(
-    //                           mainAxisSize: MainAxisSize.min,
-    //                           children: <Widget>[
-    //                             TextFormField(
-    //                               controller: usernameController,
-    //                               decoration: const InputDecoration(
-    //                                 labelText: 'Value 1',
-    //                               ),
-    //                               validator: (value) {
-    //                                 if (value!.isEmpty) {
-    //                                   return 'Please enter a value';
-    //                                 }
-    //                                 return null;
-    //                               },
-    //                             ),
-    //                             TextFormField(
-    //                               controller: emailController,
-    //                               decoration: const InputDecoration(
-    //                                 labelText: 'Value 2',
-    //                               ),
-    //                               validator: (value) {
-    //                                 if (value!.isEmpty) {
-    //                                   return 'Please enter a value';
-    //                                 }
-    //                                 return null;
-    //                               },
-    //                             ),
-    //                           ],
-    //                         ),
-    //                         actions: <Widget>[
-    //                           ElevatedButton(
-    //                             child: const Text('Cancel'),
-    //                             onPressed: () {
-    //                               Navigator.of(context).pop();
-    //                             },
-    //                           ),
-    //                           ElevatedButton(
-    //                             child: const Text('Save'),
-    //                             onPressed: () {
-    //                               ref
-    //                                   .read(editProfileControllerProvider
-    //                                       .notifier)
-    //                                   .editMyProfile(
-    //                                       username: usernameController.text,
-    //                                       password: emailController.text);
-    //                               Navigator.of(context).pop();
-    //                             },
-    //                           ),
-    //                         ],
-    //                       );
-    //                     },
-    //                   );
-    //                 },
-    //                 child: const Text("Edit Profile"))),
-    //     error: (e, r) => const Text('er'),
-    //     loading: () => const CircularProgressIndicator());
   }
 }

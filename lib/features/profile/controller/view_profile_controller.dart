@@ -18,30 +18,6 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
   ViewProfileController({required this.profileRepository, required this.ref})
       : super(const AsyncValue.loading());
 
-  Future<List<ProfileModel>> getAllFollowing(String userId) async {
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final data = await profileRepository.getAllFollowing(
-        'getSingleUserFollowingProfiles/$userId', header);
-    return data;
-  }
-
-  Future<List<ProfileModel>> getAllFollowers(String userId) async {
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final data = await profileRepository.getAllFollowers(
-        'getSingleUserFollowerProfiles/$userId', header);
-    return data;
-  }
-
   Future<String> followUser(String id) async {
     String? token = await ref.read(futureTokenProvider.future);
     final header = {
