@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oldinsa/features/login/persentation/login_screen.dart';
+import 'package:oldinsa/features/search/persentation/persentation.dart';
 import 'package:oldinsa/shared_widgets/custom_bottom_nav.dart';
 
 import '../features/home/perserntation/home_screen.dart';
@@ -19,10 +20,7 @@ class _BottomNavState extends State<BottomNav> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    const Text(
-      'Explore',
-      style: optionStyle,
-    ),
+    const SearchScreen(),
     const NewPostScreen(),
     const Text('Notifications'),
     const ViewMyProfile()
