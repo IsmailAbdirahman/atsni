@@ -15,6 +15,11 @@ class SearchScreen extends ConsumerWidget {
         child: Column(
           children: [
             TextField(
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  filled: true,
+                  hintText: 'Search',
+                  prefixIcon: Icon(Icons.search)),
               onChanged: (username) {
                 ref
                     .read(searchControllerProvider.notifier)
@@ -31,7 +36,7 @@ class SearchScreen extends ConsumerWidget {
                       ),
                     ),
                 error: (e, r) => const Text('Something Went Wrong'),
-                loading: () => const Center(child: CircularProgressIndicator()))
+                loading: () => const Center(child: Text('')))
           ],
         ),
       ),

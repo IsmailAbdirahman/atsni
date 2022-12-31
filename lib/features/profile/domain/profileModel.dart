@@ -28,6 +28,7 @@ class ProfileModel extends Equatable {
   final String id;
 
   final String username;
+  final String? image;
   final String email;
   final List<String> following;
   final List<String> follower;
@@ -36,13 +37,15 @@ class ProfileModel extends Equatable {
   const ProfileModel(
       {required this.following,
       required this.follower,
+       this.image,
       required this.id,
       required this.username,
       required this.email,
       this.status});
 
   @override
-  List<Object?> get props => [id, username, email, following, follower, status];
+  List<Object?> get props =>
+      [id, image, username, email, following, follower, status];
 
   factory ProfileModel.fromJson(Map<String, dynamic> data) =>
       _$ProfileModelFromJson(data);

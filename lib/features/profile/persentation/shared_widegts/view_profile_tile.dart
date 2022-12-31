@@ -52,7 +52,9 @@ class ViewProfileTile extends ConsumerWidget {
                     children: [
                       Row(
                         children: [
-                          const ProfilePhoto(),
+                          ProfilePhoto(
+                            image: data.profile.image!,
+                          ),
                           const CustomVerticalDivider(
                             height: 131,
                           ),

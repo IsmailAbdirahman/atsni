@@ -37,11 +37,9 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () async {
-
                         final result = await ref
                             .read(viewControllerProvider.notifier)
                             .viewUserProfile(data[index].id);
-                        if (!context.mounted) return;
 
                         Navigator.push(
                           context,
@@ -62,5 +60,4 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                   child: CircularProgressIndicator(),
                 )));
   }
-
 }

@@ -25,6 +25,7 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
           (json['following'] as List<dynamic>).map((e) => e as String).toList(),
       follower:
           (json['follower'] as List<dynamic>).map((e) => e as String).toList(),
+      image: json['image'] as String?,
       id: json['_id'] as String,
       username: json['username'] as String,
       email: json['email'] as String,
@@ -35,6 +36,7 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'username': instance.username,
+      'image': instance.image,
       'email': instance.email,
       'following': instance.following,
       'follower': instance.follower,
