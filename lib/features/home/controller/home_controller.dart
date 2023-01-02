@@ -46,7 +46,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
       return PostsModel(
           id: post.id,
           caption: post.caption,
-          countLikes: post.countLikes,
+          image: post.image,
           likes: post.likes,
           author: post.author,
           isLiked: post.likes.contains(profile.profile.id));

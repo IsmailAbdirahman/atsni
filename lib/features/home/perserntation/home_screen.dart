@@ -107,8 +107,8 @@ class PostTile extends ConsumerWidget {
                 ],
               ),
             ),
-            const Image(
-              image: AssetImage('assets/images/s1.jpg'),
+            Image(
+              image: NetworkImage(postMo.image),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8, left: 0.0),

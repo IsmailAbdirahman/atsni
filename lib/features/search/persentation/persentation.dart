@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/search/controller/search_controller.dart';
+
+import '../../profile/controller/view_profile_controller.dart';
+import '../../profile/persentation/shared_widegts/show_follower_following_list_screen.dart';
+import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 
 class SearchScreen extends ConsumerWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -31,7 +36,31 @@ class SearchScreen extends ConsumerWidget {
                       child: ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Text(data[index].username);
+                          return GestureDetector(
+                            onTap: () async {
+                              final result = await ref
+                                  .read(viewControllerProvider.notifier)
+                                  .viewUserProfile(data[index].id);
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ViewProfileTile(data: result)),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: Image(
+                                      image: NetworkImage(data[index].image!)),
+                                ),
+                                Text(data[index].username),
+                              ],
+                            ),
+                          );
                         },
                       ),
                     ),

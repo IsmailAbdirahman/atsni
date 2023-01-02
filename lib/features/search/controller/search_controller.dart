@@ -5,8 +5,7 @@ import 'package:oldinsa/features/search/repository/search_repository.dart';
 import '../../login/controller/login_controller.dart';
 
 final searchControllerProvider =
-    StateNotifierProvider<SearchController, AsyncValue<List<ProfileModel>>>(
-        (ref) {
+    StateNotifierProvider<SearchController, AsyncValue<List<ProfileModel>>>((ref) {
   final searchRepository = ref.watch(searchRepositoryProvider);
 
   return SearchController(searchRepository: searchRepository, ref: ref);
@@ -28,7 +27,9 @@ class SearchController extends StateNotifier<AsyncValue<List<ProfileModel>>> {
       'Authorization': 'Bearer $token',
     };
     final result = await searchRepository.getUsernames(
-        username, 'search-username', header);
+        username: username,
+        endPoint: 'search-username',
+        header: header);
     print('-------------------- ${result}');
     state = AsyncValue.data(result);
 

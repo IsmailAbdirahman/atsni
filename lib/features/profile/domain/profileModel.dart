@@ -59,7 +59,6 @@ class MyPosts extends Equatable {
   final String id;
 
   final String caption;
-  final int countLikes;
   final List<String> likes;
   final String author;
   final bool isLiked;
@@ -69,7 +68,6 @@ class MyPosts extends Equatable {
       required this.caption,
       required this.likes,
       required this.author,
-      required this.countLikes,
       this.isLiked = false});
 
   factory MyPosts.fromJson(Map<String, dynamic> data) =>
@@ -78,5 +76,5 @@ class MyPosts extends Equatable {
   Map<String, dynamic> toJson() => _$MyPostsToJson(this);
 
   @override
-  List<Object?> get props => [id, caption, countLikes, likes, author, isLiked];
+  List<Object?> get props => [id, caption,  likes, author, isLiked];
 }

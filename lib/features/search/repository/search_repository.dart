@@ -15,12 +15,14 @@ class SearchRepository {
   SearchRepository(this.searchService);
 
   Future<List<ProfileModel>> getUsernames(
-      String username, String endPoint, Map<String, String> header) async {
+      {required String username,
+      required String endPoint,
+      required Map<String, String> header}) async {
     var data = {'username': username};
     final response = await searchService.post(endPoint, header, data);
     print("----------------- getUsernames() ------------ $response");
 
     return List<ProfileModel>.from(
-        response['profileList'].map((user) => ProfileModel.fromJson(user)));
+        response['profile'].map((user) => ProfileModel.fromJson(user)));
   }
 }

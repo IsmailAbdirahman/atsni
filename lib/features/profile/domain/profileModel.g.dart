@@ -48,14 +48,12 @@ MyPosts _$MyPostsFromJson(Map<String, dynamic> json) => MyPosts(
       caption: json['caption'] as String,
       likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
       author: json['author'] as String,
-      countLikes: json['countLikes'] as int,
       isLiked: json['isLiked'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$MyPostsToJson(MyPosts instance) => <String, dynamic>{
       '_id': instance.id,
       'caption': instance.caption,
-      'countLikes': instance.countLikes,
       'likes': instance.likes,
       'author': instance.author,
       'isLiked': instance.isLiked,
