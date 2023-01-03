@@ -45,6 +45,7 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
   }
 
   Future<MyProfile> viewUserProfile(String id) async {
+    print('-------------------------------------- $id');
     state = const AsyncValue.loading();
     String? token = await ref.read(futureTokenProvider.future);
     final header = {
