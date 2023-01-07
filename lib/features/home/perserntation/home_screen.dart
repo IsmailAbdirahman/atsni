@@ -7,22 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/domain/posts.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../profile/controller/view_profile_controller.dart';
 import '../../profile/data/profile_service.dart';
+import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 import '../controller/home_controller.dart';
 import '../service/home_service.dart';
-
-class PostMo {
-  String owner;
-  String image;
-  String profilePic;
-  List<String> lisked;
-
-  PostMo(
-      {required this.owner,
-      required this.image,
-      required this.profilePic,
-      required this.lisked});
-}
 
 class HomeScreen extends ConsumerWidget {
   // List<PostMo> postList =[];
@@ -87,21 +76,35 @@ class PostTile extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 50,
                     width: 50,
                     child: Image(
-                      image: AssetImage('assets/images/s1.jpg'),
+                      image: NetworkImage(postMo.author.image!),
                       fit: BoxFit.fill,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(
-                      postMo.author.username,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF306088)),
+                  InkWell(
+                    onTap: () async {
+                      final result = await ref
+                          .read(viewControllerProvider.notifier)
+                          .viewUserProfile(postMo.author.id);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ViewProfileTile(data: result)),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        postMo.author.username,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF306088)),
+                      ),
                     ),
                   )
                 ],

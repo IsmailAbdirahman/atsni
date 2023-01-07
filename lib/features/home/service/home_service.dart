@@ -4,12 +4,24 @@ import 'package:http/http.dart' as http;
 import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
 
 import '../../../shared_widgets/endpoints.dart';
+import '../../login/controller/login_controller.dart';
 
-final homeServiceProvider = Provider((ref) => HomeService());
+final homeServiceProvider = Provider((ref) => HomeService(ref));
 
 class HomeService extends HttpService {
   @override
-  Future<dynamic> get(String endPoint, Map<String, String> header) async {
+  Ref<Object?> ref;
+
+  HomeService(this.ref);
+
+  @override
+  Future<dynamic> get(String endPoint) async {
+    String? token = await ref.read(futureTokenProvider.future);
+    final header = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
     try {
       final response = await http.get(Uri.parse('$baseUrl/userpost/$endPoint'),
           headers: header);
@@ -23,8 +35,7 @@ class HomeService extends HttpService {
   }
 
   @override
-  Future post(
-      String endPoint, Map<String, String> header, Map<String, String> data) {
+  Future post(String endPoint, Map<String, String> data) {
     // TODO: implement post
     throw UnimplementedError();
   }

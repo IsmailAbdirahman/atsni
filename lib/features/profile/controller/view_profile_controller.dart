@@ -33,13 +33,8 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
 
   Future<MyProfile> myProfile() async {
     state = const AsyncValue.loading();
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final result = await profileRepository.myProfile('myProfile', header);
+
+    final result = await profileRepository.myProfile('myProfile');
     state = AsyncValue.data(result);
     return result;
   }
@@ -47,16 +42,12 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
   Future<MyProfile> viewUserProfile(String id) async {
     print('-------------------------------------- $id');
     state = const AsyncValue.loading();
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
+
     final result =
-        await profileRepository.viewUserProfile(id, 'viewProfile/$id', header);
+        await profileRepository.viewUserProfile(id, 'viewProfile/$id');
 
     state = AsyncValue.data(result);
+
     return result;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/repository/home_repository.dart';
 
-import '../../login/controller/login_controller.dart';
 import '../../profile/controller/view_profile_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../domain/posts.dart';
@@ -33,15 +32,8 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
   }
 
   Future<List<PostsModel>> getPosts() async {
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final data = await homeRepository.getPosts('getMyFollowingsPosts', header);
-    final profile =
-        await ref.read(viewControllerProvider.notifier).myProfile();
+    final data = await homeRepository.getPosts('getMyFollowingsPosts');
+    final profile = await ref.read(viewControllerProvider.notifier).myProfile();
     final ddd = data.map((post) {
       return PostsModel(
           id: post.id,
@@ -56,14 +48,9 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
   }
 
   Future<bool> likePost(String postId) async {
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
+
     await homeRepository.likePost(postId,
-        endPoint: 'likedPost/$postId', header: header);
+        endPoint: 'likedPost/$postId');
     await getPosts();
 
     return true;

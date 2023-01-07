@@ -26,16 +26,11 @@ class EditProfileController extends StateNotifier<AsyncValue<MyProfile>> {
     required String username,
     required String password,
   }) async {
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
     final data = await editProfileRepository.editMyProfile(
-        username: username,
-        password: password,
-        endPoint: 'edit-profile',
-        header: header);
+      username: username,
+      password: password,
+      endPoint: 'edit-profile',
+    );
     await ref.read(viewControllerProvider.notifier).myProfile();
 
     return data;

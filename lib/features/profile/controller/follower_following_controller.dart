@@ -23,28 +23,18 @@ class FollowingFollowerController
 
   Future<List<ProfileModel>> getAllFollowing(String userId) async {
     state = const AsyncValue.loading();
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final data = await profileRepository.getAllFollowing(
-        'getSingleUserFollowingProfiles/$userId', header);
+
+    final data = await profileRepository
+        .getAllFollowing('getSingleUserFollowingProfiles/$userId');
     state = AsyncValue.data(data);
     return data;
   }
 
   Future<List<ProfileModel>> getAllFollowers(String userId) async {
     state = const AsyncValue.loading();
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final data = await profileRepository.getAllFollowers(
-        'getSingleUserFollowerProfiles/$userId', header);
+
+    final data = await profileRepository
+        .getAllFollowers('getSingleUserFollowerProfiles/$userId');
     state = AsyncValue.data(data);
 
     return data;

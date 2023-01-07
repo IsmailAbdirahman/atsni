@@ -14,16 +14,14 @@ class HomeRepository {
 
   HomeRepository(this.httpService);
 
-  Future<List<PostsModel>> getPosts(
-      String endPoint, Map<String, String> header) async {
-    final response = await httpService.get(endPoint, header);
+  Future<List<PostsModel>> getPosts(String endPoint) async {
+    final response = await httpService.get(endPoint);
     return List<PostsModel>.from(response.map((e) => PostsModel.fromJson(e)));
   }
 
-  Future<bool> likePost(String postId,
-      {String? endPoint, Map<String, String>? header}) async {
-    final likedUsers = await getPosts('getMyFollowingsPosts', header!);
-    final response = await httpService.get(endPoint!, header);
+  Future<bool> likePost(String postId, {String? endPoint}) async {
+    final likedUsers = await getPosts('getMyFollowingsPosts');
+    final response = await httpService.get(endPoint!);
     var data = PostsModel.fromJson(response);
 
     return false;
