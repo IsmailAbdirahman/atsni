@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/new_post/controller/new_post_controller.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../home/controller/home_controller.dart';
+
 class NewPostScreen extends ConsumerWidget {
   const NewPostScreen({super.key});
 
@@ -32,10 +34,11 @@ class NewPostScreen extends ConsumerWidget {
               controller: postController,
             ),
             ElevatedButton(
-                onPressed: () {
-                  ref
+                onPressed: () async {
+                  await ref
                       .read(newPostControllerProvider.notifier)
                       .post(postController.text, image);
+                  await ref.read(homeControllerProvider.notifier).getPosts();
                 },
                 child: const Text('Post'))
           ],

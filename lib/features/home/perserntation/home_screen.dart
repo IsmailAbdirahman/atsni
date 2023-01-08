@@ -28,10 +28,14 @@ class HomeScreen extends ConsumerWidget {
             style: TextStyle(fontSize: 30),
           ),
           centerTitle: true,
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 10.0),
-              child: Icon(Icons.update),
+              padding: const EdgeInsets.only(right: 10.0),
+              child: InkWell(
+                  onTap: () {
+                    ref.read(homeControllerProvider.notifier).getPosts();
+                  },
+                  child: const Icon(Icons.update)),
             ),
           ],
         ),
@@ -110,8 +114,13 @@ class PostTile extends ConsumerWidget {
                 ],
               ),
             ),
-            Image(
-              image: NetworkImage(postMo.image),
+            SizedBox(
+              height: 400,
+              width: double.infinity,
+              child: Image(
+                image: NetworkImage(postMo.image),
+                fit: BoxFit.fitWidth,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8, left: 0.0),

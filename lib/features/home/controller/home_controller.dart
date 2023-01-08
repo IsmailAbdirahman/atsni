@@ -32,6 +32,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
   }
 
   Future<List<PostsModel>> getPosts() async {
+    state = const AsyncValue.loading();
     final data = await homeRepository.getPosts('getMyFollowingsPosts');
     final profile = await ref.read(viewControllerProvider.notifier).myProfile();
     final ddd = data.map((post) {
@@ -48,9 +49,7 @@ class HomeController extends StateNotifier<AsyncValue<List<PostsModel>>> {
   }
 
   Future<bool> likePost(String postId) async {
-
-    await homeRepository.likePost(postId,
-        endPoint: 'likedPost/$postId');
+    await homeRepository.likePost(postId, endPoint: 'likedPost/$postId');
     await getPosts();
 
     return true;
