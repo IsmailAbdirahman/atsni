@@ -18,8 +18,11 @@ class NewPostController extends StateNotifier<AsyncValue<bool>> {
       : super(const AsyncData(false));
 
   Future<bool> post(String caption, File file) async {
+    state = const AsyncValue.loading();
     final result = await newPostRepository.newPost(
-        endPoint: 'https://oldclonee.onrender.com/userPost/createPost', caption: caption, file: file);
+        endPoint: 'https://oldclonee.onrender.com/userPost/createPost',
+        caption: caption,
+        file: file);
     state = AsyncData(result);
 
     return result;
