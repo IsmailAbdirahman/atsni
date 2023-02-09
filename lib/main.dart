@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +12,13 @@ import 'features/login/controller/login_controller.dart';
 import 'features/login/service/shared_pref.dart';
 import 'features/profile/persentation/view_profile.dart';
 import 'package:image_picker/image_picker.dart';
+
+// void main() => runApp(
+//       DevicePreview(
+//         enabled: !kReleaseMode,
+//         builder: (context) => MyApp(), // Wrap your app
+//       ),
+//     );
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -28,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Wrapper(),
+      home:const  Wrapper(),
     );
   }
 }
@@ -64,4 +73,72 @@ class Wrapper extends ConsumerWidget {
     );
   }
 }
-
+//
+// class ButtomNavCustom extends StatefulWidget {
+//   ButtomNavCustom({Key? key}) : super(key: key);
+//
+//   @override
+//   State<ButtomNavCustom> createState() => _ButtomNavCustomState();
+// }
+//
+// class _ButtomNavCustomState extends State<ButtomNavCustom> {
+//   int selectedIndex = 0;
+//
+//   List<IconData> buttons = [
+//     Icons.home,
+//     Icons.search,
+//     Icons.camera_alt_outlined,
+//     Icons.notification_add_outlined,
+//     Icons.person,
+//   ];
+//
+//   Widget detectClickedIcon(int index) {
+//     return GestureDetector(
+//         onTap: () {
+//           setState(() {
+//             selectedIndex = index;
+//           });
+//         },
+//         child: SizedBox(
+//           height: 65,
+//           width: 65,
+//           child: Card(
+//             shadowColor: Colors.blue[900],
+//             shape: const RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.all(Radius.circular(10))),
+//             color: selectedIndex == index ? Colors.white : Colors.grey[200],
+//             elevation: selectedIndex == index ? 8: 0,
+//             child: Icon(buttons[index]),
+//           ),
+//         ));
+//   }
+//
+//   Widget cccc() {
+//     return Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: buttons
+//             .asMap()
+//             .entries
+//             .map((singleType) => detectClickedIcon(singleType.key))
+//             .toList());
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         backgroundColor: Colors.white,
+//         body: Align(
+//           alignment: Alignment.bottomCenter,
+//           child: SizedBox(
+//             height: 70,
+//             child: Card(
+//               color: Colors.white,
+//               child: cccc(),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
