@@ -4,11 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oldinsa/features/home/domain/posts.dart';
+import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../profile/controller/view_profile_controller.dart';
 import '../../profile/data/profile_service.dart';
+import '../../profile/domain/profileModel.dart';
 import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 import '../controller/home_controller.dart';
 import '../service/home_service.dart';
@@ -18,7 +19,10 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<List<PostsModel>> homeRef = ref.watch(homeControllerProvider);
+    final homeRef = ref.watch(homeControllerProvider);
+    final myID = ref.watch(viewControllerProvider).value;
+
+
 
     return Scaffold(
         appBar: AppBar(
@@ -51,7 +55,7 @@ class HomeScreen extends ConsumerWidget {
                                     .read(homeControllerProvider.notifier)
                                     .likePost(data[index].id);
                               },
-                              child: PostTile(postMo: data[index]));
+                              child: PostTile(homeModel: data[index]));
                         },
                       ),
                   error: (e, r) => Text(e.toString()),
@@ -62,9 +66,9 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class PostTile extends ConsumerWidget {
-  PostTile({super.key, required this.postMo});
+  PostTile({super.key, required this.homeModel});
 
-  final PostsModel postMo;
+  final HomeModel homeModel;
   late bool isLiked;
 
   @override
@@ -84,7 +88,7 @@ class PostTile extends ConsumerWidget {
                     height: 50,
                     width: 50,
                     child: Image(
-                      image: NetworkImage(postMo.author.image!),
+                      image: NetworkImage(homeModel.author.image),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -92,7 +96,7 @@ class PostTile extends ConsumerWidget {
                     onTap: () async {
                       final result = await ref
                           .read(viewControllerProvider.notifier)
-                          .viewUserProfile(postMo.author.id);
+                          .viewUserProfile(homeModel.author.id);
 
                       Navigator.push(
                         context,
@@ -104,7 +108,7 @@ class PostTile extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        postMo.author.username,
+                        homeModel.author.username,
                         style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF306088)),
@@ -118,7 +122,7 @@ class PostTile extends ConsumerWidget {
               height: 400,
               width: double.infinity,
               child: Image(
-                image: NetworkImage(postMo.image),
+                image: NetworkImage(homeModel.image),
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -126,21 +130,34 @@ class PostTile extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 8, left: 0.0),
               child: Row(
                 children: [
-                  postMo.isLiked == true
-                      ? const Icon(
-                          Icons.favorite,
-                          size: 18,
-                          color: Colors.red,
+                  homeModel.likes.contains("63e29eead6c3e3f9a436c13d") == true
+                      ? IconButton(
+                          onPressed: () {
+                            ref
+                                .read(homeControllerProvider.notifier)
+                                .likePost(homeModel.id);
+                          },
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.redAccent,
+                          ),
                         )
-                      : const Icon(
-                          Icons.favorite,
-                          size: 18,
-                          color: Colors.grey,
+                      : IconButton(
+                          onPressed: () {
+                            print("-0-0-0-0-0 ${homeModel.id}-0-0-00-");
+                            ref
+                                .read(homeControllerProvider.notifier)
+                                .likePost(homeModel.id);
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.redAccent,
+                          ),
                         ),
                   Padding(
                     padding: const EdgeInsets.only(left: 4.0),
                     child: Text(
-                      '${postMo.likes.length.toString()} likes',
+                      '${homeModel.likes.length.toString()} likes',
                       style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Color(0xFF306088)),
@@ -162,13 +179,13 @@ class PostTile extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Text(
-                      postMo.author.username,
+                      homeModel.author.username,
                       style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Color(0xFF306088)),
                     ),
                   ),
-                  Text(postMo.caption)
+                  Text(homeModel.caption)
                 ],
               ),
             )

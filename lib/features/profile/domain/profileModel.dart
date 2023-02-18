@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../home/domain/posts.dart';
+import '../../home/domain/home_model.dart';
 
 part 'profileModel.g.dart';
 
 @JsonSerializable()
 class MyProfile extends Equatable {
-  final List<MyPosts> posts;
+  final List<PostsModel> posts;
   final ProfileModel profile;
   final String? status;
 
@@ -53,28 +53,31 @@ class ProfileModel extends Equatable {
   Map<String, dynamic> toJson() => _$ProfileModelToJson(this);
 }
 
+
 @JsonSerializable()
-class MyPosts extends Equatable {
+class PostsModel extends Equatable {
   @JsonKey(name: '_id')
   final String id;
 
   final String caption;
+  final String image;
   final List<String> likes;
   final String author;
   final bool isLiked;
 
-  const MyPosts(
+  const PostsModel(
       {required this.id,
-      required this.caption,
-      required this.likes,
-      required this.author,
-      this.isLiked = false});
-
-  factory MyPosts.fromJson(Map<String, dynamic> data) =>
-      _$MyPostsFromJson(data);
-
-  Map<String, dynamic> toJson() => _$MyPostsToJson(this);
+        required this.caption,
+        required this.image,
+        required this.likes,
+        required this.author,
+        this.isLiked = false});
 
   @override
-  List<Object?> get props => [id, caption,  likes, author, isLiked];
+  List<Object?> get props => [id, caption, likes, author, isLiked, image];
+
+  factory PostsModel.fromJson(Map<String, dynamic> data) =>
+      _$PostsModelFromJson(data);
+
+  Map<String, dynamic> toJson() => _$PostsModelToJson(this);
 }

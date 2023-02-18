@@ -36,11 +36,15 @@ dependencies:
   http: ^0.13.5
   json_annotation: ^4.7.0
 
-  flutter_riverpod: ^2.0.2
-  riverpod_annotation: ^1.0.4
+  flutter_riverpod: ^2.2.0
+  riverpod_annotation: ^1.2.1
   shared_preferences: ^2.0.15
   equatable: ^2.0.5
-  device_preview: ^1.1.0
+  device_preview:
+
+    path: ../flutter_device_preview/device_preview
+
+
 
 
 
@@ -49,7 +53,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.0.0
   json_serializable: ^6.5.4
-  riverpod_generator: ^1.0.4
+  riverpod_generator: ^1.2.0
   image_picker: ^0.8.6
 
   # The "flutter_lints" package below contains a set of recommended lints to
