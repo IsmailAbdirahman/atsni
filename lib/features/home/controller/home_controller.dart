@@ -49,13 +49,13 @@ class HomeController extends StateNotifier<AsyncValue<List<HomeModel>>> {
     final List<HomeModel> newState = [];
 
     for (var value in state.value!) {
-      final newElement = HomeModel(
+      final updatedPost = HomeModel(
           id: value.id,
           caption: value.caption,
           image: value.image,
           likes: data.likes,
           author: value.author);
-      newState.add(newElement);
+      newState.add(updatedPost);
     }
 
     state = AsyncData(newState);
