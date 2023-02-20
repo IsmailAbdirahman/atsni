@@ -16,7 +16,9 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
   final Ref ref;
 
   ViewProfileController({required this.profileRepository, required this.ref})
-      : super(const AsyncValue.loading());
+      : super(const AsyncValue.loading()) {
+    myProfile();
+  }
 
   Future<String> followUser(String id) async {
     String? token = await ref.read(futureTokenProvider.future);
