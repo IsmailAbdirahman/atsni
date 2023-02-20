@@ -93,10 +93,23 @@ class ViewProfileTile extends ConsumerWidget {
                                     const CustomVerticalDivider(
                                       height: 90,
                                     ),
-                                    ShowFollowNumbers(
-                                        data: data.profile.follower.length
-                                            .toString(),
-                                        name: "Follower"),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ShowFollowing(
+                                                    userProfileID:
+                                                        data.profile.id,
+                                                  )),
+                                        );
+                                      },
+                                      child: ShowFollowNumbers(
+                                          data: data.profile.follower.length
+                                              .toString(),
+                                          name: "Follower"),
+                                    ),
                                   ],
                                 ),
                                 Divider(

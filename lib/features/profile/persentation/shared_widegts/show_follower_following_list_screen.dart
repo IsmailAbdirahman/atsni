@@ -24,6 +24,9 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
     ref
         .read(followingFollowerControllerProvider.notifier)
         .getAllFollowing(widget.userProfileID);
+    ref
+        .read(followingFollowerControllerProvider.notifier)
+        .getAllFollowers(widget.userProfileID);
   }
 
   @override
