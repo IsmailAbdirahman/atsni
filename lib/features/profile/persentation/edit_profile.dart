@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controller/edit_profile.dart';
+import '../controller/follow_and_unfollow_controller.dart';
 import '../controller/view_profile_controller.dart';
 
 class EditProfile extends ConsumerWidget {
@@ -20,7 +21,7 @@ class EditProfile extends ConsumerWidget {
           if (data.status != null) {
             return ElevatedButton(
                 onPressed: () {
-                  ref.read(viewControllerProvider.notifier).followUser(userID);
+                  ref.read(followUndFollowProvider.notifier).followUser(userID);
                 },
                 child: Text(data.status!));
           } else {
@@ -77,8 +78,8 @@ class EditProfile extends ConsumerWidget {
                               ref
                                   .read(editProfileControllerProvider.notifier)
                                   .editMyProfile(
-                                  username: usernameController.text,
-                                  password: emailController.text);
+                                      username: usernameController.text,
+                                      password: emailController.text);
                               Navigator.of(context).pop();
                             },
                           ),

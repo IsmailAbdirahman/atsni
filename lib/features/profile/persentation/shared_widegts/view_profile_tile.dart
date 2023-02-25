@@ -74,16 +74,24 @@ class ViewProfileTile extends ConsumerWidget {
                                       height: 90,
                                     ),
                                     GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShowFollowing(
-                                                    userProfileID:
-                                                        data.profile.id,
-                                                  )),
-                                        );
+                                      onTap: () async {
+                                        await ref
+                                            .read(
+                                                followingFollowerControllerProvider
+                                                    .notifier)
+                                            .getAllFollowing(data.profile.id);
+
+                                  if(context.mounted){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ShowFollowing(
+                                                userProfileID:
+                                                data.profile.id,
+                                              )),
+                                    );
+                                  }
                                       },
                                       child: ShowFollowNumbers(
                                           data: data.profile.following.length
@@ -94,16 +102,23 @@ class ViewProfileTile extends ConsumerWidget {
                                       height: 90,
                                     ),
                                     GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShowFollowing(
-                                                    userProfileID:
-                                                        data.profile.id,
-                                                  )),
-                                        );
+                                      onTap: () async {
+                                        await ref
+                                            .read(
+                                                followingFollowerControllerProvider
+                                                    .notifier)
+                                            .getAllFollowers(data.profile.id);
+                                    if(context.mounted){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ShowFollowing(
+                                                  userProfileID:
+                                                  data.profile.id,
+                                                )),
+                                      );
+                                    }
                                       },
                                       child: ShowFollowNumbers(
                                           data: data.profile.follower.length

@@ -6,7 +6,7 @@ part of 'profileModel.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MyProfile _$MyProfileFromJson(Map<String, dynamic> json) => MyProfile(
+_$_MyProfile _$$_MyProfileFromJson(Map<String, dynamic> json) => _$_MyProfile(
       posts: (json['posts'] as List<dynamic>)
           .map((e) => PostsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -14,13 +14,15 @@ MyProfile _$MyProfileFromJson(Map<String, dynamic> json) => MyProfile(
       status: json['status'] as String?,
     );
 
-Map<String, dynamic> _$MyProfileToJson(MyProfile instance) => <String, dynamic>{
+Map<String, dynamic> _$$_MyProfileToJson(_$_MyProfile instance) =>
+    <String, dynamic>{
       'posts': instance.posts,
       'profile': instance.profile,
       'status': instance.status,
     };
 
-ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
+_$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
+    _$_ProfileModel(
       following:
           (json['following'] as List<dynamic>).map((e) => e as String).toList(),
       follower:
@@ -32,32 +34,31 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       status: json['status'] as String?,
     );
 
-Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
+Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
-      'username': instance.username,
-      'image': instance.image,
-      'email': instance.email,
       'following': instance.following,
       'follower': instance.follower,
+      'image': instance.image,
+      '_id': instance.id,
+      'username': instance.username,
+      'email': instance.email,
       'status': instance.status,
     };
 
-PostsModel _$PostsModelFromJson(Map<String, dynamic> json) => PostsModel(
+_$_PostsModel _$$_PostsModelFromJson(Map<String, dynamic> json) =>
+    _$_PostsModel(
       id: json['_id'] as String,
       caption: json['caption'] as String,
       image: json['image'] as String,
       likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
       author: json['author'] as String,
-      isLiked: json['isLiked'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$PostsModelToJson(PostsModel instance) =>
+Map<String, dynamic> _$$_PostsModelToJson(_$_PostsModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'caption': instance.caption,
       'image': instance.image,
       'likes': instance.likes,
       'author': instance.author,
-      'isLiked': instance.isLiked,
     };

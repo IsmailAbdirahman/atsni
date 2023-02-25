@@ -20,17 +20,7 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
     myProfile();
   }
 
-  Future<String> followUser(String id) async {
-    String? token = await ref.read(futureTokenProvider.future);
-    final header = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final data = await profileRepository.followUser('follow-user/$id', header);
-    await viewUserProfile(id);
-    return data;
-  }
+
 
   Future<MyProfile> myProfile() async {
     state = const AsyncValue.loading();

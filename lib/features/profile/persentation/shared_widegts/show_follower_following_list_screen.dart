@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
 
+import '../../controller/follow_and_unfollow_controller.dart';
 import '../../controller/follower_following_controller.dart';
 import '../../controller/view_profile_controller.dart';
 import '../view_profile.dart';
@@ -21,12 +22,6 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
   @override
   void initState() {
     super.initState();
-    ref
-        .read(followingFollowerControllerProvider.notifier)
-        .getAllFollowing(widget.userProfileID);
-    ref
-        .read(followingFollowerControllerProvider.notifier)
-        .getAllFollowers(widget.userProfileID);
   }
 
   @override
@@ -44,16 +39,30 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                             .read(viewControllerProvider.notifier)
                             .viewUserProfile(data[index].id);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ViewProfileTile(data: result)),
-                        );
+                        if (context.mounted) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ViewProfileTile(data: result)),
+                          );
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(38.0),
-                        child: Text(data[index].username),
+                        child: Row(
+                          children: [
+                            Text(data[index].username),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  await ref
+                                      .read(followUndFollowProvider.notifier)
+                                      .followUser(data[index].id);
+                                  ref.refresh(followUndFollowProvider);
+                                },
+                                child: Text(data[index].status!))
+                          ],
+                        ),
                       ));
                 },
               );

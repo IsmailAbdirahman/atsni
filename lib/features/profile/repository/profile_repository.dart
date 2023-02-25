@@ -39,7 +39,12 @@ class ProfileRepository {
         response['profileList'].map((user) => ProfileModel.fromJson(user)));
   }
 
-  Future<String> followUser(String endPoint, Map<String, String> header) async {
+  Future<String> followUser(String endPoint) async {
+    final response = await profileService.get(endPoint);
+    return response['status'];
+  }
+
+  Future<String> getStatus(String endPoint) async {
     final response = await profileService.get(endPoint);
     return response['status'];
   }
