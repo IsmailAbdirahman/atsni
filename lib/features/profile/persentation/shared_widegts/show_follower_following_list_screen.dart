@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
 
-import '../../controller/follower_following_controller.dart';
+import '../../controller/following_list_controller.dart';
 import '../../controller/view_profile_controller.dart';
 import '../view_profile.dart';
 
@@ -21,19 +21,15 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
   @override
   void initState() {
     super.initState();
-    ref
-        .read(followingFollowerControllerProvider.notifier)
-        .getAllFollowing(widget.userProfileID);
-    ref
-        .read(followingFollowerControllerProvider.notifier)
-        .getAllFollowers(widget.userProfileID);
   }
 
   @override
   Widget build(BuildContext context) {
-    final followFollowingRef = ref.watch(followingFollowerControllerProvider);
+    final followingListRef =
+        ref.watch(followingListControllerProvider(widget.userProfileID));
+
     return Scaffold(
-        body: followFollowingRef.when(
+        body: followingListRef.when(
             data: (data) {
               return ListView.builder(
                 itemCount: data.length,
@@ -44,16 +40,32 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                             .read(viewControllerProvider.notifier)
                             .viewUserProfile(data[index].id);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ViewProfileTile(data: result)),
-                        );
+                        if (context.mounted) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ViewProfileTile(data: result)),
+                          );
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(38.0),
-                        child: Text(data[index].username),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(data[index].username),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  ref
+                                      .read(followingListControllerProvider(
+                                              widget.userProfileID)
+                                          .notifier)
+                                      .followUserFromList(data[index].id);
+                                },
+                                child: Text(data[index].status!))
+                          ],
+                        ),
                       ));
                 },
               );

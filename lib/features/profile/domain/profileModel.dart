@@ -1,83 +1,51 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../home/domain/home_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
+
+part 'profileModel.freezed.dart';
 
 part 'profileModel.g.dart';
 
-@JsonSerializable()
-class MyProfile extends Equatable {
-  final List<PostsModel> posts;
-  final ProfileModel profile;
-  final String? status;
-
-  const MyProfile({required this.posts, required this.profile, this.status});
-
-  @override
-  List<Object?> get props => [posts, profile, status];
+@freezed
+class MyProfile with _$MyProfile {
+  const factory MyProfile(
+      {required List<PostsModel> posts,
+      required ProfileModel profile,
+      String? status}) = _MyProfile;
 
   factory MyProfile.fromJson(Map<String, dynamic> data) =>
       _$MyProfileFromJson(data);
-
-  Map<String, dynamic> toJson() => _$MyProfileToJson(this);
 }
 
-@JsonSerializable()
-class ProfileModel extends Equatable {
-  @JsonKey(name: '_id')
-  final String id;
+@freezed
+class ProfileModel with _$ProfileModel {
+  const factory ProfileModel(
+      {required final List<String> following,
+      required final List<String> follower,
+      final String? image,
+      @JsonKey(name: '_id') required final String id,
+      required final String username,
+      required final String email,
+      final String? status}) = _ProfileModel;
 
-  final String username;
-  final String? image;
-  final String email;
-  final List<String> following;
-  final List<String> follower;
-  final String? status;
-
-  const ProfileModel(
-      {required this.following,
-      required this.follower,
-       this.image,
-      required this.id,
-      required this.username,
-      required this.email,
-      this.status});
-
-  @override
-  List<Object?> get props =>
-      [id, image, username, email, following, follower, status];
-
-  factory ProfileModel.fromJson(Map<String, dynamic> data) =>
+  factory ProfileModel.fromJson(Map<String, Object?> data) =>
       _$ProfileModelFromJson(data);
-
-  Map<String, dynamic> toJson() => _$ProfileModelToJson(this);
 }
 
-
-@JsonSerializable()
-class PostsModel extends Equatable {
-  @JsonKey(name: '_id')
-  final String id;
-
-  final String caption;
-  final String image;
-  final List<String> likes;
-  final String author;
-  final bool isLiked;
-
-  const PostsModel(
-      {required this.id,
-        required this.caption,
-        required this.image,
-        required this.likes,
-        required this.author,
-        this.isLiked = false});
-
-  @override
-  List<Object?> get props => [id, caption, likes, author, isLiked, image];
+@freezed
+class PostsModel with _$PostsModel {
+  const factory PostsModel({
+    @JsonKey(name: '_id') required String id,
+    required String caption,
+    required String image,
+    required List<String> likes,
+    required String author,
+  }) = _PostsModel;
 
   factory PostsModel.fromJson(Map<String, dynamic> data) =>
       _$PostsModelFromJson(data);
-
-  Map<String, dynamic> toJson() => _$PostsModelToJson(this);
 }

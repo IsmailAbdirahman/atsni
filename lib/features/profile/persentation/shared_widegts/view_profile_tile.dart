@@ -8,7 +8,7 @@ import 'package:oldinsa/features/profile/persentation/shared_widegts/show_follow
 
 import '../../../home/perserntation/home_screen.dart';
 import '../../controller/edit_profile.dart';
-import '../../controller/follower_following_controller.dart';
+import '../../controller/following_list_controller.dart';
 import '../../controller/view_profile_controller.dart';
 import '../../domain/profileModel.dart';
 import '../edit_profile.dart';
@@ -75,15 +75,17 @@ class ViewProfileTile extends ConsumerWidget {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShowFollowing(
-                                                    userProfileID:
-                                                        data.profile.id,
-                                                  )),
-                                        );
+                                        if (context.mounted) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShowFollowing(
+                                                      userProfileID:
+                                                          data.profile.id,
+                                                    )),
+                                          );
+                                        }
                                       },
                                       child: ShowFollowNumbers(
                                           data: data.profile.following.length
@@ -94,16 +96,18 @@ class ViewProfileTile extends ConsumerWidget {
                                       height: 90,
                                     ),
                                     GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShowFollowing(
-                                                    userProfileID:
-                                                        data.profile.id,
-                                                  )),
-                                        );
+                                      onTap: () async {
+                                        if (context.mounted) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShowFollowing(
+                                                      userProfileID:
+                                                          data.profile.id,
+                                                    )),
+                                          );
+                                        }
                                       },
                                       child: ShowFollowNumbers(
                                           data: data.profile.follower.length
