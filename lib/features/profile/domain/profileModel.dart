@@ -24,13 +24,13 @@ class MyProfile with _$MyProfile {
 @freezed
 class ProfileModel with _$ProfileModel {
   const factory ProfileModel(
-      {required List<String> following,
-      required List<String> follower,
-      String? image,
-      @JsonKey(name: '_id') required String id,
-      required String username,
-      required String email,
-      String? status}) = _ProfileModel;
+      {required final List<String> following,
+      required final List<String> follower,
+      final String? image,
+      @JsonKey(name: '_id') required final String id,
+      required final String username,
+      required final String email,
+      final String? status}) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, Object?> data) =>
       _$ProfileModelFromJson(data);

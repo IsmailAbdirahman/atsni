@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
 
-import '../../controller/follow_and_unfollow_controller.dart';
-import '../../controller/follower_following_controller.dart';
+import '../../controller/following_list_controller.dart';
 import '../../controller/view_profile_controller.dart';
 import '../view_profile.dart';
 
@@ -26,9 +25,11 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
 
   @override
   Widget build(BuildContext context) {
-    final followFollowingRef = ref.watch(followingFollowerControllerProvider);
+    final followingListRef =
+        ref.watch(followingListControllerProvider(widget.userProfileID));
+
     return Scaffold(
-        body: followFollowingRef.when(
+        body: followingListRef.when(
             data: (data) {
               return ListView.builder(
                 itemCount: data.length,
@@ -51,14 +52,16 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                       child: Padding(
                         padding: const EdgeInsets.all(38.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(data[index].username),
                             ElevatedButton(
                                 onPressed: () async {
-                                  await ref
-                                      .read(followUndFollowProvider.notifier)
-                                      .followUser(data[index].id);
-                                  ref.refresh(followUndFollowProvider);
+                                  ref
+                                      .read(followingListControllerProvider(
+                                              widget.userProfileID)
+                                          .notifier)
+                                      .followUserFromList(data[index].id);
                                 },
                                 child: Text(data[index].status!))
                           ],

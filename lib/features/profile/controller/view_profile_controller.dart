@@ -20,8 +20,6 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
     myProfile();
   }
 
-
-
   Future<MyProfile> myProfile() async {
     state = const AsyncValue.loading();
     final result = await profileRepository.myProfile('myProfile');
@@ -35,5 +33,14 @@ class ViewProfileController extends StateNotifier<AsyncValue<MyProfile>> {
         await profileRepository.viewUserProfile(id, 'viewProfile/$id');
     state = AsyncValue.data(result);
     return result;
+  }
+
+  Future<String> followUserFromProfile(String userId) async {
+    final profileRepository = ref.read(profileRepositoryProvider);
+    final status = await profileRepository.followUser('follow-user/$userId');
+    state = state.whenData((value) {
+      return value.copyWith(status: status);
+    });
+    return status;
   }
 }
