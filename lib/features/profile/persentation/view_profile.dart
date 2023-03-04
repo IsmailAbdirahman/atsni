@@ -14,7 +14,7 @@ class ViewMyProfile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileRef = ref.watch(viewControllerProvider);
+    final profileRef = ref.watch(viewProfileControllerProvider);
     return profileRef.when(
         data: (data) => ViewProfileTile(data: data),
         error: (e, r) => const Text('ss'),

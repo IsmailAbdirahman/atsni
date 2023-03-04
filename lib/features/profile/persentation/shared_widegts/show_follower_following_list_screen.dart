@@ -37,7 +37,7 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                   return GestureDetector(
                       onTap: () async {
                         final result = await ref
-                            .read(viewControllerProvider.notifier)
+                            .read(viewProfileControllerProvider.notifier)
                             .viewUserProfile(data[index].id);
 
                         if (context.mounted) {

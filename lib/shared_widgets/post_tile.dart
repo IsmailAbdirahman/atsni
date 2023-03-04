@@ -27,6 +27,8 @@ class PostTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final myID = ref.watch(viewProfileControllerProvider);
+
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Card(
@@ -49,7 +51,7 @@ class PostTile extends ConsumerWidget {
                   InkWell(
                     onTap: () async {
                       final result = await ref
-                          .read(viewControllerProvider.notifier)
+                          .read(viewProfileControllerProvider.notifier)
                           .viewUserProfile(userID);
 
                       Navigator.push(
@@ -84,12 +86,12 @@ class PostTile extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 8, left: 0.0),
               child: Row(
                 children: [
-                  likes.contains("63e29eead6c3e3f9a436c13d") == true
+                  likes.contains(myID.value?.profile.id) == true
                       ? IconButton(
                     onPressed: () {
                       ref
                           .read(homeControllerProvider.notifier)
-                          .likePost(userID);
+                          .likePost(postId);
                     },
                     icon: const Icon(
                       Icons.favorite,
@@ -100,7 +102,7 @@ class PostTile extends ConsumerWidget {
                     onPressed: () {
                       ref
                           .read(homeControllerProvider.notifier)
-                          .likePost(userID);
+                          .likePost(postId);
                     },
                     icon: const Icon(
                       Icons.favorite_border,

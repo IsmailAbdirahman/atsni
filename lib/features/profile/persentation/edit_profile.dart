@@ -14,7 +14,7 @@ class EditProfile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ddRef = ref.watch(viewControllerProvider);
+    final ddRef = ref.watch(viewProfileControllerProvider);
 
     return ddRef.when(
         data: (data) {
@@ -22,7 +22,7 @@ class EditProfile extends ConsumerWidget {
             return ElevatedButton(
                 onPressed: () {
                   ref
-                      .read(viewControllerProvider.notifier)
+                      .read(viewProfileControllerProvider.notifier)
                       .followUserFromProfile(userID);
                 },
                 child: Text(data.status!));

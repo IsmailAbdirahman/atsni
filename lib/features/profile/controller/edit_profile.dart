@@ -31,7 +31,7 @@ class EditProfileController extends StateNotifier<AsyncValue<MyProfile>> {
       password: password,
       endPoint: 'edit-profile',
     );
-    await ref.read(viewControllerProvider.notifier).myProfile();
+    await ref.read(viewProfileControllerProvider.notifier).myProfile();
 
     return data;
   }
