@@ -39,7 +39,7 @@ class SearchScreen extends ConsumerWidget {
                           return GestureDetector(
                             onTap: () async {
                               final result = await ref
-                                  .read(viewControllerProvider.notifier)
+                                  .read(viewProfileControllerProvider.notifier)
                                   .viewUserProfile(data[index].id);
 
                               Navigator.push(

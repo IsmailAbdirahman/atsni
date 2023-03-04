@@ -44,20 +44,12 @@ class HomeController extends StateNotifier<AsyncValue<List<HomeModel>>> {
   }
 
   Future likePost(String postId) async {
-    final data = await homeRepository.likePost('likedPost/$postId');
+    final data = await homeRepository.likePost(''
+        'likedPost/$postId');
 
-    final List<HomeModel> newState = [];
-
-    for (var value in state.value!) {
-      final updatedPost = HomeModel(
-          id: value.id,
-          caption: value.caption,
-          image: value.image,
-          likes: data.likes,
-          author: value.author);
-      newState.add(updatedPost);
-    }
-
-    state = AsyncData(newState);
+    state = AsyncValue.data([
+      for (var post in state.value!)
+        if (post.id == postId) post.copyWith(likes: data.likes) else post
+    ]);
   }
 }

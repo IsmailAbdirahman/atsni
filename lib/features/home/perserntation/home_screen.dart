@@ -21,7 +21,6 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeRef = ref.watch(homeControllerProvider);
-    final myID = ref.watch(viewControllerProvider).value;
 
     return Scaffold(
         appBar: AppBar(
