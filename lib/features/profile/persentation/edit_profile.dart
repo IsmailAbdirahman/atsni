@@ -14,18 +14,19 @@ class EditProfile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ddRef = ref.watch(viewProfileControllerProvider);
+    print("-i-i-i-i-i-i-i-i-i-i-     $userID");
+    final viewProfileRef = ref.watch(viewProfileControllerProvider);
 
-    return ddRef.when(
+    return viewProfileRef.when(
         data: (data) {
-          if (data.status != null) {
+          if (data.profile.status != null) {
             return ElevatedButton(
                 onPressed: () {
                   ref
                       .read(viewProfileControllerProvider.notifier)
                       .followUserFromProfile(userID);
                 },
-                child: Text(data.status!));
+                child: Text(data.profile.status!));
           } else {
             return ElevatedButton(
                 onPressed: () {

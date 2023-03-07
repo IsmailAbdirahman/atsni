@@ -58,9 +58,9 @@ class HomeScreen extends ConsumerWidget {
                                 userID: data[index].author.id,
                                 profileImage: data[index].author.image,
                                 postId: data[index].id,
-                                postImage: data[index].image,
-                                likes: data[index].likes,
-                                caption: data[index].caption,
+                               postImage: data[index].image,
+                               likes: data[index].likes,
+                               caption: data[index].caption,
                               ));
                         },
                       ),

@@ -70,7 +70,10 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                 },
               );
             },
-            error: (e, r) => const Text('error'),
+            error: (e, r) => Padding(
+              padding: const EdgeInsets.all(28.0),
+              child:  Text(e.toString()),
+            ),
             loading: () => const Center(
                   child: CircularProgressIndicator(),
                 )));

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
@@ -9,13 +8,13 @@ import '../features/profile/controller/view_profile_controller.dart';
 class PostTile extends ConsumerWidget {
   PostTile(
       {super.key,
-        required this.username,
-        required this.caption,
-        required this.postImage,
-        required this.likes,
-        required this.profileImage,
-        required this.userID,
-        required this.postId});
+      required this.username,
+      required this.caption,
+      required this.postImage,
+      required this.likes,
+      required this.profileImage,
+      required this.userID,
+      required this.postId});
 
   final String userID;
   final String postId;
@@ -54,12 +53,14 @@ class PostTile extends ConsumerWidget {
                           .read(viewProfileControllerProvider.notifier)
                           .viewUserProfile(userID);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ViewProfileTile(data: result)),
-                      );
+                      if (context.mounted) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ViewProfileTile(data: result)),
+                        );
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -88,27 +89,27 @@ class PostTile extends ConsumerWidget {
                 children: [
                   likes.contains(myID.value?.profile.id) == true
                       ? IconButton(
-                    onPressed: () {
-                      ref
-                          .read(homeControllerProvider.notifier)
-                          .likePost(postId);
-                    },
-                    icon: const Icon(
-                      Icons.favorite,
-                      color: Colors.redAccent,
-                    ),
-                  )
+                          onPressed: () {
+                            ref
+                                .read(homeControllerProvider.notifier)
+                                .likePost(postId);
+                          },
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.redAccent,
+                          ),
+                        )
                       : IconButton(
-                    onPressed: () {
-                      ref
-                          .read(homeControllerProvider.notifier)
-                          .likePost(postId);
-                    },
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.redAccent,
-                    ),
-                  ),
+                          onPressed: () {
+                            ref
+                                .read(homeControllerProvider.notifier)
+                                .likePost(postId);
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.redAccent,
+                          ),
+                        ),
                   Padding(
                     padding: const EdgeInsets.only(left: 4.0),
                     child: Text(
@@ -140,7 +141,7 @@ class PostTile extends ConsumerWidget {
                           color: Color(0xFF306088)),
                     ),
                   ),
-                  Text(caption)
+                  // Text(caption)
                 ],
               ),
             )
