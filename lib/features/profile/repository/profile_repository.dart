@@ -17,13 +17,13 @@ class ProfileRepository {
 
   Future<MyProfile> myProfile(String endPoint) async {
     final response = await profileService.get(endPoint);
-    debugPrint('----------------myProfile-------------------- $response');
     var data = MyProfile.fromJson(response);
     return data;
   }
 
   Future<MyProfile> viewUserProfile(String id, String endPoint) async {
     final response = await profileService.get(endPoint);
+    print('-0-0-0-0-0-0-0-0-0-0-0-0-0 $response');
     return MyProfile.fromJson(response);
   }
 

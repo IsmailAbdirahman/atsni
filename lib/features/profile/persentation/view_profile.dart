@@ -17,7 +17,10 @@ class ViewMyProfile extends ConsumerWidget {
     final profileRef = ref.watch(viewProfileControllerProvider);
     return profileRef.when(
         data: (data) => ViewProfileTile(data: data),
-        error: (e, r) => const Text('ss'),
+        error: (e, r) =>
+            ElevatedButton(onPressed: () {
+              ref.read(viewProfileControllerProvider.notifier).myProfile();
+            }, child: Text(e.toString())),
         loading: () => const CircularProgressIndicator());
   }
 }

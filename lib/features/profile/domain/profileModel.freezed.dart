@@ -20,7 +20,6 @@ MyProfile _$MyProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MyProfile {
-  List<PostsModel> get posts => throw _privateConstructorUsedError;
   ProfileModel get profile => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
 
@@ -35,7 +34,7 @@ abstract class $MyProfileCopyWith<$Res> {
   factory $MyProfileCopyWith(MyProfile value, $Res Function(MyProfile) then) =
       _$MyProfileCopyWithImpl<$Res, MyProfile>;
   @useResult
-  $Res call({List<PostsModel> posts, ProfileModel profile, String? status});
+  $Res call({ProfileModel profile, String? status});
 
   $ProfileModelCopyWith<$Res> get profile;
 }
@@ -53,15 +52,10 @@ class _$MyProfileCopyWithImpl<$Res, $Val extends MyProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? posts = null,
     Object? profile = null,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      posts: null == posts
-          ? _value.posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<PostsModel>,
       profile: null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
@@ -89,7 +83,7 @@ abstract class _$$_MyProfileCopyWith<$Res> implements $MyProfileCopyWith<$Res> {
       __$$_MyProfileCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<PostsModel> posts, ProfileModel profile, String? status});
+  $Res call({ProfileModel profile, String? status});
 
   @override
   $ProfileModelCopyWith<$Res> get profile;
@@ -106,15 +100,10 @@ class __$$_MyProfileCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? posts = null,
     Object? profile = null,
     Object? status = freezed,
   }) {
     return _then(_$_MyProfile(
-      posts: null == posts
-          ? _value._posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<PostsModel>,
       profile: null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
@@ -130,22 +119,10 @@ class __$$_MyProfileCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_MyProfile with DiagnosticableTreeMixin implements _MyProfile {
-  const _$_MyProfile(
-      {required final List<PostsModel> posts,
-      required this.profile,
-      this.status})
-      : _posts = posts;
+  const _$_MyProfile({required this.profile, this.status});
 
   factory _$_MyProfile.fromJson(Map<String, dynamic> json) =>
       _$$_MyProfileFromJson(json);
-
-  final List<PostsModel> _posts;
-  @override
-  List<PostsModel> get posts {
-    if (_posts is EqualUnmodifiableListView) return _posts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_posts);
-  }
 
   @override
   final ProfileModel profile;
@@ -154,7 +131,7 @@ class _$_MyProfile with DiagnosticableTreeMixin implements _MyProfile {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MyProfile(posts: $posts, profile: $profile, status: $status)';
+    return 'MyProfile(profile: $profile, status: $status)';
   }
 
   @override
@@ -162,7 +139,6 @@ class _$_MyProfile with DiagnosticableTreeMixin implements _MyProfile {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'MyProfile'))
-      ..add(DiagnosticsProperty('posts', posts))
       ..add(DiagnosticsProperty('profile', profile))
       ..add(DiagnosticsProperty('status', status));
   }
@@ -172,15 +148,13 @@ class _$_MyProfile with DiagnosticableTreeMixin implements _MyProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MyProfile &&
-            const DeepCollectionEquality().equals(other._posts, _posts) &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_posts), profile, status);
+  int get hashCode => Object.hash(runtimeType, profile, status);
 
   @JsonKey(ignore: true)
   @override
@@ -198,15 +172,12 @@ class _$_MyProfile with DiagnosticableTreeMixin implements _MyProfile {
 
 abstract class _MyProfile implements MyProfile {
   const factory _MyProfile(
-      {required final List<PostsModel> posts,
-      required final ProfileModel profile,
+      {required final ProfileModel profile,
       final String? status}) = _$_MyProfile;
 
   factory _MyProfile.fromJson(Map<String, dynamic> json) =
       _$_MyProfile.fromJson;
 
-  @override
-  List<PostsModel> get posts;
   @override
   ProfileModel get profile;
   @override
@@ -230,6 +201,7 @@ mixin _$ProfileModel {
   String get id => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  List<PostsModel> get myPosts => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -251,6 +223,7 @@ abstract class $ProfileModelCopyWith<$Res> {
       @JsonKey(name: '_id') String id,
       String username,
       String email,
+      List<PostsModel> myPosts,
       String? status});
 }
 
@@ -273,6 +246,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? id = null,
     Object? username = null,
     Object? email = null,
+    Object? myPosts = null,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
@@ -300,6 +274,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      myPosts: null == myPosts
+          ? _value.myPosts
+          : myPosts // ignore: cast_nullable_to_non_nullable
+              as List<PostsModel>,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -323,6 +301,7 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       @JsonKey(name: '_id') String id,
       String username,
       String email,
+      List<PostsModel> myPosts,
       String? status});
 }
 
@@ -343,6 +322,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? id = null,
     Object? username = null,
     Object? email = null,
+    Object? myPosts = null,
     Object? status = freezed,
   }) {
     return _then(_$_ProfileModel(
@@ -370,6 +350,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      myPosts: null == myPosts
+          ? _value._myPosts
+          : myPosts // ignore: cast_nullable_to_non_nullable
+              as List<PostsModel>,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -388,9 +372,11 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
       @JsonKey(name: '_id') required this.id,
       required this.username,
       required this.email,
+      required final List<PostsModel> myPosts,
       this.status})
       : _following = following,
-        _follower = follower;
+        _follower = follower,
+        _myPosts = myPosts;
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileModelFromJson(json);
@@ -420,12 +406,20 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
   final String username;
   @override
   final String email;
+  final List<PostsModel> _myPosts;
+  @override
+  List<PostsModel> get myPosts {
+    if (_myPosts is EqualUnmodifiableListView) return _myPosts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_myPosts);
+  }
+
   @override
   final String? status;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileModel(following: $following, follower: $follower, image: $image, id: $id, username: $username, email: $email, status: $status)';
+    return 'ProfileModel(following: $following, follower: $follower, image: $image, id: $id, username: $username, email: $email, myPosts: $myPosts, status: $status)';
   }
 
   @override
@@ -439,6 +433,7 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('myPosts', myPosts))
       ..add(DiagnosticsProperty('status', status));
   }
 
@@ -455,6 +450,7 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
+            const DeepCollectionEquality().equals(other._myPosts, _myPosts) &&
             (identical(other.status, status) || other.status == status));
   }
 
@@ -468,6 +464,7 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
       id,
       username,
       email,
+      const DeepCollectionEquality().hash(_myPosts),
       status);
 
   @JsonKey(ignore: true)
@@ -492,6 +489,7 @@ abstract class _ProfileModel implements ProfileModel {
       @JsonKey(name: '_id') required final String id,
       required final String username,
       required final String email,
+      required final List<PostsModel> myPosts,
       final String? status}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
@@ -511,6 +509,8 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   String get email;
   @override
+  List<PostsModel> get myPosts;
+  @override
   String? get status;
   @override
   @JsonKey(ignore: true)
@@ -529,7 +529,6 @@ mixin _$PostsModel {
   String get caption => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
-  String get author => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -547,8 +546,7 @@ abstract class $PostsModelCopyWith<$Res> {
       {@JsonKey(name: '_id') String id,
       String caption,
       String image,
-      List<String> likes,
-      String author});
+      List<String> likes});
 }
 
 /// @nodoc
@@ -568,7 +566,6 @@ class _$PostsModelCopyWithImpl<$Res, $Val extends PostsModel>
     Object? caption = null,
     Object? image = null,
     Object? likes = null,
-    Object? author = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -587,10 +584,6 @@ class _$PostsModelCopyWithImpl<$Res, $Val extends PostsModel>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      author: null == author
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -607,8 +600,7 @@ abstract class _$$_PostsModelCopyWith<$Res>
       {@JsonKey(name: '_id') String id,
       String caption,
       String image,
-      List<String> likes,
-      String author});
+      List<String> likes});
 }
 
 /// @nodoc
@@ -626,7 +618,6 @@ class __$$_PostsModelCopyWithImpl<$Res>
     Object? caption = null,
     Object? image = null,
     Object? likes = null,
-    Object? author = null,
   }) {
     return _then(_$_PostsModel(
       id: null == id
@@ -645,10 +636,6 @@ class __$$_PostsModelCopyWithImpl<$Res>
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      author: null == author
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -660,8 +647,7 @@ class _$_PostsModel with DiagnosticableTreeMixin implements _PostsModel {
       {@JsonKey(name: '_id') required this.id,
       required this.caption,
       required this.image,
-      required final List<String> likes,
-      required this.author})
+      required final List<String> likes})
       : _likes = likes;
 
   factory _$_PostsModel.fromJson(Map<String, dynamic> json) =>
@@ -683,11 +669,8 @@ class _$_PostsModel with DiagnosticableTreeMixin implements _PostsModel {
   }
 
   @override
-  final String author;
-
-  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PostsModel(id: $id, caption: $caption, image: $image, likes: $likes, author: $author)';
+    return 'PostsModel(id: $id, caption: $caption, image: $image, likes: $likes)';
   }
 
   @override
@@ -698,8 +681,7 @@ class _$_PostsModel with DiagnosticableTreeMixin implements _PostsModel {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('caption', caption))
       ..add(DiagnosticsProperty('image', image))
-      ..add(DiagnosticsProperty('likes', likes))
-      ..add(DiagnosticsProperty('author', author));
+      ..add(DiagnosticsProperty('likes', likes));
   }
 
   @override
@@ -710,14 +692,13 @@ class _$_PostsModel with DiagnosticableTreeMixin implements _PostsModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.caption, caption) || other.caption == caption) &&
             (identical(other.image, image) || other.image == image) &&
-            const DeepCollectionEquality().equals(other._likes, _likes) &&
-            (identical(other.author, author) || other.author == author));
+            const DeepCollectionEquality().equals(other._likes, _likes));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, caption, image,
-      const DeepCollectionEquality().hash(_likes), author);
+      const DeepCollectionEquality().hash(_likes));
 
   @JsonKey(ignore: true)
   @override
@@ -738,8 +719,7 @@ abstract class _PostsModel implements PostsModel {
       {@JsonKey(name: '_id') required final String id,
       required final String caption,
       required final String image,
-      required final List<String> likes,
-      required final String author}) = _$_PostsModel;
+      required final List<String> likes}) = _$_PostsModel;
 
   factory _PostsModel.fromJson(Map<String, dynamic> json) =
       _$_PostsModel.fromJson;
@@ -753,8 +733,6 @@ abstract class _PostsModel implements PostsModel {
   String get image;
   @override
   List<String> get likes;
-  @override
-  String get author;
   @override
   @JsonKey(ignore: true)
   _$$_PostsModelCopyWith<_$_PostsModel> get copyWith =>

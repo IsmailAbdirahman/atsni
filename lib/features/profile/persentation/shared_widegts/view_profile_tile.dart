@@ -68,7 +68,7 @@ class ViewProfileTile extends ConsumerWidget {
                                 Row(
                                   children: [
                                     ShowFollowNumbers(
-                                        data: data.posts.length.toString(),
+                                        data: data.profile.myPosts.length.toString(),
                                         name: "Posts"),
                                     const CustomVerticalDivider(
                                       height: 90,
@@ -276,7 +276,7 @@ class ViewUserPosts extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
             ),
-            itemCount: posts.posts.length,
+            itemCount: posts.profile.myPosts.length,
             itemBuilder: (BuildContext context, int index) {
               return SizedBox(
                 height: 90,
@@ -295,7 +295,7 @@ class ViewUserPosts extends StatelessWidget {
                       );
                     },
                     child: Image(
-                      image: NetworkImage(posts.posts[index].image),
+                      image: NetworkImage(posts.profile.myPosts[index].image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -335,16 +335,16 @@ class _ViewPostListState extends State<ViewPostList> {
           initialScrollIndex: widget.index,
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
-          itemCount: widget.profile.posts.length,
+          itemCount: widget.profile.profile.myPosts.length,
           itemBuilder: (BuildContext context, int index) {
             return PostTile(
               username: widget.profile.profile.username,
               userID: widget.profile.profile.id,
-              profileImage: widget.profile.profile.image!,
-              postId: widget.profile.posts[index].id,
-              postImage: widget.profile.posts[index].image,
-              caption: widget.profile.posts[index].caption,
-              likes: widget.profile.posts[index].likes,
+               profileImage: widget.profile.profile.image!,
+               postId: widget.profile.profile.myPosts[index].id,
+              postImage: widget.profile.profile.myPosts[index].image,
+              caption: widget.profile.profile.myPosts[index].caption,
+              likes: widget.profile.profile.myPosts[index].likes,
             );
           }),
     );

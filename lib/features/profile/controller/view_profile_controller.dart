@@ -25,6 +25,7 @@ class ViewProfileController extends _$ViewProfileController {
     final profileRepository = ref.read(profileRepositoryProvider);
 
     final result = await profileRepository.myProfile('myProfile');
+
     state = AsyncValue.data(result);
     return result;
   }
@@ -35,6 +36,8 @@ class ViewProfileController extends _$ViewProfileController {
 
     final result =
         await profileRepository.viewUserProfile(id, 'viewProfile/$id');
+    print('OIOIOIOIOIOI01010101010101OIOIOIOIOIOI :: $result');
+
     state = AsyncValue.data(result);
     return result;
   }

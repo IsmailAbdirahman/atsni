@@ -20,6 +20,7 @@ class FollowingListController extends _$FollowingListController {
     final profileRepository = ref.read(profileRepositoryProvider);
     final data = await profileRepository
         .getAllFollowing('getSingleUserFollowingProfiles/$userId');
+    print("0-0-0-0-0-0-0-0-0-0-0 ${data}");
     return data;
   }
 

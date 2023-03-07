@@ -42,12 +42,14 @@ class SearchScreen extends ConsumerWidget {
                                   .read(viewProfileControllerProvider.notifier)
                                   .viewUserProfile(data[index].id);
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ViewProfileTile(data: result)),
-                              );
+                              if (context.mounted) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ViewProfileTile(data: result)),
+                                );
+                              }
                             },
                             child: Row(
                               children: [

@@ -12,10 +12,8 @@ part 'profileModel.g.dart';
 
 @freezed
 class MyProfile with _$MyProfile {
-  const factory MyProfile(
-      {required List<PostsModel> posts,
-      required ProfileModel profile,
-      String? status}) = _MyProfile;
+  const factory MyProfile({required ProfileModel profile, String? status}) =
+      _MyProfile;
 
   factory MyProfile.fromJson(Map<String, dynamic> data) =>
       _$MyProfileFromJson(data);
@@ -30,6 +28,7 @@ class ProfileModel with _$ProfileModel {
       @JsonKey(name: '_id') required final String id,
       required final String username,
       required final String email,
+      required List<PostsModel> myPosts,
       final String? status}) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, Object?> data) =>
@@ -43,7 +42,6 @@ class PostsModel with _$PostsModel {
     required String caption,
     required String image,
     required List<String> likes,
-    required String author,
   }) = _PostsModel;
 
   factory PostsModel.fromJson(Map<String, dynamic> data) =>
