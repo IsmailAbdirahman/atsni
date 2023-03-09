@@ -12,14 +12,13 @@ class EditProfileRepository {
 
   EditProfileRepository({required this.profileService});
 
-  Future<MyProfile> editMyProfile({
+  Future<String> editMyProfile({
     required String username,
-    required String password,
     required String endPoint,
   }) async {
-    var data = {'username': username, 'password': password};
+    var data = {'username': username};
     final response = await profileService.post(endPoint, data);
 
-    return MyProfile.fromJson(response);
+    return response['updatedUsername'];
   }
 }

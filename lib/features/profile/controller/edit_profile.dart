@@ -22,17 +22,5 @@ class EditProfileController extends StateNotifier<AsyncValue<MyProfile>> {
       {required this.editProfileRepository, required this.ref})
       : super(const AsyncValue.loading());
 
-  Future<MyProfile> editMyProfile({
-    required String username,
-    required String password,
-  }) async {
-    final data = await editProfileRepository.editMyProfile(
-      username: username,
-      password: password,
-      endPoint: 'edit-profile',
-    );
-    await ref.read(viewProfileControllerProvider.notifier).myProfile();
 
-    return data;
-  }
 }

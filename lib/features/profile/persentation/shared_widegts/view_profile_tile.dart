@@ -16,7 +16,7 @@ import 'custom_vertical_divider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ViewProfileTile extends ConsumerWidget {
-  final MyProfile data;
+  final ProfileModel data;
 
   const ViewProfileTile({Key? key, required this.data}) : super(key: key);
 
@@ -28,7 +28,7 @@ class ViewProfileTile extends ConsumerWidget {
       backgroundColor: const Color(0xFFd7d8d9),
       appBar: AppBar(
         backgroundColor: const Color(0xff306088),
-        title: Text(data.profile.username),
+        title: Text(data.username),
         centerTitle: true,
         actions: const [
           Padding(
@@ -57,7 +57,7 @@ class ViewProfileTile extends ConsumerWidget {
                       Row(
                         children: [
                           ProfilePhoto(
-                            image: data.profile.image!,
+                            image:data.image!,
                           ),
                           const CustomVerticalDivider(
                             height: 131,
@@ -68,7 +68,7 @@ class ViewProfileTile extends ConsumerWidget {
                                 Row(
                                   children: [
                                     ShowFollowNumbers(
-                                        data: data.profile.myPosts.length.toString(),
+                                        data: data.myPosts.length.toString(),
                                         name: "Posts"),
                                     const CustomVerticalDivider(
                                       height: 90,
@@ -82,13 +82,13 @@ class ViewProfileTile extends ConsumerWidget {
                                                 builder: (context) =>
                                                     ShowFollowing(
                                                       userProfileID:
-                                                          data.profile.id,
+                                                      data.id,
                                                     )),
                                           );
                                         }
                                       },
                                       child: ShowFollowNumbers(
-                                          data: data.profile.following.length
+                                          data: data.following!.length
                                               .toString(),
                                           name: "Following"),
                                     ),
@@ -104,13 +104,13 @@ class ViewProfileTile extends ConsumerWidget {
                                                 builder: (context) =>
                                                     ShowFollowing(
                                                       userProfileID:
-                                                          data.profile.id,
+                                                      data.id,
                                                     )),
                                           );
                                         }
                                       },
                                       child: ShowFollowNumbers(
-                                          data: data.profile.follower.length
+                                          data:data.follower!.length
                                               .toString(),
                                           name: "Follower"),
                                     ),
@@ -120,7 +120,7 @@ class ViewProfileTile extends ConsumerWidget {
                                   thickness: 0.5,
                                   color: dividerColor,
                                 ),
-                                EditProfile(userID: data.profile.id)
+                                EditProfile(userID: data.id)
                               ],
                             ),
                           )
@@ -133,7 +133,7 @@ class ViewProfileTile extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          data.profile.username,
+                          data.username,
                           style: const TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 19),
                         ),
@@ -252,7 +252,7 @@ class ProfileIcon extends StatelessWidget {
 class ViewUserPosts extends StatelessWidget {
   ViewUserPosts({Key? key, required this.posts}) : super(key: key);
 
-  final MyProfile posts;
+  final ProfileModel posts;
 
   // final List<String> userPosts = [
   //   'assets/images/s1.jpg',
@@ -276,7 +276,7 @@ class ViewUserPosts extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
             ),
-            itemCount: posts.profile.myPosts.length,
+            itemCount: posts.myPosts.length,
             itemBuilder: (BuildContext context, int index) {
               return SizedBox(
                 height: 90,
@@ -295,7 +295,7 @@ class ViewUserPosts extends StatelessWidget {
                       );
                     },
                     child: Image(
-                      image: NetworkImage(posts.profile.myPosts[index].image),
+                      image: NetworkImage( posts.myPosts[index].image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -311,7 +311,7 @@ class ViewPostList extends StatefulWidget {
   const ViewPostList({Key? key, required this.profile, required this.index})
       : super(key: key);
 
-  final MyProfile profile;
+  final ProfileModel profile;
   final int index;
 
   @override
@@ -335,16 +335,16 @@ class _ViewPostListState extends State<ViewPostList> {
           initialScrollIndex: widget.index,
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
-          itemCount: widget.profile.profile.myPosts.length,
+          itemCount: widget.profile.myPosts.length,
           itemBuilder: (BuildContext context, int index) {
             return PostTile(
-              username: widget.profile.profile.username,
-              userID: widget.profile.profile.id,
-               profileImage: widget.profile.profile.image!,
-               postId: widget.profile.profile.myPosts[index].id,
-              postImage: widget.profile.profile.myPosts[index].image,
-              caption: widget.profile.profile.myPosts[index].caption,
-              likes: widget.profile.profile.myPosts[index].likes,
+              username: widget.profile.username,
+              userID: widget.profile.id,
+               profileImage: widget.profile.image!,
+               postId: widget.profile.myPosts[index].id,
+              postImage: widget.profile.myPosts[index].image,
+              caption: widget.profile.myPosts[index].caption,
+              likes: widget.profile.myPosts[index].likes,
             );
           }),
     );

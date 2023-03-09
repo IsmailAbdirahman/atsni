@@ -87,7 +87,7 @@ class PostTile extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 8, left: 0.0),
               child: Row(
                 children: [
-                  likes.contains(myID.value?.profile.id) == true
+                  likes.contains(myID.value?.id) == true
                       ? IconButton(
                           onPressed: () {
                             ref

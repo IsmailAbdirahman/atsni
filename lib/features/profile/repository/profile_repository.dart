@@ -15,16 +15,15 @@ class ProfileRepository {
 
   ProfileRepository(this.profileService);
 
-  Future<MyProfile> myProfile(String endPoint) async {
+  Future<ProfileModel> myProfile(String endPoint) async {
     final response = await profileService.get(endPoint);
-    var data = MyProfile.fromJson(response);
+    var data = ProfileModel.fromJson(response['profile']);
     return data;
   }
 
-  Future<MyProfile> viewUserProfile(String id, String endPoint) async {
+  Future<ProfileModel> viewUserProfile(String id, String endPoint) async {
     final response = await profileService.get(endPoint);
-    print('-0-0-0-0-0-0-0-0-0-0-0-0-0 $response');
-    return MyProfile.fromJson(response);
+    return ProfileModel.fromJson(response['profile']);
   }
 
   Future<List<ProfileModel>> getAllFollowing(String endPoint) async {

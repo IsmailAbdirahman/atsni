@@ -19,10 +19,15 @@ Map<String, dynamic> _$$_MyProfileToJson(_$_MyProfile instance) =>
 
 _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
     _$_ProfileModel(
-      following:
-          (json['following'] as List<dynamic>).map((e) => e as String).toList(),
-      follower:
-          (json['follower'] as List<dynamic>).map((e) => e as String).toList(),
+      following: (json['following'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      follower: (json['follower'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      likedPosts: (json['likedPosts'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       image: json['image'] as String?,
       id: json['_id'] as String,
       username: json['username'] as String,
@@ -37,6 +42,7 @@ Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
     <String, dynamic>{
       'following': instance.following,
       'follower': instance.follower,
+      'likedPosts': instance.likedPosts,
       'image': instance.image,
       '_id': instance.id,
       'username': instance.username,
