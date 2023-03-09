@@ -48,12 +48,10 @@ class ViewProfileController extends _$ViewProfileController {
   Future<ProfileModel> viewUserProfile(String id) async {
     state = const AsyncValue.loading();
     final profileRepository = ref.read(profileRepositoryProvider);
-
     final result =
         await profileRepository.viewUserProfile(id, 'viewProfile/$id');
-    print('OIOIOIOIOIOI01010101010101OIOIOIOIOIOI :: $result');
-
     state = AsyncValue.data(result);
+
     return result;
   }
 
