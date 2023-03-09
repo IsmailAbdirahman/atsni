@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
-import '../controller/edit_profile.dart';
 import '../controller/following_list_controller.dart';
 import '../controller/view_profile_controller.dart';
 
-class EditProfile extends ConsumerWidget {
-  EditProfile({Key? key, required this.userID}) : super(key: key);
+class FollowButton extends ConsumerWidget {
+  FollowButton({Key? key, required this.userID}) : super(key: key);
   final String userID;
   late TextEditingController usernameController;
 
@@ -31,10 +30,8 @@ class EditProfile extends ConsumerWidget {
           } else {
             return EditMyProfile(
                 myProfile: data,
-                usernameController:
-                    TextEditingController(text: data.username),
-                emailController:
-                    TextEditingController(text: data.email));
+                usernameController: TextEditingController(text: data.username),
+                emailController: TextEditingController(text: data.email));
           }
         },
         error: (e, r) => const Text('er'),
@@ -57,10 +54,8 @@ class EditMyProfile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
         onPressed: () {
-          usernameController =
-              TextEditingController(text: myProfile.username);
-          emailController =
-              TextEditingController(text: myProfile.email);
+          usernameController = TextEditingController(text: myProfile.username);
+          emailController = TextEditingController(text: myProfile.email);
           showDialog(
             context: context,
             builder: (BuildContext context) {

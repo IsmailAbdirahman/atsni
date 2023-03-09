@@ -7,7 +7,6 @@ import 'package:oldinsa/features/profile/persentation/shared_widegts/profile_pho
 import 'package:oldinsa/features/profile/persentation/shared_widegts/show_follower_following_list_screen.dart';
 
 import '../../../home/perserntation/home_screen.dart';
-import '../../controller/edit_profile.dart';
 import '../../controller/following_list_controller.dart';
 import '../../controller/view_profile_controller.dart';
 import '../../domain/profileModel.dart';
@@ -16,149 +15,156 @@ import 'custom_vertical_divider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ViewProfileTile extends ConsumerWidget {
-  final ProfileModel data;
+  // final ProfileModel data;
 
-  const ViewProfileTile({Key? key, required this.data}) : super(key: key);
+  const ViewProfileTile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewProfileRef = ref.watch(viewProfileControllerProvider);
     Color dividerColor = Colors.grey;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFd7d8d9),
-      appBar: AppBar(
-        backgroundColor: const Color(0xff306088),
-        title: Text(data.username),
-        centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: Icon(Icons.settings),
-          )
-        ],
-      ),
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                height: 240,
-                child: Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7)),
-                  color: const Color(0xFFf2f2f2),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          ProfilePhoto(
-                            image:data.image!,
-                          ),
-                          const CustomVerticalDivider(
-                            height: 131,
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    ShowFollowNumbers(
-                                        data: data.myPosts.length.toString(),
-                                        name: "Posts"),
-                                    const CustomVerticalDivider(
-                                      height: 90,
+    return viewProfileRef.when(
+        data: (data) => Scaffold(
+              backgroundColor: const Color(0xFFd7d8d9),
+              appBar: AppBar(
+                backgroundColor: const Color(0xff306088),
+                title: Text(data.username),
+                centerTitle: true,
+                actions: const [
+                  Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Icon(Icons.settings),
+                  )
+                ],
+              ),
+              body: SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        height: 240,
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7)),
+                          color: const Color(0xFFf2f2f2),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  ProfilePhoto(
+                                    image: data.image!,
+                                  ),
+                                  const CustomVerticalDivider(
+                                    height: 131,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            ShowFollowNumbers(
+                                                data: data.myPosts.length
+                                                    .toString(),
+                                                name: "Posts"),
+                                            const CustomVerticalDivider(
+                                              height: 90,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (context.mounted) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ShowFollowing(
+                                                              userProfileID:
+                                                                  data.id,
+                                                            )),
+                                                  );
+                                                }
+                                              },
+                                              child: ShowFollowNumbers(
+                                                  data: data.following!.length
+                                                      .toString(),
+                                                  name: "Following"),
+                                            ),
+                                            const CustomVerticalDivider(
+                                              height: 90,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                if (context.mounted) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ShowFollowing(
+                                                              userProfileID:
+                                                                  data.id,
+                                                            )),
+                                                  );
+                                                }
+                                              },
+                                              child: ShowFollowNumbers(
+                                                  data: data.follower!.length
+                                                      .toString(),
+                                                  name: "Follower"),
+                                            ),
+                                          ],
+                                        ),
+                                        Divider(
+                                          thickness: 0.5,
+                                          color: dividerColor,
+                                        ),
+                                        FollowButton(userID: data.id)
+                                      ],
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (context.mounted) {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ShowFollowing(
-                                                      userProfileID:
-                                                      data.id,
-                                                    )),
-                                          );
-                                        }
-                                      },
-                                      child: ShowFollowNumbers(
-                                          data: data.following!.length
-                                              .toString(),
-                                          name: "Following"),
-                                    ),
-                                    const CustomVerticalDivider(
-                                      height: 90,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        if (context.mounted) {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ShowFollowing(
-                                                      userProfileID:
-                                                      data.id,
-                                                    )),
-                                          );
-                                        }
-                                      },
-                                      child: ShowFollowNumbers(
-                                          data:data.follower!.length
-                                              .toString(),
-                                          name: "Follower"),
-                                    ),
-                                  ],
+                                  )
+                                ],
+                              ),
+                              Divider(
+                                thickness: 0.5,
+                                color: dividerColor,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  data.username,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 19),
                                 ),
-                                Divider(
-                                  thickness: 0.5,
-                                  color: dividerColor,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  "Here is my BIO ",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 15),
                                 ),
-                                EditProfile(userID: data.id)
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Divider(
-                        thickness: 0.5,
-                        color: dividerColor,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          data.username,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 19),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          "Here is my BIO ",
-                          style: TextStyle(color: Colors.grey, fontSize: 15),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: ViewProfile(),
+                    ),
+                    ViewUserPosts(posts: data)
+                  ],
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: ViewProfile(),
-            ),
-            ViewUserPosts(posts: data)
-          ],
-        ),
-      ),
-    );
+        error: (e, r) => Text(e.toString()),
+        loading: () => const CircularProgressIndicator());
   }
 }
 
@@ -295,7 +301,7 @@ class ViewUserPosts extends StatelessWidget {
                       );
                     },
                     child: Image(
-                      image: NetworkImage( posts.myPosts[index].image),
+                      image: NetworkImage(posts.myPosts[index].image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -340,8 +346,8 @@ class _ViewPostListState extends State<ViewPostList> {
             return PostTile(
               username: widget.profile.username,
               userID: widget.profile.id,
-               profileImage: widget.profile.image!,
-               postId: widget.profile.myPosts[index].id,
+              profileImage: widget.profile.image!,
+              postId: widget.profile.myPosts[index].id,
               postImage: widget.profile.myPosts[index].image,
               caption: widget.profile.myPosts[index].caption,
               likes: widget.profile.myPosts[index].likes,

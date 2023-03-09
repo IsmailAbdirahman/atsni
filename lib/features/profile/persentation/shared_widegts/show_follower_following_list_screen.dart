@@ -45,7 +45,7 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    ViewProfileTile(data: result)),
+                                    const ViewProfileTile()),
                           );
                         }
                       },

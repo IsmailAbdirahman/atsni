@@ -49,7 +49,7 @@ class PostTile extends ConsumerWidget {
                   ),
                   InkWell(
                     onTap: () async {
-                      final result = await ref
+                      await ref
                           .read(viewProfileControllerProvider.notifier)
                           .viewUserProfile(userID);
 
@@ -57,8 +57,7 @@ class PostTile extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  ViewProfileTile(data: result)),
+                              builder: (context) => const ViewProfileTile()),
                         );
                       }
                     },

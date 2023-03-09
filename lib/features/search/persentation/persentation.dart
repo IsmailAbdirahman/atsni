@@ -38,7 +38,7 @@ class SearchScreen extends ConsumerWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () async {
-                              final result = await ref
+                              await ref
                                   .read(viewProfileControllerProvider.notifier)
                                   .viewUserProfile(data[index].id);
 
@@ -47,7 +47,7 @@ class SearchScreen extends ConsumerWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ViewProfileTile(data: result)),
+                                          const ViewProfileTile()),
                                 );
                               }
                             },
