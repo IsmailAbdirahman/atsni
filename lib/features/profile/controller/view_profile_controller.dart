@@ -8,12 +8,6 @@ import '../repository/profile_repository.dart';
 
 part 'view_profile_controller.g.dart';
 
-// final viewControllerProvider =
-//     StateNotifierProvider<ViewProfileController, AsyncValue<MyProfile>>((ref) {
-//   final profileRepository = ref.watch(profileRepositoryProvider);
-//   final reff = ref;
-//   return ViewProfileController(profileRepository: profileRepository, ref: reff);
-// });
 @riverpod
 class ViewProfileController extends _$ViewProfileController {
   @override
