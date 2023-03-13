@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
+import 'package:oldinsa/features/common/service/http.dart';
 
 import '../../../shared_widgets/endpoints.dart';
 import '../../login/controller/login_controller.dart';
 
 final homeServiceProvider = Provider((ref) => HomeService(ref));
 
-class HomeService extends HttpService {
+class HomeService extends Http {
   @override
   Ref<Object?> ref;
 

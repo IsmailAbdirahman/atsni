@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../features/profile/domain/profileModel.dart';
+import '../../profile/domain/profileModel.dart';
 
-abstract class HttpService {
+abstract class Http {
   abstract Ref ref;
 
   Future<dynamic> get(String endPoint);

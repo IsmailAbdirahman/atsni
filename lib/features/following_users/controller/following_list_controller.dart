@@ -3,7 +3,8 @@ import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../login/controller/login_controller.dart';
-import '../repository/profile_repository.dart';
+import '../../profile/repository/profile_repository.dart';
+import '../repository/following_repository.dart';
 
 part 'following_list_controller.g.dart';
 
@@ -17,10 +18,9 @@ class FollowingListController extends _$FollowingListController {
   }
 
   Future<List<ProfileModel>> getAllFollowing(String userId) async {
-    final profileRepository = ref.read(profileRepositoryProvider);
+    final profileRepository = ref.read(followingRepositoryProvider);
     final data = await profileRepository
         .getAllFollowing('getSingleUserFollowingProfiles/$userId');
-    print("0-0-0-0-0-0-0-0-0-0-0 ${data}");
     return data;
   }
 

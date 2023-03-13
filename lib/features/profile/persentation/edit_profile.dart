@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
-import '../controller/following_list_controller.dart';
-import '../controller/view_profile_controller.dart';
+import '../../following_users/controller/following_list_controller.dart';
+import '../controller/myprofile_info_controller.dart';
 
 class FollowButton extends ConsumerWidget {
   FollowButton({Key? key, required this.userID}) : super(key: key);
@@ -15,16 +16,14 @@ class FollowButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("-i-i-i-i-i-i-i-i-i-i-     $userID");
-    final viewProfileRef = ref.watch(viewProfileControllerProvider);
+    final viewProfileRef = ref.watch(viewProfileControllerProvider(userID));
 
     return viewProfileRef.when(
         data: (data) {
           if (data.status != null) {
             return ElevatedButton(
                 onPressed: () {
-                  ref
-                      .read(viewProfileControllerProvider.notifier)
-                      .followUserFromProfile(userID);
+                  // ref.read(followUserProvider(userID));
                 },
                 child: Text(data.status!));
           } else {
@@ -101,7 +100,7 @@ class EditMyProfile extends ConsumerWidget {
                     child: const Text('Save'),
                     onPressed: () {
                       ref
-                          .read(viewProfileControllerProvider.notifier)
+                          .read(myProfileInfoControllerProvider.notifier)
                           .editMyProfile(
                             username: usernameController.text,
                           );

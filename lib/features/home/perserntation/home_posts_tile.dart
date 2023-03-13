@@ -4,16 +4,16 @@ import 'package:oldinsa/features/common/components/caption_username_widget.dart'
 import 'package:oldinsa/features/common/components/image_widget.dart';
 import 'package:oldinsa/features/common/components/like_unlike_widget.dart';
 import 'package:oldinsa/features/common/components/post_author_widget.dart';
+import 'package:oldinsa/features/common/persentation/view_profile_info.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
+import 'package:oldinsa/features/home/controller/home_controller.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
+import 'package:oldinsa/features/profile/controller/myprofile_info_controller.dart';
 
-import '../features/home/controller/home_controller.dart';
-import '../features/profile/controller/myprofile_info_controller.dart';
+import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 
-class PostTile extends ConsumerWidget {
-  PostTile({super.key, required this.homeModel});
-
+class HomePostsTile extends ConsumerWidget {
+  const HomePostsTile({Key? key, required this.homeModel}) : super(key: key);
   final HomeModel homeModel;
 
   @override
@@ -28,14 +28,14 @@ class PostTile extends ConsumerWidget {
               username: homeModel.author.username,
               profileImage: homeModel.author.image,
               onPressed: () async {
-                await ref
-                    .read(viewProfileControllerProvider(homeModel.author.id));
+                ref.read(viewProfileControllerProvider(homeModel.author.id));
 
                 if (context.mounted) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewProfileTile()),
+                        builder: (context) => ViewProfileInfo(
+                            userProfileID: homeModel.author.id)),
                   );
                 }
               },

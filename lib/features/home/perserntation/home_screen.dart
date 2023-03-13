@@ -7,13 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../profile/controller/view_profile_controller.dart';
+import '../../profile/controller/myprofile_info_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../../profile/domain/profileModel.dart';
 import '../../../shared_widgets/post_tile.dart';
 import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 import '../controller/home_controller.dart';
 import '../service/home_service.dart';
+import 'home_posts_tile.dart';
 
 class HomeScreen extends ConsumerWidget {
   // List<PostMo> postList =[];
@@ -53,14 +54,8 @@ class HomeScreen extends ConsumerWidget {
                                     .read(homeControllerProvider.notifier)
                                     .likePost(data[index].id);
                               },
-                              child: PostTile(
-                                username: data[index].author.username,
-                                userID: data[index].author.id,
-                                profileImage: data[index].author.image,
-                                postId: data[index].id,
-                               postImage: data[index].image,
-                               likes: data[index].likes,
-                               caption: data[index].caption,
+                              child: HomePostsTile(
+                                homeModel: data[index],
                               ));
                         },
                       ),

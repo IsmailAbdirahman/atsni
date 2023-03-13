@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
-import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
+import 'package:oldinsa/features/common/service/http.dart';
 
 import '../../profile/domain/profileModel.dart';
 import '../service/home_service.dart';
@@ -11,7 +11,7 @@ final homeRepositoryProvider = Provider((ref) {
 });
 
 class HomeRepository {
-  final HttpService httpService;
+  final Http httpService;
 
   HomeRepository(this.httpService);
 

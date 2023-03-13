@@ -3,25 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
+import 'package:oldinsa/features/profile/domain/profileModel.dart';
+import 'package:oldinsa/features/profile/persentation/edit_profile.dart';
+import 'package:oldinsa/features/profile/persentation/shared_widegts/custom_vertical_divider.dart';
 import 'package:oldinsa/shared_widgets/post_tile.dart';
 import 'package:oldinsa/features/profile/persentation/shared_widegts/profile_photo.dart';
 import 'package:oldinsa/features/following_users/persentation/view_following_list_screen.dart';
 
-import '../../../home/perserntation/home_screen.dart';
-import '../../../following_users/controller/following_list_controller.dart';
-import '../../controller/myprofile_info_controller.dart';
-import '../../domain/profileModel.dart';
-import '../edit_profile.dart';
-import 'custom_vertical_divider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class ViewProfileTile extends ConsumerWidget {
-  const ViewProfileTile({Key? key}) : super(key: key);
-
+class ViewProfileInfo extends ConsumerWidget {
+  const ViewProfileInfo({Key? key, required this.userProfileID})
+      : super(key: key);
+  final String userProfileID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewProfileRef = ref.watch(viewProfileControllerProvider('ooo'));
+    final viewProfileRef =
+        ref.watch(viewProfileControllerProvider(userProfileID));
     Color dividerColor = Colors.grey;
 
     return viewProfileRef.when(
@@ -122,7 +121,20 @@ class ViewProfileTile extends ConsumerWidget {
                                           thickness: 0.5,
                                           color: dividerColor,
                                         ),
-                                        FollowButton(userID: data.id)
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              ref
+                                                  .read(
+                                                      viewProfileControllerProvider(
+                                                              data.id)
+                                                          .notifier)
+                                                  .followUserFromProfile(
+                                                      data.id);
+                                            },
+                                            child: data.status != null
+                                                ? Text(data.status!)
+                                                : const Text(
+                                                    'Viewed own Profile!'))
                                       ],
                                     ),
                                   )
@@ -164,7 +176,9 @@ class ViewProfileTile extends ConsumerWidget {
               ),
             ),
         error: (e, r) => Text(e.toString()),
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Scaffold(
+              body: CircularProgressIndicator(),
+            ));
   }
 }
 

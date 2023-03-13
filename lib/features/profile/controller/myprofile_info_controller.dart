@@ -6,10 +6,10 @@ import '../../login/controller/login_controller.dart';
 import '../repository/edit_profile_repository.dart';
 import '../repository/profile_repository.dart';
 
-part 'view_profile_controller.g.dart';
+part 'myprofile_info_controller.g.dart';
 
 @riverpod
-class ViewProfileController extends _$ViewProfileController {
+class MyProfileInfoController extends _$MyProfileInfoController {
   @override
   Future<ProfileModel> build() async {
     return myProfile();
@@ -37,24 +37,5 @@ class ViewProfileController extends _$ViewProfileController {
     state = state.whenData((value) => value.copyWith(username: data));
 
     return data;
-  }
-
-  Future<ProfileModel> viewUserProfile(String id) async {
-    state = const AsyncValue.loading();
-    final profileRepository = ref.read(profileRepositoryProvider);
-    final result =
-        await profileRepository.viewUserProfile(id, 'viewProfile/$id');
-    state = AsyncValue.data(result);
-
-    return result;
-  }
-
-  Future<String> followUserFromProfile(String userId) async {
-    final profileRepository = ref.read(profileRepositoryProvider);
-    final status = await profileRepository.followUser('follow-user/$userId');
-    state = state.whenData((value) {
-      return value.copyWith(status: status);
-    });
-    return status;
   }
 }

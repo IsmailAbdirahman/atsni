@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/common/persentation/view_profile_info.dart';
+import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/search/controller/search_controller.dart';
 
-import '../../profile/controller/view_profile_controller.dart';
-import '../../profile/persentation/shared_widegts/show_follower_following_list_screen.dart';
+import '../../profile/controller/myprofile_info_controller.dart';
+import '../../following_users/persentation/view_following_list_screen.dart';
 import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 
 class SearchScreen extends ConsumerWidget {
@@ -38,16 +40,15 @@ class SearchScreen extends ConsumerWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () async {
-                              await ref
-                                  .read(viewProfileControllerProvider.notifier)
-                                  .viewUserProfile(data[index].id);
+                              await ref.read(viewProfileControllerProvider(
+                                  data[index].id));
 
                               if (context.mounted) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ViewProfileTile()),
+                                      builder: (context) => ViewProfileInfo(
+                                          userProfileID: data[index].id)),
                                 );
                               }
                             },

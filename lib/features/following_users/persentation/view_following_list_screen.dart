@@ -1,27 +1,26 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
 
-import '../../controller/following_list_controller.dart';
-import '../../controller/view_profile_controller.dart';
-import '../view_profile.dart';
+import '../controller/following_list_controller.dart';
+import '../../profile/controller/myprofile_info_controller.dart';
+import '../../profile/persentation/view_profile.dart';
 
-class ShowFollowing extends ConsumerStatefulWidget {
+class ViewFollowingListScreen extends ConsumerStatefulWidget {
   final String userProfileID;
 
-  const ShowFollowing({Key? key, required this.userProfileID})
+  const ViewFollowingListScreen({Key? key, required this.userProfileID})
       : super(key: key);
 
   @override
   ShowFollowingState createState() => ShowFollowingState();
 }
 
-class ShowFollowingState extends ConsumerState<ShowFollowing> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class ShowFollowingState extends ConsumerState<ViewFollowingListScreen> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +35,13 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () async {
-                        final result = await ref
-                            .read(viewProfileControllerProvider.notifier)
-                            .viewUserProfile(data[index].id);
+                        ref.read(viewProfileControllerProvider(data[index].id));
 
                         if (context.mounted) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const ViewProfileTile()),
+                                builder: (context) => const ViewProfileTile()),
                           );
                         }
                       },
@@ -71,9 +67,9 @@ class ShowFollowingState extends ConsumerState<ShowFollowing> {
               );
             },
             error: (e, r) => Padding(
-              padding: const EdgeInsets.all(28.0),
-              child:  Text(e.toString()),
-            ),
+                  padding: const EdgeInsets.all(28.0),
+                  child: Text(e.toString()),
+                ),
             loading: () => const Center(
                   child: CircularProgressIndicator(),
                 )));

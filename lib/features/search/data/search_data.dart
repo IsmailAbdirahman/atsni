@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/shared_widgets/endpoints.dart';
-import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
+import 'package:oldinsa/features/common/service/http.dart';
 import 'package:http/http.dart' as http;
 
 import '../../login/controller/login_controller.dart';
@@ -10,7 +10,7 @@ final searchServiceProvider = Provider((ref) {
   return SearchService(ref);
 });
 
-class SearchService extends HttpService {
+class SearchService extends Http {
   @override
   Ref<Object?> ref;
 

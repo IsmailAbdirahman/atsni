@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../controller/view_profile_controller.dart';
+import '../../controller/myprofile_info_controller.dart';
 import '../../domain/profileModel.dart';
 
 class ProfilePhoto extends StatelessWidget {

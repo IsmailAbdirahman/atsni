@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:oldinsa/shared_widgets/http_service/http_service.dart';
+import 'package:oldinsa/features/common/service/http.dart';
 
 import '../../login/controller/login_controller.dart';
 
@@ -11,7 +11,7 @@ final newPostServiceProvider = Provider((ref) {
   return NewPostService(ref);
 });
 
-class NewPostService extends HttpService {
+class NewPostService extends Http {
   @override
   Ref ref;
 
