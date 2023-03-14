@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'followers_list_controller.dart';
+part of 'following_list_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$followersListControllerHash() =>
-    r'0d225c29816697c988832a085799af19b505e32c';
+String _$followingListControllerHash() =>
+    r'ff853bd49549533b112baa236971358557f7a734';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +30,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$FollowersListController
+abstract class _$FollowingListController
     extends BuildlessAutoDisposeAsyncNotifier<List<ProfileModel>> {
   late final String userId;
 
@@ -39,28 +39,28 @@ abstract class _$FollowersListController
   );
 }
 
-/// See also [FollowersListController].
-@ProviderFor(FollowersListController)
-const followersListControllerProvider = FollowersListControllerFamily();
+/// See also [FollowingListController].
+@ProviderFor(FollowingListController)
+const followingListControllerProvider = FollowingListControllerFamily();
 
-/// See also [FollowersListController].
-class FollowersListControllerFamily
+/// See also [FollowingListController].
+class FollowingListControllerFamily
     extends Family<AsyncValue<List<ProfileModel>>> {
-  /// See also [FollowersListController].
-  const FollowersListControllerFamily();
+  /// See also [FollowingListController].
+  const FollowingListControllerFamily();
 
-  /// See also [FollowersListController].
-  FollowersListControllerProvider call(
+  /// See also [FollowingListController].
+  FollowingListControllerProvider call(
     String userId,
   ) {
-    return FollowersListControllerProvider(
+    return FollowingListControllerProvider(
       userId,
     );
   }
 
   @override
-  FollowersListControllerProvider getProviderOverride(
-    covariant FollowersListControllerProvider provider,
+  FollowingListControllerProvider getProviderOverride(
+    covariant FollowingListControllerProvider provider,
   ) {
     return call(
       provider.userId,
@@ -79,34 +79,34 @@ class FollowersListControllerFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'followersListControllerProvider';
+  String? get name => r'followingListControllerProvider';
 }
 
-/// See also [FollowersListController].
-class FollowersListControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<FollowersListController,
+/// See also [FollowingListController].
+class FollowingListControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<FollowingListController,
         List<ProfileModel>> {
-  /// See also [FollowersListController].
-  FollowersListControllerProvider(
+  /// See also [FollowingListController].
+  FollowingListControllerProvider(
     this.userId,
   ) : super.internal(
-          () => FollowersListController()..userId = userId,
-          from: followersListControllerProvider,
-          name: r'followersListControllerProvider',
+          () => FollowingListController()..userId = userId,
+          from: followingListControllerProvider,
+          name: r'followingListControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$followersListControllerHash,
-          dependencies: FollowersListControllerFamily._dependencies,
+                  : _$followingListControllerHash,
+          dependencies: FollowingListControllerFamily._dependencies,
           allTransitiveDependencies:
-              FollowersListControllerFamily._allTransitiveDependencies,
+              FollowingListControllerFamily._allTransitiveDependencies,
         );
 
   final String userId;
 
   @override
   bool operator ==(Object other) {
-    return other is FollowersListControllerProvider && other.userId == userId;
+    return other is FollowingListControllerProvider && other.userId == userId;
   }
 
   @override
@@ -119,7 +119,7 @@ class FollowersListControllerProvider
 
   @override
   Future<List<ProfileModel>> runNotifierBuild(
-    covariant FollowersListController notifier,
+    covariant FollowingListController notifier,
   ) {
     return notifier.build(
       userId,

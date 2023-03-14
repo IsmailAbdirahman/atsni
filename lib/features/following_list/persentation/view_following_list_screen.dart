@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
+import 'package:oldinsa/features/profile/presentation/shared_widegts/view_profile_tile.dart';
 
 import '../controller/following_list_controller.dart';
 import '../../profile/controller/myprofile_info_controller.dart';
-import '../../profile/persentation/view_profile.dart';
 
 class ViewFollowingListScreen extends ConsumerStatefulWidget {
   final String userProfileID;

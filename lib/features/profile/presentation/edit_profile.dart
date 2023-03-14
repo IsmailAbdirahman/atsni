@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
-import '../../following_users/controller/following_list_controller.dart';
 import '../controller/myprofile_info_controller.dart';
 
 class FollowButton extends ConsumerWidget {

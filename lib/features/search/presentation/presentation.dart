@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oldinsa/features/common/persentation/view_profile_info.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
+import 'package:oldinsa/features/common/presentation/view_profile_info.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/search/controller/search_controller.dart';
 
 import '../../profile/controller/myprofile_info_controller.dart';
-import '../../following_users/persentation/view_following_list_screen.dart';
-import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 
 class SearchScreen extends ConsumerWidget {
   const SearchScreen({Key? key}) : super(key: key);

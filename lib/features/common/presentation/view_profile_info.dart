@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
+import 'package:oldinsa/features/followers_list/presentation/followers_list_screen.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
-import 'package:oldinsa/features/profile/persentation/edit_profile.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/custom_vertical_divider.dart';
+import 'package:oldinsa/features/profile/presentation/shared_widegts/custom_vertical_divider.dart';
+import 'package:oldinsa/features/profile/presentation/shared_widegts/profile_photo.dart';
 import 'package:oldinsa/shared_widgets/post_tile.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/profile_photo.dart';
-import 'package:oldinsa/features/following_users/persentation/view_following_list_screen.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '../../following_list/persentation/view_following_list_screen.dart';
 
 class ViewProfileInfo extends ConsumerWidget {
   const ViewProfileInfo({Key? key, required this.userProfileID})
@@ -98,17 +99,16 @@ class ViewProfileInfo extends ConsumerWidget {
                                             ),
                                             GestureDetector(
                                               onTap: () async {
-                                                // if (context.mounted) {
-                                                //   Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) =>
-                                                //             ViewFollowingList(
-                                                //               userProfileID:
-                                                //                   data.id,
-                                                //             )),
-                                                //   );
-                                                // }
+                                                if (context.mounted) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            FollowersListScreen(
+                                                              userID: data.id,
+                                                            )),
+                                                  );
+                                                }
                                               },
                                               child: ShowFollowNumbers(
                                                   data: data.follower!.length

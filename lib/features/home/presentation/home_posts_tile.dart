@@ -4,13 +4,12 @@ import 'package:oldinsa/features/common/components/caption_username_widget.dart'
 import 'package:oldinsa/features/common/components/image_widget.dart';
 import 'package:oldinsa/features/common/components/like_unlike_widget.dart';
 import 'package:oldinsa/features/common/components/post_author_widget.dart';
-import 'package:oldinsa/features/common/persentation/view_profile_info.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
+import 'package:oldinsa/features/common/presentation/view_profile_info.dart';
 import 'package:oldinsa/features/home/controller/home_controller.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:oldinsa/features/profile/controller/myprofile_info_controller.dart';
 
-import '../../profile/persentation/shared_widegts/view_profile_tile.dart';
 
 class HomePostsTile extends ConsumerWidget {
   const HomePostsTile({Key? key, required this.homeModel}) : super(key: key);

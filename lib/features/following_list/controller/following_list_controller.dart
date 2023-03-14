@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/common/repository/follow_user.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,7 +26,7 @@ class FollowingListController extends _$FollowingListController {
   }
 
   Future<String> followUserFromList(String userId) async {
-    final profileRepository = ref.read(profileRepositoryProvider);
+    final profileRepository = ref.read(followUserProvider);
     final status = await profileRepository.followUser('follow-user/$userId');
     state = AsyncValue.data([
       for (var user in state.value!)

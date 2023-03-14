@@ -6,10 +6,10 @@ import 'package:oldinsa/features/common/components/like_unlike_widget.dart';
 import 'package:oldinsa/features/common/components/post_author_widget.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
 
 import '../features/home/controller/home_controller.dart';
 import '../features/profile/controller/myprofile_info_controller.dart';
+import '../features/profile/presentation/shared_widegts/view_profile_tile.dart';
 
 class PostTile extends ConsumerWidget {
   PostTile({super.key, required this.homeModel});

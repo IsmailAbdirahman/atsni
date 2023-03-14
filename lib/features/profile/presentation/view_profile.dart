@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/profile_photo.dart';
-import 'package:oldinsa/features/profile/persentation/shared_widegts/view_profile_tile.dart';
+import 'package:oldinsa/features/profile/presentation/shared_widegts/view_profile_tile.dart';
 
 import '../controller/myprofile_info_controller.dart';
 import '../repository/profile_repository.dart';
 import 'shared_widegts/custom_vertical_divider.dart';
-import '../../following_users/persentation/view_following_list_screen.dart';
 
 class ViewMyProfile extends ConsumerWidget {
   const ViewMyProfile({super.key});
