@@ -11,7 +11,7 @@ import 'package:oldinsa/shared_widgets/post_tile.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../following_list/persentation/view_following_list_screen.dart';
+import '../../following_list/persentation/following_list_screen.dart';
 
 class ViewProfileInfo extends ConsumerWidget {
   const ViewProfileInfo({Key? key, required this.userProfileID})

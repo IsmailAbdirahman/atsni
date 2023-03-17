@@ -25,12 +25,14 @@ class ViewProfileController extends _$ViewProfileController {
     return result;
   }
 
-  Future<String> followUserFromProfile(String userId) async {
+  Future<ProfileModel> followUserFromProfile(String userId) async {
     final profileRepository = ref.read(followUserProvider);
-    final status = await profileRepository.followUser('follow-user/$userId');
+    final result = await profileRepository.followUser('follow-user/$userId');
     state = state.whenData((value) {
-      return value.copyWith(status: status);
+      List<String> dd = ['d', 'f'];
+
+      return value.copyWith(status: result.status, follower: result.follower);
     });
-    return status;
+    return result;
   }
 }

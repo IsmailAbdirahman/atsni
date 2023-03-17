@@ -25,14 +25,17 @@ class FollowingListController extends _$FollowingListController {
     return data;
   }
 
-  Future<String> followUserFromList(String userId) async {
+  Future<ProfileModel> followUserFromList(String userId) async {
     final profileRepository = ref.read(followUserProvider);
-    final status = await profileRepository.followUser('follow-user/$userId');
+    final result = await profileRepository.followUser('follow-user/$userId');
     state = AsyncValue.data([
       for (var user in state.value!)
-        if (user.id == userId) user.copyWith(status: status) else user
+        if (user.id == userId)
+          user.copyWith(status: result.status, follower: result.follower)
+        else
+          user
     ]);
 
-    return status;
+    return result;
   }
 }

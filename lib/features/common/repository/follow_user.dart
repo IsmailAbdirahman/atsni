@@ -1,4 +1,5 @@
 import 'package:oldinsa/features/common/service/htttp_service.dart';
+import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'follow_user.g.dart';
@@ -13,8 +14,8 @@ class FollowUser {
 
   FollowUser(this.httpService);
 
-  Future<String> followUser(String endPoint) async {
+  Future<ProfileModel> followUser(String endPoint) async {
     final response = await httpService.get(endPoint);
-    return response['status'];
+    return ProfileModel.fromJson(response['userInfo']);
   }
 }

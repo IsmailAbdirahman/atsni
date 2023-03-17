@@ -7,7 +7,7 @@ import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:oldinsa/features/profile/presentation/shared_widegts/profile_photo.dart';
 import 'package:oldinsa/shared_widgets/post_tile.dart';
 
-import '../../../following_list/persentation/view_following_list_screen.dart';
+import '../../../following_list/persentation/following_list_screen.dart';
 import '../../controller/myprofile_info_controller.dart';
 import '../../domain/profileModel.dart';
 import '../edit_profile.dart';
