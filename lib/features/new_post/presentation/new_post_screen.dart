@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/new_post/controller/new_post_controller.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oldinsa/features/new_post/presentation/preview_picked_image.dart';
-import 'package:oldinsa/shared_widgets/bottom_nav.dart';
+import 'package:oldinsa/features/common/presentation/bottom_nav.dart';
 
 import '../../home/controller/home_controller.dart';
 

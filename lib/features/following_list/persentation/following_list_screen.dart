@@ -9,9 +9,9 @@ import '../controller/following_list_controller.dart';
 import '../../profile/controller/myprofile_info_controller.dart';
 
 class ViewFollowingListScreen extends ConsumerStatefulWidget {
-  final String userProfileID;
+  final String userID;
 
-  const ViewFollowingListScreen({Key? key, required this.userProfileID})
+  const ViewFollowingListScreen({Key? key, required this.userID})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class ShowFollowingState extends ConsumerState<ViewFollowingListScreen> {
   @override
   Widget build(BuildContext context) {
     final followingListRef =
-        ref.watch(followingListControllerProvider(widget.userProfileID));
+        ref.watch(followingListControllerProvider(widget.userID));
 
     return Scaffold(
         body: followingListRef.when(
@@ -54,7 +54,7 @@ class ShowFollowingState extends ConsumerState<ViewFollowingListScreen> {
                                 onPressed: () async {
                                   ref
                                       .read(followingListControllerProvider(
-                                              widget.userProfileID)
+                                              widget.userID)
                                           .notifier)
                                       .followUserFromList(data[index].id);
                                 },

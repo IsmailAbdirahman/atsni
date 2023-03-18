@@ -7,7 +7,7 @@ part of 'followers_list_controller.dart';
 // **************************************************************************
 
 String _$followersListControllerHash() =>
-    r'07001d84536c05e87636c0d03dd5915af4cfc240';
+    r'c0cef7d3c3b5a456cb3ffbbe5cadad15844ed5df';
 
 /// Copied from Dart SDK
 class _SystemHash {

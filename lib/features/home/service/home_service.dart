@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:oldinsa/features/common/service/http.dart';
 
-import '../../../shared_widgets/endpoints.dart';
+import '../../common/service/endpoints.dart';
 import '../../login/controller/login_controller.dart';
 
 final homeServiceProvider = Provider((ref) => HomeService(ref));

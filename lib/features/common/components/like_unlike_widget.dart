@@ -5,12 +5,12 @@ class LikeUnlikeWidget extends StatelessWidget {
       {Key? key,
       required this.isLiked,
       required this.totalLikes,
-      required this.onPressed})
+       this.onPressed})
       : super(key: key);
 
   final bool isLiked;
   final int totalLikes;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

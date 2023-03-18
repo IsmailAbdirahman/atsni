@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oldinsa/features/common/repository/follow_user.dart';
+import 'package:oldinsa/features/common/repository/follow_user_repository.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

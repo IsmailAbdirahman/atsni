@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:oldinsa/features/home/presentation/home_screen.dart';
-import 'package:oldinsa/shared_widgets/custom_bottom_nav.dart';
+import 'package:oldinsa/features/common/presentation/custom_bottom_nav.dart';
 
-import '../features/new_post/presentation/new_post_screen.dart';
-import '../features/profile/presentation/view_profile.dart';
-import '../features/search/presentation/presentation.dart';
+import '../../new_post/presentation/new_post_screen.dart';
+import '../../profile/presentation/view_profile.dart';
+import '../../search/presentation/presentation.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});

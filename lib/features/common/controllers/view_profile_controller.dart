@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oldinsa/features/common/repository/follow_user.dart';
+import 'package:oldinsa/features/common/repository/follow_user_repository.dart';
+import 'package:oldinsa/features/common/repository/like_post_repository.dart';
+import 'package:oldinsa/features/profile/controller/myprofile_info_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,12 +27,15 @@ class ViewProfileController extends _$ViewProfileController {
     return result;
   }
 
+
+
+
+
+
   Future<ProfileModel> followUserFromProfile(String userId) async {
     final profileRepository = ref.read(followUserProvider);
     final result = await profileRepository.followUser('follow-user/$userId');
     state = state.whenData((value) {
-      List<String> dd = ['d', 'f'];
-
       return value.copyWith(status: result.status, follower: result.follower);
     });
     return result;

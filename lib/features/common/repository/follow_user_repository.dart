@@ -2,7 +2,7 @@ import 'package:oldinsa/features/common/service/htttp_service.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'follow_user.g.dart';
+part 'follow_user_repository.g.dart';
 
 @riverpod
 FollowUser followUser(FollowUserRef ref) {

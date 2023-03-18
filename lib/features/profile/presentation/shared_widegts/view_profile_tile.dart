@@ -4,7 +4,8 @@ import 'package:http/http.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/followers_list/presentation/followers_list_screen.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
-import 'package:oldinsa/features/profile/presentation/shared_widegts/profile_photo.dart';
+import 'package:oldinsa/features/common/components/profile_photo.dart';
+import 'package:oldinsa/features/common/presentation/profile_posts_tile.dart';
 import 'package:oldinsa/shared_widgets/post_tile.dart';
 
 import '../../../following_list/persentation/following_list_screen.dart';
@@ -81,8 +82,7 @@ class ViewProfileTile extends ConsumerWidget {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             ViewFollowingListScreen(
-                                                              userProfileID:
-                                                                  data.id,
+                                                              userID: data.id,
                                                             )),
                                                   );
                                                 }
@@ -340,18 +340,7 @@ class _ViewPostListState extends State<ViewPostList> {
           itemPositionsListener: itemPositionsListener,
           itemCount: widget.profile.myPosts.length,
           itemBuilder: (BuildContext context, int index) {
-            // return PostTile(
-            //   totalLikes: 0,
-            //   isLiked: false,
-            //   username: widget.profile.username,
-            //   userID: widget.profile.id,
-            //   profileImage: widget.profile.image!,
-            //   postId: widget.profile.myPosts[index].id,
-            //   postImage: widget.profile.myPosts[index].image,
-            //   caption: widget.profile.myPosts[index].caption,
-            //   likes: widget.profile.myPosts[index].likes,
-            // );
-            return Text("TO DO");
+            return const Text('ll');
           }),
     );
   }

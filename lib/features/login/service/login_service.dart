@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:oldinsa/shared_widgets/endpoints.dart';
+import 'package:oldinsa/features/common/service/endpoints.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 

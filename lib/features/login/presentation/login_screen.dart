@@ -3,7 +3,7 @@ import 'package:oldinsa/features/login/service/login_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controller/login_controller.dart';
-import '../../../shared_widgets/endpoints.dart';
+import '../../common/service/endpoints.dart';
 
 class LoginScreen extends ConsumerWidget {
   LoginScreen({super.key});

@@ -5,12 +5,12 @@ class PostAuthor extends StatelessWidget {
   const PostAuthor(
       {Key? key,
       required this.username,
-      required this.onPressed,
+       this.onPressed,
       required this.profileImage})
       : super(key: key);
   final String username;
   final String profileImage;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

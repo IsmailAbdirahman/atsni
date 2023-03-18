@@ -1,4 +1,4 @@
-import 'package:oldinsa/features/common/repository/follow_user.dart';
+import 'package:oldinsa/features/common/repository/follow_user_repository.dart';
 import 'package:oldinsa/features/followers_list/repository/followers_list_repository.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/profile/repository/profile_repository.dart';
