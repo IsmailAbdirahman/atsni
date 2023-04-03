@@ -16,8 +16,8 @@ class HomeModel with _$HomeModel {
     required final String image,
     required final List<String> likes,
     required final AuthorModel author,
-    @Default(false) bool isLiked,
-    @Default(0) int totalLikes,
+    required final bool isLiked,
+    required final int totalLikes,
   }) = _HomeModel;
 
   factory HomeModel.fromJson(Map<String, dynamic> data) =>

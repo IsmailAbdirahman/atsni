@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/components/caption_username_widget.dart';
 import 'package:oldinsa/features/common/components/image_widget.dart';
 import 'package:oldinsa/features/common/components/like_unlike_widget.dart';
 import 'package:oldinsa/features/common/components/post_author_widget.dart';
+import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 
-class MyPostTile extends StatelessWidget {
+class MyPostTile extends ConsumerWidget {
   const MyPostTile(
       {Key? key, required this.profileModel, required this.postsModel})
       : super(key: key);
@@ -13,7 +15,7 @@ class MyPostTile extends StatelessWidget {
   final PostsModel postsModel;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Card(
@@ -30,6 +32,12 @@ class MyPostTile extends StatelessWidget {
             LikeUnlikeWidget(
               isLiked: profileModel.isLiked,
               totalLikes: profileModel.totalLikes,
+              onPressed: () async {
+                ref
+                    .read(
+                        viewProfileControllerProvider(profileModel.id).notifier)
+                    .likePostFromProfile(postsModel.id);
+              },
             ),
             CaptionUsernameWidget(username: profileModel.username)
           ],

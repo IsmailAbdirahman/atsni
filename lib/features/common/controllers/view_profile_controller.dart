@@ -27,10 +27,18 @@ class ViewProfileController extends _$ViewProfileController {
     return result;
   }
 
+  Future likePostFromProfile(String postId) async {
+    final likeRepo = ref.watch(likePostRepositoryProvider);
+    final myID = ref.watch(myProfileInfoControllerProvider);
+    String thisUserID = myID.whenData((value) => value.id).value!;
+    final data = await likeRepo.likePost('likedPost/$postId');
+    int totalLikes = data.length;
+    bool isLikedByThisUser = data.contains(thisUserID);
 
-
-
-
+    state = state.whenData((value) {
+      return value.copyWith(isLiked: isLikedByThisUser, totalLikes: totalLikes);
+    });
+  }
 
   Future<ProfileModel> followUserFromProfile(String userId) async {
     final profileRepository = ref.read(followUserProvider);

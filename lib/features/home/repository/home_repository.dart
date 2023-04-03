@@ -20,9 +20,5 @@ class HomeRepository {
     return List<HomeModel>.from(response.map((e) => HomeModel.fromJson(e)));
   }
 
-  Future<HomeModel> likePost(String? endPoint) async {
-    final response = await httpService.get(endPoint!);
-    var data = HomeModel.fromJson(response);
-    return data;
-  }
+
 }

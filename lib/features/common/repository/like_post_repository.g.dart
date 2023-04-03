@@ -7,7 +7,7 @@ part of 'like_post_repository.dart';
 // **************************************************************************
 
 String _$likePostRepositoryHash() =>
-    r'21f2c4015981d677d4ac7ad87f2e3664c11f3cd1';
+    r'8888fd91b471753f70e1c930ef67c6ddd8f24f78';
 
 /// See also [likePostRepository].
 @ProviderFor(likePostRepository)

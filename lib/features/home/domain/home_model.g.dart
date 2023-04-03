@@ -12,8 +12,8 @@ _$_HomeModel _$$_HomeModelFromJson(Map<String, dynamic> json) => _$_HomeModel(
       image: json['image'] as String,
       likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
       author: AuthorModel.fromJson(json['author'] as Map<String, dynamic>),
-      isLiked: json['isLiked'] as bool? ?? false,
-      totalLikes: json['totalLikes'] as int? ?? 0,
+      isLiked: json['isLiked'] as bool,
+      totalLikes: json['totalLikes'] as int,
     );
 
 Map<String, dynamic> _$$_HomeModelToJson(_$_HomeModel instance) =>

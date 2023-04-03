@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oldinsa/features/common/repository/like_post_repository.dart';
 import 'package:oldinsa/features/home/repository/home_repository.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,7 +20,7 @@ class HomeController extends _$HomeController {
 
   Future<List<HomeModel>> getPosts() async {
     state = const AsyncValue.loading();
-    final homeRepository = ref.watch(homeRepositoryProvider);
+    final homeRepository = ref.read(homeRepositoryProvider);
     final data = await homeRepository.getPosts('getMyFollowingsPosts');
     state = AsyncValue.data(data);
 
@@ -27,13 +28,13 @@ class HomeController extends _$HomeController {
   }
 
   Future likePost(String postId) async {
-    final homeRepository = ref.watch(homeRepositoryProvider);
-    final myID = ref.watch(myProfileInfoControllerProvider);
+    final myID = ref.read(myProfileInfoControllerProvider);
+    final homeRepository = ref.read(likePostRepositoryProvider);
+    final data = await homeRepository.likePost('likedPost/$postId');
+
     String thisUserID = myID.whenData((value) => value.id).value!;
-    final data = await homeRepository.likePost(''
-        'likedPost/$postId');
-    int totalLikes = data.likes.length;
-    bool isLikedByThisUser = data.likes.contains(thisUserID);
+    int totalLikes = data.length;
+    bool isLikedByThisUser = data.contains(thisUserID);
 
     state = AsyncValue.data([
       for (var post in state.value!)

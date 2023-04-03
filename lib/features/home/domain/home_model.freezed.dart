@@ -195,8 +195,8 @@ class _$_HomeModel with DiagnosticableTreeMixin implements _HomeModel {
       required this.image,
       required final List<String> likes,
       required this.author,
-      this.isLiked = false,
-      this.totalLikes = 0})
+      required this.isLiked,
+      required this.totalLikes})
       : _likes = likes;
 
   factory _$_HomeModel.fromJson(Map<String, dynamic> json) =>
@@ -220,10 +220,8 @@ class _$_HomeModel with DiagnosticableTreeMixin implements _HomeModel {
   @override
   final AuthorModel author;
   @override
-  @JsonKey()
   final bool isLiked;
   @override
-  @JsonKey()
   final int totalLikes;
 
   @override
@@ -286,8 +284,8 @@ abstract class _HomeModel implements HomeModel {
       required final String image,
       required final List<String> likes,
       required final AuthorModel author,
-      final bool isLiked,
-      final int totalLikes}) = _$_HomeModel;
+      required final bool isLiked,
+      required final int totalLikes}) = _$_HomeModel;
 
   factory _HomeModel.fromJson(Map<String, dynamic> json) =
       _$_HomeModel.fromJson;

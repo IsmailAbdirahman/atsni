@@ -10,7 +10,6 @@ import 'package:oldinsa/features/home/controller/home_controller.dart';
 import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:oldinsa/features/profile/controller/myprofile_info_controller.dart';
 
-
 class HomePostsTile extends ConsumerWidget {
   const HomePostsTile({Key? key, required this.homeModel}) : super(key: key);
   final HomeModel homeModel;
@@ -45,8 +44,8 @@ class HomePostsTile extends ConsumerWidget {
             LikeUnlikeWidget(
                 isLiked: homeModel.isLiked,
                 totalLikes: homeModel.totalLikes,
-                onPressed: () {
-                  ref
+                onPressed: () async {
+                  await ref
                       .read(homeControllerProvider.notifier)
                       .likePost(homeModel.id);
                 }),

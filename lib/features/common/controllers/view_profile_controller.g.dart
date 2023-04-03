@@ -7,7 +7,7 @@ part of 'view_profile_controller.dart';
 // **************************************************************************
 
 String _$viewProfileControllerHash() =>
-    r'3c2f96f5cf6b8bd4f3ee1bd6b0ba571eb783b21b';
+    r'cdd284e83e79a3035a798defb0c9d3ca4c7794f6';
 
 /// Copied from Dart SDK
 class _SystemHash {
