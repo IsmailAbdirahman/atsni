@@ -22,8 +22,11 @@ class MyProfile with _$MyProfile {
 @freezed
 class ProfileModel with _$ProfileModel {
   const factory ProfileModel(
-      {required final List<String> following,
-      required final List<String> follower,
+      {final List<String>? following,
+      final List<String>? follower,
+      final List<String>? likedPosts,
+      @Default(false) final bool isLiked,
+      @Default(0) final int totalLikes,
       final String? image,
       @JsonKey(name: '_id') required final String id,
       required final String username,

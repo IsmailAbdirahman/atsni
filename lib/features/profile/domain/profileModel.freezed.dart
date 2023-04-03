@@ -194,8 +194,11 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProfileModel {
-  List<String> get following => throw _privateConstructorUsedError;
-  List<String> get follower => throw _privateConstructorUsedError;
+  List<String>? get following => throw _privateConstructorUsedError;
+  List<String>? get follower => throw _privateConstructorUsedError;
+  List<String>? get likedPosts => throw _privateConstructorUsedError;
+  bool get isLiked => throw _privateConstructorUsedError;
+  int get totalLikes => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
   @JsonKey(name: '_id')
   String get id => throw _privateConstructorUsedError;
@@ -217,8 +220,11 @@ abstract class $ProfileModelCopyWith<$Res> {
       _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
   $Res call(
-      {List<String> following,
-      List<String> follower,
+      {List<String>? following,
+      List<String>? follower,
+      List<String>? likedPosts,
+      bool isLiked,
+      int totalLikes,
       String? image,
       @JsonKey(name: '_id') String id,
       String username,
@@ -240,8 +246,11 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? following = null,
-    Object? follower = null,
+    Object? following = freezed,
+    Object? follower = freezed,
+    Object? likedPosts = freezed,
+    Object? isLiked = null,
+    Object? totalLikes = null,
     Object? image = freezed,
     Object? id = null,
     Object? username = null,
@@ -250,14 +259,26 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      following: null == following
+      following: freezed == following
           ? _value.following
           : following // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      follower: null == follower
+              as List<String>?,
+      follower: freezed == follower
           ? _value.follower
           : follower // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
+      likedPosts: freezed == likedPosts
+          ? _value.likedPosts
+          : likedPosts // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      isLiked: null == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      totalLikes: null == totalLikes
+          ? _value.totalLikes
+          : totalLikes // ignore: cast_nullable_to_non_nullable
+              as int,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -295,8 +316,11 @@ abstract class _$$_ProfileModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<String> following,
-      List<String> follower,
+      {List<String>? following,
+      List<String>? follower,
+      List<String>? likedPosts,
+      bool isLiked,
+      int totalLikes,
       String? image,
       @JsonKey(name: '_id') String id,
       String username,
@@ -316,8 +340,11 @@ class __$$_ProfileModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? following = null,
-    Object? follower = null,
+    Object? following = freezed,
+    Object? follower = freezed,
+    Object? likedPosts = freezed,
+    Object? isLiked = null,
+    Object? totalLikes = null,
     Object? image = freezed,
     Object? id = null,
     Object? username = null,
@@ -326,14 +353,26 @@ class __$$_ProfileModelCopyWithImpl<$Res>
     Object? status = freezed,
   }) {
     return _then(_$_ProfileModel(
-      following: null == following
+      following: freezed == following
           ? _value._following
           : following // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      follower: null == follower
+              as List<String>?,
+      follower: freezed == follower
           ? _value._follower
           : follower // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
+      likedPosts: freezed == likedPosts
+          ? _value._likedPosts
+          : likedPosts // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      isLiked: null == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      totalLikes: null == totalLikes
+          ? _value.totalLikes
+          : totalLikes // ignore: cast_nullable_to_non_nullable
+              as int,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -366,8 +405,11 @@ class __$$_ProfileModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
   const _$_ProfileModel(
-      {required final List<String> following,
-      required final List<String> follower,
+      {final List<String>? following,
+      final List<String>? follower,
+      final List<String>? likedPosts,
+      this.isLiked = false,
+      this.totalLikes = 0,
       this.image,
       @JsonKey(name: '_id') required this.id,
       required this.username,
@@ -376,27 +418,48 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
       this.status})
       : _following = following,
         _follower = follower,
+        _likedPosts = likedPosts,
         _myPosts = myPosts;
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileModelFromJson(json);
 
-  final List<String> _following;
+  final List<String>? _following;
   @override
-  List<String> get following {
+  List<String>? get following {
+    final value = _following;
+    if (value == null) return null;
     if (_following is EqualUnmodifiableListView) return _following;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_following);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _follower;
+  final List<String>? _follower;
   @override
-  List<String> get follower {
+  List<String>? get follower {
+    final value = _follower;
+    if (value == null) return null;
     if (_follower is EqualUnmodifiableListView) return _follower;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_follower);
+    return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _likedPosts;
+  @override
+  List<String>? get likedPosts {
+    final value = _likedPosts;
+    if (value == null) return null;
+    if (_likedPosts is EqualUnmodifiableListView) return _likedPosts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final bool isLiked;
+  @override
+  @JsonKey()
+  final int totalLikes;
   @override
   final String? image;
   @override
@@ -419,7 +482,7 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileModel(following: $following, follower: $follower, image: $image, id: $id, username: $username, email: $email, myPosts: $myPosts, status: $status)';
+    return 'ProfileModel(following: $following, follower: $follower, likedPosts: $likedPosts, isLiked: $isLiked, totalLikes: $totalLikes, image: $image, id: $id, username: $username, email: $email, myPosts: $myPosts, status: $status)';
   }
 
   @override
@@ -429,6 +492,9 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
       ..add(DiagnosticsProperty('type', 'ProfileModel'))
       ..add(DiagnosticsProperty('following', following))
       ..add(DiagnosticsProperty('follower', follower))
+      ..add(DiagnosticsProperty('likedPosts', likedPosts))
+      ..add(DiagnosticsProperty('isLiked', isLiked))
+      ..add(DiagnosticsProperty('totalLikes', totalLikes))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('username', username))
@@ -445,6 +511,11 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
             const DeepCollectionEquality()
                 .equals(other._following, _following) &&
             const DeepCollectionEquality().equals(other._follower, _follower) &&
+            const DeepCollectionEquality()
+                .equals(other._likedPosts, _likedPosts) &&
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.totalLikes, totalLikes) ||
+                other.totalLikes == totalLikes) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
@@ -460,6 +531,9 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
       runtimeType,
       const DeepCollectionEquality().hash(_following),
       const DeepCollectionEquality().hash(_follower),
+      const DeepCollectionEquality().hash(_likedPosts),
+      isLiked,
+      totalLikes,
       image,
       id,
       username,
@@ -483,8 +557,11 @@ class _$_ProfileModel with DiagnosticableTreeMixin implements _ProfileModel {
 
 abstract class _ProfileModel implements ProfileModel {
   const factory _ProfileModel(
-      {required final List<String> following,
-      required final List<String> follower,
+      {final List<String>? following,
+      final List<String>? follower,
+      final List<String>? likedPosts,
+      final bool isLiked,
+      final int totalLikes,
       final String? image,
       @JsonKey(name: '_id') required final String id,
       required final String username,
@@ -496,9 +573,15 @@ abstract class _ProfileModel implements ProfileModel {
       _$_ProfileModel.fromJson;
 
   @override
-  List<String> get following;
+  List<String>? get following;
   @override
-  List<String> get follower;
+  List<String>? get follower;
+  @override
+  List<String>? get likedPosts;
+  @override
+  bool get isLiked;
+  @override
+  int get totalLikes;
   @override
   String? get image;
   @override
