@@ -18,9 +18,10 @@ class LikePostRepository {
 
   LikePostRepository(this.httpService);
 
-  Future<List<String>> likePost(String endPoint) async {
+  Future<PostsModel> likePost(String endPoint) async {
     final response = await httpService.get(endPoint);
-    List<String> data = List.from(response['likedUsersList']);
+    final data = PostsModel.fromJson(response['postObject']);
+
     print("-------likePost---------------- $data");
     return data;
   }

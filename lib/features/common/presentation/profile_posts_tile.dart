@@ -30,8 +30,8 @@ class MyPostTile extends ConsumerWidget {
               postImage: postsModel.image,
             ),
             LikeUnlikeWidget(
-              isLiked: profileModel.isLiked,
-              totalLikes: profileModel.totalLikes,
+              isLiked: postsModel.isLiked,
+              totalLikes: postsModel.totalLikes,
               onPressed: () async {
                 ref
                     .read(

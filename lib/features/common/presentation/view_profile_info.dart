@@ -193,7 +193,8 @@ class GridViewPosts extends StatelessWidget {
                             builder: (context) => ViewPostAsList(
                                   profile: posts,
                                   index: index,
-                                )),
+                                ),
+                            maintainState: true),
                       );
                     },
                     child: Image(
@@ -209,40 +210,32 @@ class GridViewPosts extends StatelessWidget {
   }
 }
 
-class ViewPostAsList extends StatefulWidget {
-  const ViewPostAsList({Key? key, required this.profile, required this.index})
+class ViewPostAsList extends StatelessWidget {
+  ViewPostAsList({Key? key, required this.profile, required this.index})
       : super(key: key);
 
   final ProfileModel profile;
   final int index;
 
-  @override
-  State<ViewPostAsList> createState() => _ViewPostAsListState();
-}
-
-class _ViewPostAsListState extends State<ViewPostAsList> {
   final ItemScrollController itemScrollController = ItemScrollController();
+
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    print("____________");
+    print(profile);
+    print("____________");
     return Scaffold(
       body: ScrollablePositionedList.builder(
-          initialScrollIndex: widget.index,
+          initialScrollIndex: index,
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
-          itemCount: widget.profile.myPosts.length,
+          itemCount: profile.myPosts.length,
           itemBuilder: (BuildContext context, int index) {
             return MyPostTile(
-              profileModel: widget.profile,
-              postsModel: widget.profile.myPosts[index],
-            );
+                profileModel: profile, postsModel: profile.myPosts[index]);
           }),
     );
   }

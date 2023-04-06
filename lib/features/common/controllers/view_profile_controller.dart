@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/repository/follow_user_repository.dart';
 import 'package:oldinsa/features/common/repository/like_post_repository.dart';
@@ -29,15 +30,24 @@ class ViewProfileController extends _$ViewProfileController {
 
   Future likePostFromProfile(String postId) async {
     final likeRepo = ref.watch(likePostRepositoryProvider);
-    final myID = ref.watch(myProfileInfoControllerProvider);
-    String thisUserID = myID.whenData((value) => value.id).value!;
-    final data = await likeRepo.likePost('likedPost/$postId');
-    int totalLikes = data.length;
-    bool isLikedByThisUser = data.contains(thisUserID);
+    PostsModel data = await likeRepo.likePost('likedPost/$postId');
+    int totalLikes = data.totalLikes;
+    bool isLikedByThisUser = data.isLiked;
 
-    state = state.whenData((value) {
-      return value.copyWith(isLiked: isLikedByThisUser, totalLikes: totalLikes);
-    });
+    // state = state.whenData((value) {
+    //   return value.copyWith(isLiked: isLikedByThisUser, totalLikes: totalLikes);
+    //
+    // });
+
+    ///TODO: FIX LIKING POST FROM USER POR
+    // state = state.whenData((value) {
+    //   for (var post in value.myPosts) {
+    //     if (post.id == postId) {
+    //       post.copyWith(isLiked: isLikedByThisUser, totalLikes: totalLikes);
+    //     }
+    //   }
+    //
+    // });
   }
 
   Future<ProfileModel> followUserFromProfile(String userId) async {

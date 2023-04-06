@@ -28,8 +28,6 @@ _$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
       likedPosts: (json['likedPosts'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      isLiked: json['isLiked'] as bool? ?? false,
-      totalLikes: json['totalLikes'] as int? ?? 0,
       image: json['image'] as String?,
       id: json['_id'] as String,
       username: json['username'] as String,
@@ -45,8 +43,6 @@ Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
       'following': instance.following,
       'follower': instance.follower,
       'likedPosts': instance.likedPosts,
-      'isLiked': instance.isLiked,
-      'totalLikes': instance.totalLikes,
       'image': instance.image,
       '_id': instance.id,
       'username': instance.username,
@@ -60,6 +56,8 @@ _$_PostsModel _$$_PostsModelFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String,
       caption: json['caption'] as String,
       image: json['image'] as String,
+      isLiked: json['isLiked'] as bool,
+      totalLikes: json['totalLikes'] as int,
       likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
@@ -68,5 +66,7 @@ Map<String, dynamic> _$$_PostsModelToJson(_$_PostsModel instance) =>
       '_id': instance.id,
       'caption': instance.caption,
       'image': instance.image,
+      'isLiked': instance.isLiked,
+      'totalLikes': instance.totalLikes,
       'likes': instance.likes,
     };
