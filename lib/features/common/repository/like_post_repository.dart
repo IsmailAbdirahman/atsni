@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'like_post_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 LikePostRepository likePostRepository(LikePostRepositoryRef ref) {
   return LikePostRepository(ref.watch(homeServiceProvider));
 }
@@ -22,7 +22,6 @@ class LikePostRepository {
     final response = await httpService.get(endPoint);
     final data = PostsModel.fromJson(response['postObject']);
 
-    print("-------likePost---------------- $data");
     return data;
   }
 }

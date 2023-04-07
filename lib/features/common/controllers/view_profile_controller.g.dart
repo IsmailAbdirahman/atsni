@@ -7,7 +7,7 @@ part of 'view_profile_controller.dart';
 // **************************************************************************
 
 String _$viewProfileControllerHash() =>
-    r'cdd284e83e79a3035a798defb0c9d3ca4c7794f6';
+    r'24c4c52bc282cf24a3b1520719f5ba1a1a8a9937';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +31,7 @@ class _SystemHash {
 }
 
 abstract class _$ViewProfileController
-    extends BuildlessAutoDisposeAsyncNotifier<ProfileModel> {
+    extends BuildlessAsyncNotifier<ProfileModel> {
   late final String userId;
 
   Future<ProfileModel> build(
@@ -83,8 +83,7 @@ class ViewProfileControllerFamily extends Family<AsyncValue<ProfileModel>> {
 
 /// See also [ViewProfileController].
 class ViewProfileControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<ViewProfileController,
-        ProfileModel> {
+    extends AsyncNotifierProviderImpl<ViewProfileController, ProfileModel> {
   /// See also [ViewProfileController].
   ViewProfileControllerProvider(
     this.userId,

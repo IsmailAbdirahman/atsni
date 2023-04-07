@@ -11,7 +11,7 @@ import '../../profile/repository/profile_repository.dart';
 
 part 'view_profile_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ViewProfileController extends _$ViewProfileController {
   @override
   Future<ProfileModel> build(String userId) async {
@@ -28,26 +28,19 @@ class ViewProfileController extends _$ViewProfileController {
     return result;
   }
 
-  Future likePostFromProfile(String postId) async {
+  void likePostFromProfile(String postId) async {
     final likeRepo = ref.watch(likePostRepositoryProvider);
     PostsModel data = await likeRepo.likePost('likedPost/$postId');
     int totalLikes = data.totalLikes;
-    bool isLikedByThisUser = data.isLiked;
+    bool isLiked = data.isLiked;
+    final post = state.value!.myPosts.firstWhere((p) => p.id == postId);
+    final updatedPost = post.copyWith(
+        totalLikes: totalLikes, isLiked: isLiked, likes: data.likes);
+    final updatedPosts = [...state.value!.myPosts];
+    final index = updatedPosts.indexWhere((p) => p.id == postId);
+    updatedPosts[index] = updatedPost;
 
-    // state = state.whenData((value) {
-    //   return value.copyWith(isLiked: isLikedByThisUser, totalLikes: totalLikes);
-    //
-    // });
-
-    ///TODO: FIX LIKING POST FROM USER POR
-    // state = state.whenData((value) {
-    //   for (var post in value.myPosts) {
-    //     if (post.id == postId) {
-    //       post.copyWith(isLiked: isLikedByThisUser, totalLikes: totalLikes);
-    //     }
-    //   }
-    //
-    // });
+    state = AsyncData(state.value!.copyWith(myPosts: updatedPosts));
   }
 
   Future<ProfileModel> followUserFromProfile(String userId) async {
