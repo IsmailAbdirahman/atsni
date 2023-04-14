@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
-import 'package:oldinsa/features/profile/presentation/shared_widegts/view_profile_tile.dart';
+import 'package:oldinsa/features/profile/presentation/my_profile_profile_tile.dart';
 
 import '../controller/following_list_controller.dart';
 import '../../profile/controller/myprofile_info_controller.dart';
@@ -40,7 +40,7 @@ class ShowFollowingState extends ConsumerState<ViewFollowingListScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ViewProfileTile()),
+                                builder: (context) => const MyProfileView()),
                           );
                         }
                       },

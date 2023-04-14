@@ -191,7 +191,7 @@ class GridViewPosts extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewPostAsList(
-                                  profile: posts,
+                                  userId: posts.id,
                                   index: index,
                                 ),
                             maintainState: true),
@@ -210,11 +210,11 @@ class GridViewPosts extends StatelessWidget {
   }
 }
 
-class ViewPostAsList extends StatelessWidget {
-  ViewPostAsList({Key? key, required this.profile, required this.index})
+class ViewPostAsList extends ConsumerWidget {
+  ViewPostAsList({Key? key, required this.userId, required this.index})
       : super(key: key);
 
-  final ProfileModel profile;
+  final String userId;
   final int index;
 
   final ItemScrollController itemScrollController = ItemScrollController();
@@ -223,20 +223,20 @@ class ViewPostAsList extends StatelessWidget {
       ItemPositionsListener.create();
 
   @override
-  Widget build(BuildContext context) {
-    print("____________");
-    print(profile);
-    print("____________");
+  Widget build(BuildContext context, WidgetRef ref) {
+    final postsRef = ref.watch(viewProfileControllerProvider(userId));
     return Scaffold(
-      body: ScrollablePositionedList.builder(
-          initialScrollIndex: index,
-          itemScrollController: itemScrollController,
-          itemPositionsListener: itemPositionsListener,
-          itemCount: profile.myPosts.length,
-          itemBuilder: (BuildContext context, int index) {
-            return MyPostTile(
-                profileModel: profile, postsModel: profile.myPosts[index]);
-          }),
-    );
+        body: postsRef.when(
+            data: (data) => ScrollablePositionedList.builder(
+                initialScrollIndex: index,
+                itemScrollController: itemScrollController,
+                itemPositionsListener: itemPositionsListener,
+                itemCount: data.myPosts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return MyPostTile(
+                      profileModel: data, postsModel: data.myPosts[index]);
+                }),
+            error: (e, er) => const Text("Error"),
+            loading: () => const CircularProgressIndicator()));
   }
 }

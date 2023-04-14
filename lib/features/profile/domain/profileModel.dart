@@ -42,8 +42,8 @@ class PostsModel with _$PostsModel {
     @JsonKey(name: '_id') required String id,
     required String caption,
     required String image,
-    required final bool isLiked,
-    required final int totalLikes,
+    required  bool isLiked,
+    required  int totalLikes,
     required List<String> likes,
   }) = _PostsModel;
 

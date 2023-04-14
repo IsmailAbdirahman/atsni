@@ -8,19 +8,19 @@ import 'package:oldinsa/features/common/components/profile_photo.dart';
 import 'package:oldinsa/features/common/presentation/profile_posts_tile.dart';
 import 'package:oldinsa/shared_widgets/post_tile.dart';
 
-import '../../../following_list/persentation/following_list_screen.dart';
-import '../../controller/myprofile_info_controller.dart';
-import '../../domain/profileModel.dart';
-import '../edit_profile.dart';
-import 'custom_vertical_divider.dart';
+import '../../following_list/persentation/following_list_screen.dart';
+import '../controller/myprofile_info_controller.dart';
+import '../domain/profileModel.dart';
+import 'edit_profile.dart';
+import 'shared_widegts/custom_vertical_divider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class ViewProfileTile extends ConsumerWidget {
-  const ViewProfileTile({Key? key}) : super(key: key);
+class MyProfileView extends ConsumerWidget {
+  const MyProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewProfileRef = ref.watch(viewProfileControllerProvider('ooo'));
+    final viewProfileRef = ref.watch(myProfileInfoControllerProvider);
     Color dividerColor = Colors.grey;
 
     return viewProfileRef.when(
@@ -111,7 +111,7 @@ class ViewProfileTile extends ConsumerWidget {
                                               child: ShowFollowNumbers(
                                                   data: data.follower!.length
                                                       .toString(),
-                                                  name: "Followerpppp"),
+                                                  name: "Follower"),
                                             ),
                                           ],
                                         ),

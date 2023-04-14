@@ -3,7 +3,7 @@ import 'package:oldinsa/features/home/presentation/home_screen.dart';
 import 'package:oldinsa/features/common/presentation/custom_bottom_nav.dart';
 
 import '../../new_post/presentation/new_post_screen.dart';
-import '../../profile/presentation/view_profile.dart';
+import '../../profile/presentation/my_profile_profile_tile.dart';
 import '../../search/presentation/presentation.dart';
 
 class BottomNav extends StatefulWidget {
@@ -22,7 +22,7 @@ class _BottomNavState extends State<BottomNav> {
     const SearchScreen(),
     const NewPostScreen(),
     const Text('Notifications'),
-    const ViewMyProfile()
+    const MyProfileView()
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +35,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index:_selectedIndex ,
+        index: _selectedIndex,
         children: _widgetOptions,
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
