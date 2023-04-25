@@ -20,6 +20,9 @@ class MyProfileView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ///THis provider is used to get only info as Grid view
+    ///When we navigate to the next screen we are using this provider ['viewProfileControllerProvider']
+    ///to get data as a list and update the liked post since it has the likeFromProfile method
     final viewProfileRef = ref.watch(myProfileInfoControllerProvider);
     Color dividerColor = Colors.grey;
 
@@ -257,18 +260,6 @@ class ViewUserPosts extends StatelessWidget {
 
   final ProfileModel posts;
 
-  // final List<String> userPosts = [
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  //   'assets/images/s1.jpg',
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -292,8 +283,8 @@ class ViewUserPosts extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewPostList(
-                                  profile: posts,
                                   index: index,
+                                  myID: posts.id,
                                 )),
                       );
                     },
@@ -310,38 +301,36 @@ class ViewUserPosts extends StatelessWidget {
   }
 }
 
-class ViewPostList extends StatefulWidget {
-  const ViewPostList({Key? key, required this.profile, required this.index})
+class ViewPostList extends ConsumerWidget {
+  ViewPostList({Key? key, required this.index, required this.myID})
       : super(key: key);
 
-  final ProfileModel profile;
   final int index;
 
-  @override
-  State<ViewPostList> createState() => _ViewPostListState();
-}
+  ///Here we getting the current user Profile ID to pass this provider ['viewProfileControllerProvider']
+  /// Since both json data of my profile and other user profile are same
+  final String myID;
 
-class _ViewPostListState extends State<ViewPostList> {
   final ItemScrollController itemScrollController = ItemScrollController();
+
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final myProfileRef = ref.watch(viewProfileControllerProvider(myID));
     return Scaffold(
-      body: ScrollablePositionedList.builder(
-          initialScrollIndex: widget.index,
-          itemScrollController: itemScrollController,
-          itemPositionsListener: itemPositionsListener,
-          itemCount: widget.profile.myPosts.length,
-          itemBuilder: (BuildContext context, int index) {
-            return const Text('ll');
-          }),
-    );
+        body: myProfileRef.when(
+            data: (data) => ScrollablePositionedList.builder(
+                initialScrollIndex: index,
+                itemScrollController: itemScrollController,
+                itemPositionsListener: itemPositionsListener,
+                itemCount: data.myPosts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return MyPostTile(
+                      profileModel: data, postsModel: data.myPosts[index]);
+                }),
+            error: (e, er) => const Text("Error"),
+            loading: () => const CircularProgressIndicator()));
   }
 }

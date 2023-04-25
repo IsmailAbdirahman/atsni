@@ -39,7 +39,10 @@ class MyPostTile extends ConsumerWidget {
                     .likePostFromProfile(postsModel.id);
               },
             ),
-            CaptionUsernameWidget(username: profileModel.username)
+            CaptionUsernameWidget(
+              username: profileModel.username,
+              caption: postsModel.caption,
+            )
           ],
         ),
       ),
