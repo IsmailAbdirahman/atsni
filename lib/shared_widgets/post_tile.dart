@@ -9,7 +9,7 @@
 //
 // import '../features/home/controller/home_controller.dart';
 // import '../features/profile/controller/myprofile_info_controller.dart';
-// import '../features/profile/presentation/shared_widegts/view_profile_tile.dart';
+// import '../features/profile/presentation/shared_widegts/my_profile_profile_tile.dart';
 //
 // class PostTile extends ConsumerWidget {
 //   PostTile({super.key, required this.homeModel});

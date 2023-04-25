@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'like_post_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 LikePostRepository likePostRepository(LikePostRepositoryRef ref) {
   return LikePostRepository(ref.watch(homeServiceProvider));
 }
@@ -18,10 +18,10 @@ class LikePostRepository {
 
   LikePostRepository(this.httpService);
 
-  Future<List<String>> likePost(String endPoint) async {
+  Future<PostsModel> likePost(String endPoint) async {
     final response = await httpService.get(endPoint);
-    List<String> data = List.from(response['likedUsersList']);
-    print("-------likePost---------------- $data");
+    final data = PostsModel.fromJson(response['postObject']);
+
     return data;
   }
 }

@@ -22,7 +22,10 @@ class ProfileRepository {
   }
 
   Future<ProfileModel> viewUserProfile(String id, String endPoint) async {
+    print("sdsd");
     final response = await profileService.get(endPoint);
+    print("---------- ${response} --------");
+
     return ProfileModel.fromJson(response['profile']);
   }
 

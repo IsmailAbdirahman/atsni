@@ -28,13 +28,11 @@ class HomeController extends _$HomeController {
   }
 
   Future likePost(String postId) async {
-    final myID = ref.read(myProfileInfoControllerProvider);
     final homeRepository = ref.read(likePostRepositoryProvider);
-    final data = await homeRepository.likePost('likedPost/$postId');
+    PostsModel data = await homeRepository.likePost('likedPost/$postId');
 
-    String thisUserID = myID.whenData((value) => value.id).value!;
-    int totalLikes = data.length;
-    bool isLikedByThisUser = data.contains(thisUserID);
+    int totalLikes = data.totalLikes;
+    bool isLikedByThisUser = data.isLiked;
 
     state = AsyncValue.data([
       for (var post in state.value!)

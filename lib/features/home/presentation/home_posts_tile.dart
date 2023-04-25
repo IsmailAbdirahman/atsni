@@ -49,7 +49,10 @@ class HomePostsTile extends ConsumerWidget {
                       .read(homeControllerProvider.notifier)
                       .likePost(homeModel.id);
                 }),
-            CaptionUsernameWidget(username: homeModel.author.username)
+            CaptionUsernameWidget(
+              username: homeModel.author.username,
+              caption: homeModel.caption,
+            )
           ],
         ),
       ),

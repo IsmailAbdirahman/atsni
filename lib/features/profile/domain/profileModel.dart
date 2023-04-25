@@ -25,8 +25,6 @@ class ProfileModel with _$ProfileModel {
       {final List<String>? following,
       final List<String>? follower,
       final List<String>? likedPosts,
-      @Default(false) final bool isLiked,
-      @Default(0) final int totalLikes,
       final String? image,
       @JsonKey(name: '_id') required final String id,
       required final String username,
@@ -44,6 +42,8 @@ class PostsModel with _$PostsModel {
     @JsonKey(name: '_id') required String id,
     required String caption,
     required String image,
+    required  bool isLiked,
+    required  int totalLikes,
     required List<String> likes,
   }) = _PostsModel;
 
