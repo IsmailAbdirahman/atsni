@@ -11,7 +11,6 @@ import 'package:oldinsa/features/common/presentation/profile_posts_tile.dart';
 import 'package:oldinsa/features/profile/presentation/edit_profile.dart';
 import 'package:oldinsa/features/profile/presentation/shared_widegts/custom_vertical_divider.dart';
 import 'package:oldinsa/features/common/components/profile_photo.dart';
-import 'package:oldinsa/shared_widgets/post_tile.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 

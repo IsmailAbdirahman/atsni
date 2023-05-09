@@ -6,7 +6,6 @@ import 'package:oldinsa/features/followers_list/presentation/followers_list_scre
 import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:oldinsa/features/common/components/profile_photo.dart';
 import 'package:oldinsa/features/common/presentation/profile_posts_tile.dart';
-import 'package:oldinsa/shared_widgets/post_tile.dart';
 
 import '../../following_list/persentation/following_list_screen.dart';
 import '../controller/myprofile_info_controller.dart';
