@@ -21,7 +21,6 @@ class _BottomNavState extends State<BottomNav> {
     HomeScreen(),
     const SearchScreen(),
     const NewPostScreen(),
-    const Text('Notifications'),
     const MyProfileView()
   ];
 
@@ -62,13 +61,7 @@ class _BottomNavState extends State<BottomNav> {
             ),
             label: '',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.circle_notifications_sharp,
-              size: 50,
-            ),
-            label: '',
-          ),
+
           BottomNavigationBarItem(
             backgroundColor: Colors.yellow,
             icon: Icon(

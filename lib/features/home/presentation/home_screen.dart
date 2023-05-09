@@ -10,7 +10,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../profile/controller/myprofile_info_controller.dart';
 import '../../profile/data/profile_service.dart';
 import '../../profile/domain/profileModel.dart';
-import '../../../shared_widgets/post_tile.dart';
 import '../controller/home_controller.dart';
 import '../service/home_service.dart';
 import 'home_posts_tile.dart';

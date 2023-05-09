@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oldinsa/features/common/controllers/view_profile_controller.dart';
@@ -20,8 +19,6 @@ class ViewFollowingListScreen extends ConsumerStatefulWidget {
 }
 
 class ShowFollowingState extends ConsumerState<ViewFollowingListScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     final followingListRef =
@@ -35,12 +32,15 @@ class ShowFollowingState extends ConsumerState<ViewFollowingListScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () async {
+                        //
 
                         if (context.mounted) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  ViewProfileInfo(userProfileID: data[index].id,)),
+                                builder: (context) => ViewProfileInfo(
+                                      userProfileID: data[index].id,
+                                    )),
                           );
                         }
                       },
