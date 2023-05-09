@@ -14,7 +14,6 @@ class FollowButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("-i-i-i-i-i-i-i-i-i-i-     $userID");
     final viewProfileRef = ref.watch(viewProfileControllerProvider(userID));
 
     return viewProfileRef.when(
@@ -22,7 +21,9 @@ class FollowButton extends ConsumerWidget {
           if (data.status != null) {
             return ElevatedButton(
                 onPressed: () {
-                  // ref.read(followUserProvider(userID));
+                  ref
+                      .read(viewProfileControllerProvider(data.id).notifier)
+                      .followUserFromProfile(data.id);
                 },
                 child: Text(data.status!));
           } else {
@@ -33,7 +34,7 @@ class FollowButton extends ConsumerWidget {
           }
         },
         error: (e, r) => const Text('er'),
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Center(child: CircularProgressIndicator()));
   }
 }
 

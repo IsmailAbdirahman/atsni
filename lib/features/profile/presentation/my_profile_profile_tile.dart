@@ -154,17 +154,13 @@ class MyProfileView extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: ViewProfile(),
-                    ),
                     ViewUserPosts(posts: data)
                   ],
                 ),
               ),
             ),
         error: (e, r) => Text(e.toString()),
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Center(child: CircularProgressIndicator()));
   }
 }
 

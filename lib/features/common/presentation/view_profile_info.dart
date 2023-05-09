@@ -8,6 +8,7 @@ import 'package:oldinsa/features/followers_list/presentation/followers_list_scre
 import 'package:oldinsa/features/home/domain/home_model.dart';
 import 'package:oldinsa/features/profile/domain/profileModel.dart';
 import 'package:oldinsa/features/common/presentation/profile_posts_tile.dart';
+import 'package:oldinsa/features/profile/presentation/edit_profile.dart';
 import 'package:oldinsa/features/profile/presentation/shared_widegts/custom_vertical_divider.dart';
 import 'package:oldinsa/features/common/components/profile_photo.dart';
 import 'package:oldinsa/shared_widgets/post_tile.dart';
@@ -121,20 +122,7 @@ class ViewProfileInfo extends ConsumerWidget {
                                           thickness: 0.5,
                                           color: dividerColor,
                                         ),
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              ref
-                                                  .read(
-                                                      viewProfileControllerProvider(
-                                                              data.id)
-                                                          .notifier)
-                                                  .followUserFromProfile(
-                                                      data.id);
-                                            },
-                                            child: data.status != null
-                                                ? Text(data.status!)
-                                                : const Text(
-                                                    'Viewed own Profile!'))
+                                        FollowButton(userID: data.id)
                                       ],
                                     ),
                                   )
@@ -158,7 +146,7 @@ class ViewProfileInfo extends ConsumerWidget {
             ),
         error: (e, r) => Text(e.toString()),
         loading: () => const Scaffold(
-              body: CircularProgressIndicator(),
+              body: Center(child: CircularProgressIndicator()),
             ));
   }
 }

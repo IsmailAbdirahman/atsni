@@ -38,55 +38,57 @@ class NewPostState extends ConsumerState<NewPostScreen> {
     TextEditingController postController = TextEditingController();
     return SafeArea(
       child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Column(
-          children: [
-            image == null
-                ? InkWell(
-                    onTap: () async {
-                      final result = await ref
-                          .read(newPostControllerProvider.notifier)
-                          .getImage();
-                      setState(() {
-                        image = result;
-                      });
-                    },
-                    child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey)),
+            padding: const EdgeInsets.all(28.0),
+            child: Column(
+              children: [
+                image == null
+                    ? InkWell(
+                        onTap: () async {
+                          final result = await ref
+                              .read(newPostControllerProvider.notifier)
+                              .getImage();
+                          setState(() {
+                            image = result;
+                          });
+                        },
                         child: const Icon(
                           Icons.image_search,
+                          size: 100,
                           color: Colors.grey,
-                        )),
-                  )
-                : PreviewSelectedImage(image: image!),
-            TextField(
-              decoration: const InputDecoration(hintText: 'Caption Input'),
-              controller: postController,
+                        ),
+                      )
+                    : Expanded(child: PreviewSelectedImage(image: image!)),
+                Expanded(
+                  child: TextField(
+                    decoration: const InputDecoration(hintText: 'Caption'),
+                    controller: postController,
+                  ),
+                ),
+                newPostRef.when(
+                    data: (data) => ElevatedButton(
+                        onPressed: () async {
+                          await ref
+                              .read(newPostControllerProvider.notifier)
+                              .post(postController.text, image!);
+                          await ref
+                              .read(homeControllerProvider.notifier)
+                              .getPosts();
+                          if (context.mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const BottomNav()),
+                            );
+                          }
+                        },
+                        child: const Text('Post')),
+                    error: (error, ee) => const Text('error'),
+                    loading: () => const Text('Posting...'))
+              ],
             ),
-            newPostRef.when(
-                data: (data) => ElevatedButton(
-                    onPressed: () async {
-                      await ref
-                          .read(newPostControllerProvider.notifier)
-                          .post(postController.text, image!);
-                      await ref
-                          .read(homeControllerProvider.notifier)
-                          .getPosts();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => BottomNav()),
-                      );
-                    },
-                    child: const Text('Post')),
-                error: (error, ee) => const Text('error'),
-                loading: () => const Text('Posting...'))
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
